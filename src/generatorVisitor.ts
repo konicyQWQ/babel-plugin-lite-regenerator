@@ -2071,7 +2071,7 @@ export function getVisitor(path: NodePath) {
     }
 
     function visitor(path: NodePath): Node | undefined {
-        if (!path.hasNode()) return undefined;
+        if (!path?.node) return undefined;
 
         if (inGeneratorFunctionBody) {
             return visitJavaScriptInGeneratorFunctionBody(path);
