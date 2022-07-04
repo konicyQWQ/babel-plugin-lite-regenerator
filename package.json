@@ -1,9 +1,12 @@
 {
   "name": "babel-plugin-generator",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "a babel plugin that can transform generator function to state machine, which is a ported version of typescript generator transform",
   "main": "dist/babel-plugin-generator.cjs.js",
   "module": "dist/babel-plugin-generator.es.js",
+  "repository": {
+    "url": "https://github.com/konicyQWQ/babel-plugin-generator"
+  },
   "scripts": {
     "build": "rimraf -rf ./dist && rollup --config",
     "test": "jest"
