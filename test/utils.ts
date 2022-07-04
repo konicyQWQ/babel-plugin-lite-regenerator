@@ -9,7 +9,7 @@ export function babelTransform(code: string): string {
         },
         presets: [],
         plugins: [
-            [babelPluginGenerator, { helper: true }]
+            [babelPluginGenerator]
         ],
     });
 

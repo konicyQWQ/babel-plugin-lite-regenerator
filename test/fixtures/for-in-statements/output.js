@@ -1,299 +1,266 @@
-var __awaiter = this && this.__awaiter || function(e, o, u, c) {
-    return new (u = u || Promise)(function(n, t) {
-        function r(e) {
-            try {
-                i(c.next(e));
-            } catch (e) {
-                t(e);
-            }
-        }
-        function a(e) {
-            try {
-                i(c.throw(e));
-            } catch (e) {
-                t(e);
-            }
-        }
-        function i(e) {
-            var t;
-            e.done ? n(e.value) : ((t = e.value) instanceof u ? t : new u(function(e) {
-                e(t);
-            })).then(r, a);
-        }
-        i((c = c.apply(e, o || [])).next());
-    });
-}, __generator = this && this.__generator || function(r, a) {
-    var i, o, u, c = {
-        label: 0,
-        sent: function() {
-            if (1 & u[0]) throw u[1];
-            return u[1];
-        },
-        trys: [],
-        ops: []
-    }, e = {
-        next: t(0),
-        throw: t(1),
-        return: t(2)
-    };
-    return "function" == typeof Symbol && (e[Symbol.iterator] = function() {
-        return this;
-    }), e;
-    function t(n) {
-        return function(e) {
-            var t = [ n, e ];
-            if (i) throw new TypeError("Generator is already executing.");
-            for (;c; ) try {
-                if (i = 1, o && (u = 2 & t[0] ? o.return : t[0] ? o.throw || ((u = o.return) && u.call(o), 
-                0) : o.next) && !(u = u.call(o, t[1])).done) return u;
-                switch (o = 0, (t = u ? [ 2 & t[0], u.value ] : t)[0]) {
-                  case 0:
-                  case 1:
-                    u = t;
-                    break;
-
-                  case 4:
-                    return c.label++, {
-                        value: t[1],
-                        done: !1
-                    };
-
-                  case 5:
-                    c.label++, o = t[1], t = [ 0 ];
-                    continue;
-
-                  case 7:
-                    t = c.ops.pop(), c.trys.pop();
-                    continue;
-
-                  default:
-                    if (!(u = 0 < (u = c.trys).length && u[u.length - 1]) && (6 === t[0] || 2 === t[0])) {
-                        c = 0;
-                        continue;
-                    }
-                    if (3 === t[0] && (!u || t[1] > u[0] && t[1] < u[3])) {
-                        c.label = t[1];
-                        break;
-                    }
-                    if (6 === t[0] && c.label < u[1]) {
-                        c.label = u[1], u = t;
-                        break;
-                    }
-                    if (u && c.label < u[2]) {
-                        c.label = u[2], c.ops.push(t);
-                        break;
-                    }
-                    u[2] && c.ops.pop(), c.trys.pop();
-                    continue;
-                }
-                t = a.call(r, c);
-            } catch (e) {
-                t = [ 6, e ], o = 0;
-            } finally {
-                i = u = 0;
-            }
-            if (5 & t[0]) throw t[1];
-            return {
-                value: t[0] ? t[1] : void 0,
-                done: !0
-            };
-        };
-    }
-};
+import { __generator as _generator } from "babel-plugin-generator-runtime";
+import { __awaiter as _awaiter } from "babel-plugin-generator-runtime";
 
 function forInStatement0() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(e) {
-            for (x in y) z;
-            return [ 2 ];
-        });
+  return _awaiter(this, void 0, void 0, function () {
+    return _generator(this, function (_a) {
+      for (x in y) {
+        z;
+      }
+
+      return [2];
     });
+  });
 }
 
 function forInStatement1() {
-    return __awaiter(this, void 0, void 0, function() {
-        var t, n, r;
-        return __generator(this, function(e) {
-            switch (e.label) {
-              case 0:
-                return t = [], [ 4, y ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _temp, _temp2, _temp3;
 
-              case 1:
-                for (n in e.sent()) t.push(n);
-                r = 0, e.label = 2;
+    return _generator(this, function (_a2) {
+      switch (_a2.label) {
+        case 0:
+          _temp = [];
+          return [4, y];
 
-              case 2:
-                if (!(r < t.length)) return [ 3, 4 ];
-                x = t[r], z, e.label = 3;
+        case 1:
+          for (_temp2 in _a2.sent()) _temp.push(_temp2);
 
-              case 3:
-                return r++, [ 3, 2 ];
+          _temp3 = 0;
+          _a2.label = 2;
 
-              case 4:
-                return [ 2 ];
-            }
-        });
+        case 2:
+          if (!(_temp3 < _temp.length)) return [3, 4];
+          x = _temp[_temp3];
+          z;
+          _a2.label = 3;
+
+        case 3:
+          _temp3++;
+          return [3, 2];
+
+        case 4:
+          return [2];
+      }
     });
+  });
 }
 
 function forInStatement2() {
-    return __awaiter(this, void 0, void 0, function() {
-        var t, n, r;
-        return __generator(this, function(e) {
-            switch (e.label) {
-              case 0:
-                for (n in t = [], y) t.push(n);
-                r = 0, e.label = 1;
+  return _awaiter(this, void 0, void 0, function () {
+    var _temp4, _temp5, _temp6;
 
-              case 1:
-                return r < t.length ? (x = t[r], [ 4, z ]) : [ 3, 4 ];
+    return _generator(this, function (_a3) {
+      switch (_a3.label) {
+        case 0:
+          _temp4 = [];
 
-              case 2:
-                e.sent(), e.label = 3;
+          for (_temp5 in y) _temp4.push(_temp5);
 
-              case 3:
-                return r++, [ 3, 1 ];
+          _temp6 = 0;
+          _a3.label = 1;
 
-              case 4:
-                return [ 2 ];
-            }
-        });
+        case 1:
+          if (!(_temp6 < _temp4.length)) return [3, 4];
+          x = _temp4[_temp6];
+          return [4, z];
+
+        case 2:
+          _a3.sent();
+
+          _a3.label = 3;
+
+        case 3:
+          _temp6++;
+          return [3, 1];
+
+        case 4:
+          return [2];
+      }
     });
+  });
 }
 
 function forInStatement3() {
-    return __awaiter(this, void 0, void 0, function() {
-        var t, n, r;
-        return __generator(this, function(e) {
-            switch (e.label) {
-              case 0:
-                for (n in t = [], y) t.push(n);
-                r = 0, e.label = 1;
+  return _awaiter(this, void 0, void 0, function () {
+    var _temp7, _temp8, _temp9;
 
-              case 1:
-                return r < t.length ? [ 4, x ] : [ 3, 4 ];
+    return _generator(this, function (_a4) {
+      switch (_a4.label) {
+        case 0:
+          _temp7 = [];
 
-              case 2:
-                e.sent().a = t[r], z, e.label = 3;
+          for (_temp8 in y) _temp7.push(_temp8);
 
-              case 3:
-                return r++, [ 3, 1 ];
+          _temp9 = 0;
+          _a4.label = 1;
 
-              case 4:
-                return [ 2 ];
-            }
-        });
+        case 1:
+          if (!(_temp9 < _temp7.length)) return [3, 4];
+          return [4, x];
+
+        case 2:
+          _a4.sent().a = _temp7[_temp9];
+          z;
+          _a4.label = 3;
+
+        case 3:
+          _temp9++;
+          return [3, 1];
+
+        case 4:
+          return [2];
+      }
     });
+  });
 }
 
 function forInStatement4() {
-    return __awaiter(this, void 0, void 0, function() {
-        var t, n, r;
-        return __generator(this, function(e) {
-            switch (e.label) {
-              case 0:
-                return t = [], [ 4, y ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _temp10, _temp11, _temp12;
 
-              case 1:
-                for (n in e.sent()) t.push(n);
-                r = 0, e.label = 2;
+    return _generator(this, function (_a5) {
+      switch (_a5.label) {
+        case 0:
+          _temp10 = [];
+          return [4, y];
 
-              case 2:
-                if (!(r < t.length)) return [ 3, 4 ];
-                x.a = t[r], z, e.label = 3;
+        case 1:
+          for (_temp11 in _a5.sent()) _temp10.push(_temp11);
 
-              case 3:
-                return r++, [ 3, 2 ];
+          _temp12 = 0;
+          _a5.label = 2;
 
-              case 4:
-                return [ 2 ];
-            }
-        });
+        case 2:
+          if (!(_temp12 < _temp10.length)) return [3, 4];
+          x.a = _temp10[_temp12];
+          z;
+          _a5.label = 3;
+
+        case 3:
+          _temp12++;
+          return [3, 2];
+
+        case 4:
+          return [2];
+      }
     });
+  });
 }
 
 function forInStatement5() {
-    return __awaiter(this, void 0, void 0, function() {
-        var t, n, r;
-        return __generator(this, function(e) {
-            switch (e.label) {
-              case 0:
-                for (n in t = [], y) t.push(n);
-                r = 0, e.label = 1;
+  return _awaiter(this, void 0, void 0, function () {
+    var _temp13, _temp14, _temp15;
 
-              case 1:
-                return r < t.length ? (x.a = t[r], [ 4, z ]) : [ 3, 4 ];
+    return _generator(this, function (_a6) {
+      switch (_a6.label) {
+        case 0:
+          _temp13 = [];
 
-              case 2:
-                e.sent(), e.label = 3;
+          for (_temp14 in y) _temp13.push(_temp14);
 
-              case 3:
-                return r++, [ 3, 1 ];
+          _temp15 = 0;
+          _a6.label = 1;
 
-              case 4:
-                return [ 2 ];
-            }
-        });
+        case 1:
+          if (!(_temp15 < _temp13.length)) return [3, 4];
+          x.a = _temp13[_temp15];
+          return [4, z];
+
+        case 2:
+          _a6.sent();
+
+          _a6.label = 3;
+
+        case 3:
+          _temp15++;
+          return [3, 1];
+
+        case 4:
+          return [2];
+      }
     });
+  });
 }
 
 function forInStatement6() {
-    return __awaiter(this, void 0, void 0, function() {
-        var t;
-        return __generator(this, function(e) {
-            for (t in y) z;
-            return [ 2 ];
-        });
+  return _awaiter(this, void 0, void 0, function () {
+    var _a8;
+
+    return _generator(this, function (_a7) {
+      for (_a8 in y) {
+        z;
+      }
+
+      return [2];
     });
+  });
 }
 
 function forInStatement7() {
-    return __awaiter(this, void 0, void 0, function() {
-        var t, n, r;
-        return __generator(this, function(e) {
-            switch (e.label) {
-              case 0:
-                return t = [], [ 4, y ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _temp16, _temp17, _temp18, _b;
 
-              case 1:
-                for (n in e.sent()) t.push(n);
-                r = 0, e.label = 2;
+    return _generator(this, function (_a9) {
+      switch (_a9.label) {
+        case 0:
+          _temp16 = [];
+          return [4, y];
 
-              case 2:
-                if (!(r < t.length)) return [ 3, 4 ];
-                t[r], z, e.label = 3;
+        case 1:
+          for (_temp17 in _a9.sent()) _temp16.push(_temp17);
 
-              case 3:
-                return r++, [ 3, 2 ];
+          _temp18 = 0;
+          _a9.label = 2;
 
-              case 4:
-                return [ 2 ];
-            }
-        });
+        case 2:
+          if (!(_temp18 < _temp16.length)) return [3, 4];
+          _b = _temp16[_temp18];
+          z;
+          _a9.label = 3;
+
+        case 3:
+          _temp18++;
+          return [3, 2];
+
+        case 4:
+          return [2];
+      }
     });
+  });
 }
 
 function forInStatement8() {
-    return __awaiter(this, void 0, void 0, function() {
-        var t, n, r;
-        return __generator(this, function(e) {
-            switch (e.label) {
-              case 0:
-                for (n in t = [], y) t.push(n);
-                r = 0, e.label = 1;
+  return _awaiter(this, void 0, void 0, function () {
+    var _temp19, _temp20, _temp21, _c;
 
-              case 1:
-                return r < t.length ? (t[r], [ 4, z ]) : [ 3, 4 ];
+    return _generator(this, function (_a10) {
+      switch (_a10.label) {
+        case 0:
+          _temp19 = [];
 
-              case 2:
-                e.sent(), e.label = 3;
+          for (_temp20 in y) _temp19.push(_temp20);
 
-              case 3:
-                return r++, [ 3, 1 ];
+          _temp21 = 0;
+          _a10.label = 1;
 
-              case 4:
-                return [ 2 ];
-            }
-        });
+        case 1:
+          if (!(_temp21 < _temp19.length)) return [3, 4];
+          _c = _temp19[_temp21];
+          return [4, z];
+
+        case 2:
+          _a10.sent();
+
+          _a10.label = 3;
+
+        case 3:
+          _temp21++;
+          return [3, 1];
+
+        case 4:
+          return [2];
+      }
     });
+  });
 }

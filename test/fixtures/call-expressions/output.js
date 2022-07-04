@@ -1,319 +1,266 @@
-var __awaiter = this && this.__awaiter || function(t, o, c, s) {
-    return new (c = c || Promise)(function(e, n) {
-        function r(t) {
-            try {
-                a(s.next(t));
-            } catch (t) {
-                n(t);
-            }
-        }
-        function i(t) {
-            try {
-                a(s.throw(t));
-            } catch (t) {
-                n(t);
-            }
-        }
-        function a(t) {
-            var n;
-            t.done ? e(t.value) : ((n = t.value) instanceof c ? n : new c(function(t) {
-                t(n);
-            })).then(r, i);
-        }
-        a((s = s.apply(t, o || [])).next());
-    });
-}, __generator = this && this.__generator || function(r, i) {
-    var a, o, c, s = {
-        label: 0,
-        sent: function() {
-            if (1 & c[0]) throw c[1];
-            return c[1];
-        },
-        trys: [],
-        ops: []
-    }, t = {
-        next: n(0),
-        throw: n(1),
-        return: n(2)
-    };
-    return "function" == typeof Symbol && (t[Symbol.iterator] = function() {
-        return this;
-    }), t;
-    function n(e) {
-        return function(t) {
-            var n = [ e, t ];
-            if (a) throw new TypeError("Generator is already executing.");
-            for (;s; ) try {
-                if (a = 1, o && (c = 2 & n[0] ? o.return : n[0] ? o.throw || ((c = o.return) && c.call(o), 
-                0) : o.next) && !(c = c.call(o, n[1])).done) return c;
-                switch (o = 0, (n = c ? [ 2 & n[0], c.value ] : n)[0]) {
-                  case 0:
-                  case 1:
-                    c = n;
-                    break;
-
-                  case 4:
-                    return s.label++, {
-                        value: n[1],
-                        done: !1
-                    };
-
-                  case 5:
-                    s.label++, o = n[1], n = [ 0 ];
-                    continue;
-
-                  case 7:
-                    n = s.ops.pop(), s.trys.pop();
-                    continue;
-
-                  default:
-                    if (!(c = 0 < (c = s.trys).length && c[c.length - 1]) && (6 === n[0] || 2 === n[0])) {
-                        s = 0;
-                        continue;
-                    }
-                    if (3 === n[0] && (!c || n[1] > c[0] && n[1] < c[3])) {
-                        s.label = n[1];
-                        break;
-                    }
-                    if (6 === n[0] && s.label < c[1]) {
-                        s.label = c[1], c = n;
-                        break;
-                    }
-                    if (c && s.label < c[2]) {
-                        s.label = c[2], s.ops.push(n);
-                        break;
-                    }
-                    c[2] && s.ops.pop(), s.trys.pop();
-                    continue;
-                }
-                n = i.call(r, s);
-            } catch (t) {
-                n = [ 6, t ], o = 0;
-            } finally {
-                a = c = 0;
-            }
-            if (5 & n[0]) throw n[1];
-            return {
-                value: n[0] ? n[1] : void 0,
-                done: !0
-            };
-        };
-    }
-};
+import { __generator as _generator } from "babel-plugin-generator-runtime";
+import { __awaiter as _awaiter } from "babel-plugin-generator-runtime";
 
 function callExpression0() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return [ 4, x(y, z) ];
+  return _awaiter(this, void 0, void 0, function () {
+    return _generator(this, function (_a) {
+      switch (_a.label) {
+        case 0:
+          return [4, x(y, z)];
 
-              case 1:
-                return t.sent(), [ 2 ];
-            }
-        });
+        case 1:
+          _a.sent();
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression1() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return [ 4, x ];
+  return _awaiter(this, void 0, void 0, function () {
+    return _generator(this, function (_a2) {
+      switch (_a2.label) {
+        case 0:
+          return [4, x];
 
-              case 1:
-                return t.sent()(y, z), [ 2 ];
-            }
-        });
+        case 1:
+          _a2.sent()(y, z);
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression2() {
-    return __awaiter(this, void 0, void 0, function() {
-        var n;
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return n = x, [ 4, y ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _t;
 
-              case 1:
-                return n.apply(void 0, [ t.sent(), z ]), [ 2 ];
-            }
-        });
+    return _generator(this, function (_a3) {
+      switch (_a3.label) {
+        case 0:
+          _t = x;
+          return [4, y];
+
+        case 1:
+          _t.apply(void 0, [_a3.sent(), z]);
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression3() {
-    return __awaiter(this, void 0, void 0, function() {
-        var n, e;
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return n = x, e = [ y ], [ 4, z ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _t2, _temp;
 
-              case 1:
-                return n.apply(void 0, e.concat([ t.sent() ])), [ 2 ];
-            }
-        });
+    return _generator(this, function (_a4) {
+      switch (_a4.label) {
+        case 0:
+          _t2 = x;
+          _temp = [y];
+          return [4, z];
+
+        case 1:
+          _t2.apply(void 0, _temp.concat([_a4.sent()]));
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression10() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return [ 4, x.a(y, z) ];
+  return _awaiter(this, void 0, void 0, function () {
+    return _generator(this, function (_a5) {
+      switch (_a5.label) {
+        case 0:
+          return [4, x.a(y, z)];
 
-              case 1:
-                return t.sent(), [ 2 ];
-            }
-        });
+        case 1:
+          _a5.sent();
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression11() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return [ 4, x.a ];
+  return _awaiter(this, void 0, void 0, function () {
+    return _generator(this, function (_a6) {
+      switch (_a6.label) {
+        case 0:
+          return [4, x.a];
 
-              case 1:
-                return t.sent()(y, z), [ 2 ];
-            }
-        });
+        case 1:
+          _a6.sent()(y, z);
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression12() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return [ 4, x ];
+  return _awaiter(this, void 0, void 0, function () {
+    return _generator(this, function (_a7) {
+      switch (_a7.label) {
+        case 0:
+          return [4, x];
 
-              case 1:
-                return t.sent().a(y, z), [ 2 ];
-            }
-        });
+        case 1:
+          _a7.sent().a(y, z);
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression13() {
-    return __awaiter(this, void 0, void 0, function() {
-        var n, e;
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return e = (n = x).a, [ 4, y ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _temp2, _t3;
 
-              case 1:
-                return e.apply(n, [ t.sent(), z ]), [ 2 ];
-            }
-        });
+    return _generator(this, function (_a8) {
+      switch (_a8.label) {
+        case 0:
+          _t3 = (_temp2 = x).a;
+          return [4, y];
+
+        case 1:
+          _t3.apply(_temp2, [_a8.sent(), z]);
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression14() {
-    return __awaiter(this, void 0, void 0, function() {
-        var n, e, r;
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return e = (n = x).a, r = [ y ], [ 4, z ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _temp3, _t4, _temp4;
 
-              case 1:
-                return e.apply(n, r.concat([ t.sent() ])), [ 2 ];
-            }
-        });
+    return _generator(this, function (_a9) {
+      switch (_a9.label) {
+        case 0:
+          _t4 = (_temp3 = x).a;
+          _temp4 = [y];
+          return [4, z];
+
+        case 1:
+          _t4.apply(_temp3, _temp4.concat([_a9.sent()]));
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression15() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return [ 4, x[a](y, z) ];
+  return _awaiter(this, void 0, void 0, function () {
+    return _generator(this, function (_a10) {
+      switch (_a10.label) {
+        case 0:
+          return [4, x[a](y, z)];
 
-              case 1:
-                return t.sent(), [ 2 ];
-            }
-        });
+        case 1:
+          _a10.sent();
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression16() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return [ 4, x[a] ];
+  return _awaiter(this, void 0, void 0, function () {
+    return _generator(this, function (_a11) {
+      switch (_a11.label) {
+        case 0:
+          return [4, x[a]];
 
-              case 1:
-                return t.sent()(y, z), [ 2 ];
-            }
-        });
+        case 1:
+          _a11.sent()(y, z);
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression17() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return [ 4, x ];
+  return _awaiter(this, void 0, void 0, function () {
+    return _generator(this, function (_a12) {
+      switch (_a12.label) {
+        case 0:
+          return [4, x];
 
-              case 1:
-                return t.sent()[a](y, z), [ 2 ];
-            }
-        });
+        case 1:
+          _a12.sent()[a](y, z);
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression18() {
-    return __awaiter(this, void 0, void 0, function() {
-        var n;
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return n = x, [ 4, a ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _t5;
 
-              case 1:
-                return n[t.sent()](y, z), [ 2 ];
-            }
-        });
+    return _generator(this, function (_a13) {
+      switch (_a13.label) {
+        case 0:
+          _t5 = x;
+          return [4, a];
+
+        case 1:
+          _t5[_a13.sent()](y, z);
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression19() {
-    return __awaiter(this, void 0, void 0, function() {
-        var n, e;
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return e = (n = x)[a], [ 4, y ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _temp5, _t6;
 
-              case 1:
-                return e.apply(n, [ t.sent(), z ]), [ 2 ];
-            }
-        });
+    return _generator(this, function (_a14) {
+      switch (_a14.label) {
+        case 0:
+          _t6 = (_temp5 = x)[a];
+          return [4, y];
+
+        case 1:
+          _t6.apply(_temp5, [_a14.sent(), z]);
+
+          return [2];
+      }
     });
+  });
 }
 
 function callExpression20() {
-    return __awaiter(this, void 0, void 0, function() {
-        var n, e, r;
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return e = (n = x)[a], r = [ y ], [ 4, z ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _temp6, _t7, _temp7;
 
-              case 1:
-                return e.apply(n, r.concat([ t.sent() ])), [ 2 ];
-            }
-        });
+    return _generator(this, function (_a15) {
+      switch (_a15.label) {
+        case 0:
+          _t7 = (_temp6 = x)[a];
+          _temp7 = [y];
+          return [4, z];
+
+        case 1:
+          _t7.apply(_temp6, _temp7.concat([_a15.sent()]));
+
+          return [2];
+      }
     });
+  });
 }

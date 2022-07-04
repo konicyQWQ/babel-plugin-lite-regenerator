@@ -22,6 +22,7 @@ export default defineConfig({
     ],
     external: [
         '@babel/types',
-        '@babel/template'
+        '@babel/template',
+        '@babel/helper-module-imports'
     ]
 })

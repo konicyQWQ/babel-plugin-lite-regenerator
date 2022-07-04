@@ -1,296 +1,285 @@
-var __awaiter = this && this.__awaiter || function(t, u, o, s) {
-    return new (o = o || Promise)(function(n, r) {
-        function e(t) {
-            try {
-                a(s.next(t));
-            } catch (t) {
-                r(t);
-            }
-        }
-        function i(t) {
-            try {
-                a(s.throw(t));
-            } catch (t) {
-                r(t);
-            }
-        }
-        function a(t) {
-            var r;
-            t.done ? n(t.value) : ((r = t.value) instanceof o ? r : new o(function(t) {
-                t(r);
-            })).then(e, i);
-        }
-        a((s = s.apply(t, u || [])).next());
-    });
-}, __generator = this && this.__generator || function(e, i) {
-    var a, u, o, s = {
-        label: 0,
-        sent: function() {
-            if (1 & o[0]) throw o[1];
-            return o[1];
-        },
-        trys: [],
-        ops: []
-    }, t = {
-        next: r(0),
-        throw: r(1),
-        return: r(2)
-    };
-    return "function" == typeof Symbol && (t[Symbol.iterator] = function() {
-        return this;
-    }), t;
-    function r(n) {
-        return function(t) {
-            var r = [ n, t ];
-            if (a) throw new TypeError("Generator is already executing.");
-            for (;s; ) try {
-                if (a = 1, u && (o = 2 & r[0] ? u.return : r[0] ? u.throw || ((o = u.return) && o.call(u), 
-                0) : u.next) && !(o = o.call(u, r[1])).done) return o;
-                switch (u = 0, (r = o ? [ 2 & r[0], o.value ] : r)[0]) {
-                  case 0:
-                  case 1:
-                    o = r;
-                    break;
-
-                  case 4:
-                    return s.label++, {
-                        value: r[1],
-                        done: !1
-                    };
-
-                  case 5:
-                    s.label++, u = r[1], r = [ 0 ];
-                    continue;
-
-                  case 7:
-                    r = s.ops.pop(), s.trys.pop();
-                    continue;
-
-                  default:
-                    if (!(o = 0 < (o = s.trys).length && o[o.length - 1]) && (6 === r[0] || 2 === r[0])) {
-                        s = 0;
-                        continue;
-                    }
-                    if (3 === r[0] && (!o || r[1] > o[0] && r[1] < o[3])) {
-                        s.label = r[1];
-                        break;
-                    }
-                    if (6 === r[0] && s.label < o[1]) {
-                        s.label = o[1], o = r;
-                        break;
-                    }
-                    if (o && s.label < o[2]) {
-                        s.label = o[2], s.ops.push(r);
-                        break;
-                    }
-                    o[2] && s.ops.pop(), s.trys.pop();
-                    continue;
-                }
-                r = i.call(e, s);
-            } catch (t) {
-                r = [ 6, t ], u = 0;
-            } finally {
-                a = o = 0;
-            }
-            if (5 & r[0]) throw r[1];
-            return {
-                value: r[0] ? r[1] : void 0,
-                done: !0
-            };
-        };
-    }
-};
+import { __generator as _generator } from "babel-plugin-generator-runtime";
+import { __awaiter as _awaiter } from "babel-plugin-generator-runtime";
 
 function tryCatch0() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            return [ 2 ];
-        });
+  return _awaiter(this, void 0, void 0, function () {
+    var _x, _y;
+
+    return _generator(this, function (_a) {
+      try {
+        _x;
+      } catch (e) {
+        _y;
+      }
+
+      return [2];
     });
+  });
 }
 
 function tryCatch1() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return t.trys.push([ 0, 2, , 3 ]), [ 4, void 0 ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _x2, _y2, _e;
 
-              case 1:
-                return t.sent(), [ 3, 3 ];
+    return _generator(this, function (_a2) {
+      switch (_a2.label) {
+        case 0:
+          _a2.trys.push([0, 2,, 3]);
 
-              case 2:
-                return t.sent(), [ 3, 3 ];
+          return [4, _x2];
 
-              case 3:
-                return [ 2 ];
-            }
-        });
+        case 1:
+          _a2.sent();
+
+          return [3, 3];
+
+        case 2:
+          _e = _a2.sent();
+          _y2;
+          return [3, 3];
+
+        case 3:
+          return [2];
+      }
     });
+  });
 }
 
 function tryCatch2() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return t.trys.push([ 0, 1, , 3 ]), [ 3, 3 ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _x3, _y3, _e2;
 
-              case 1:
-                return t.sent(), [ 4, void 0 ];
+    return _generator(this, function (_a3) {
+      switch (_a3.label) {
+        case 0:
+          _a3.trys.push([0, 1,, 3]);
 
-              case 2:
-                return t.sent(), [ 3, 3 ];
+          _x3;
+          return [3, 3];
 
-              case 3:
-                return [ 2 ];
-            }
-        });
+        case 1:
+          _e2 = _a3.sent();
+          return [4, _y3];
+
+        case 2:
+          _a3.sent();
+
+          return [3, 3];
+
+        case 3:
+          return [2];
+      }
     });
+  });
 }
 
 function tryCatch3() {
-    return __awaiter(this, void 0, void 0, function() {
-        var r;
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return t.trys.push([ 0, 2, , 3 ]), [ 4, void 0 ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _x4, _y4, _e3;
 
-              case 1:
-                return t.sent(), [ 3, 3 ];
+    return _generator(this, function (_a4) {
+      switch (_a4.label) {
+        case 0:
+          _a4.trys.push([0, 2,, 3]);
 
-              case 2:
-                return r = t.sent(), [ 2, () => r ];
+          return [4, _x4];
 
-              case 3:
-                return [ 2 ];
-            }
-        });
+        case 1:
+          _a4.sent();
+
+          return [3, 3];
+
+        case 2:
+          _e3 = _a4.sent();
+          return [2, () => _e3];
+
+        case 3:
+          return [2];
+      }
     });
+  });
 }
 
 function tryFinally0() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            return [ 2 ];
-        });
+  return _awaiter(this, void 0, void 0, function () {
+    var _x5, _y5;
+
+    return _generator(this, function (_a5) {
+      try {
+        _x5;
+      } finally {
+        _y5;
+      }
+
+      return [2];
     });
+  });
 }
 
 function tryFinally1() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return t.trys.push([ 0, , 2, 3 ]), [ 4, void 0 ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _x6, _y6;
 
-              case 1:
-                return t.sent(), [ 3, 3 ];
+    return _generator(this, function (_a6) {
+      switch (_a6.label) {
+        case 0:
+          _a6.trys.push([0,, 2, 3]);
 
-              case 2:
-                return [ 7 ];
+          return [4, _x6];
 
-              case 3:
-                return [ 2 ];
-            }
-        });
+        case 1:
+          _a6.sent();
+
+          return [3, 3];
+
+        case 2:
+          _y6;
+          return [7];
+
+        case 3:
+          return [2];
+      }
     });
+  });
 }
 
 function tryFinally2() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return t.trys.push([ 0, , 1, 3 ]), [ 3, 3 ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _x7, _y7;
 
-              case 1:
-                return [ 4, void 0 ];
+    return _generator(this, function (_a7) {
+      switch (_a7.label) {
+        case 0:
+          _a7.trys.push([0,, 1, 3]);
 
-              case 2:
-                return t.sent(), [ 7 ];
+          _x7;
+          return [3, 3];
 
-              case 3:
-                return [ 2 ];
-            }
-        });
+        case 1:
+          return [4, _y7];
+
+        case 2:
+          _a7.sent();
+
+          return [7];
+
+        case 3:
+          return [2];
+      }
     });
+  });
 }
 
 function tryCatchFinally0() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            return [ 2 ];
-        });
+  return _awaiter(this, void 0, void 0, function () {
+    var _x8, _y8, _z;
+
+    return _generator(this, function (_a8) {
+      try {
+        _x8;
+      } catch (e) {
+        _y8;
+      } finally {
+        _z;
+      }
+
+      return [2];
     });
+  });
 }
 
 function tryCatchFinally1() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return t.trys.push([ 0, 2, 3, 4 ]), [ 4, void 0 ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _x9, _y9, _z2, _e4;
 
-              case 1:
-                return t.sent(), [ 3, 4 ];
+    return _generator(this, function (_a9) {
+      switch (_a9.label) {
+        case 0:
+          _a9.trys.push([0, 2, 3, 4]);
 
-              case 2:
-                return t.sent(), [ 3, 4 ];
+          return [4, _x9];
 
-              case 3:
-                return [ 7 ];
+        case 1:
+          _a9.sent();
 
-              case 4:
-                return [ 2 ];
-            }
-        });
+          return [3, 4];
+
+        case 2:
+          _e4 = _a9.sent();
+          _y9;
+          return [3, 4];
+
+        case 3:
+          _z2;
+          return [7];
+
+        case 4:
+          return [2];
+      }
     });
+  });
 }
 
 function tryCatchFinally2() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return t.trys.push([ 0, 1, 3, 4 ]), [ 3, 4 ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _x10, _y10, _z3, _e5;
 
-              case 1:
-                return t.sent(), [ 4, void 0 ];
+    return _generator(this, function (_a10) {
+      switch (_a10.label) {
+        case 0:
+          _a10.trys.push([0, 1, 3, 4]);
 
-              case 2:
-                return t.sent(), [ 3, 4 ];
+          _x10;
+          return [3, 4];
 
-              case 3:
-                return [ 7 ];
+        case 1:
+          _e5 = _a10.sent();
+          return [4, _y10];
 
-              case 4:
-                return [ 2 ];
-            }
-        });
+        case 2:
+          _a10.sent();
+
+          return [3, 4];
+
+        case 3:
+          _z3;
+          return [7];
+
+        case 4:
+          return [2];
+      }
     });
+  });
 }
 
 function tryCatchFinally3() {
-    return __awaiter(this, void 0, void 0, function() {
-        return __generator(this, function(t) {
-            switch (t.label) {
-              case 0:
-                return t.trys.push([ 0, 1, 2, 4 ]), [ 3, 4 ];
+  return _awaiter(this, void 0, void 0, function () {
+    var _x11, _y11, _z4, _e6;
 
-              case 1:
-                return t.sent(), [ 3, 4 ];
+    return _generator(this, function (_a11) {
+      switch (_a11.label) {
+        case 0:
+          _a11.trys.push([0, 1, 2, 4]);
 
-              case 2:
-                return [ 4, void 0 ];
+          _x11;
+          return [3, 4];
 
-              case 3:
-                return t.sent(), [ 7 ];
+        case 1:
+          _e6 = _a11.sent();
+          _y11;
+          return [3, 4];
 
-              case 4:
-                return [ 2 ];
-            }
-        });
+        case 2:
+          return [4, _z4];
+
+        case 3:
+          _a11.sent();
+
+          return [7];
+
+        case 4:
+          return [2];
+      }
     });
+  });
 }
