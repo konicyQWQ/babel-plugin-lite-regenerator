@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-generator",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "a babel plugin that can transform generator function to state machine, which is a ported version of typescript generator transform",
   "main": "dist/babel-plugin-generator.cjs.js",
   "module": "dist/babel-plugin-generator.es.js",
