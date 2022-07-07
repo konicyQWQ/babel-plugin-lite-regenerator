@@ -1,7 +1,7 @@
 import { __generator as _generator } from "babel-plugin-generator-runtime";
 import { __awaiter as _awaiter } from "babel-plugin-generator-runtime";
 
-const fooShort = function () {
+var fooShort = function () {
   return _awaiter(void 0, void 0, void 0, function () {
     var _temp;
 
@@ -34,7 +34,7 @@ const fooShort = function () {
   });
 };
 
-const fooLong = function () {
+var fooLong = function () {
   return _awaiter(void 0, void 0, void 0, function () {
     var _temp2;
 

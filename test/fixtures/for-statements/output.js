@@ -126,8 +126,7 @@ function forStatement4() {
 
 function forStatement5() {
   return _awaiter(this, void 0, void 0, function () {
-    var _b;
-
+    var b;
     return _generator(this, function (_a6) {
       for (; y; z) {
         a;
@@ -140,10 +139,9 @@ function forStatement5() {
 
 function forStatement6() {
   return _awaiter(this, void 0, void 0, function () {
-    var _c;
-
+    var c;
     return _generator(this, function (_a7) {
-      for (_c = x; y; z) {
+      for (c = x; y; z) {
         a;
       }
 

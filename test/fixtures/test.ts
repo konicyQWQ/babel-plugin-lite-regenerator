@@ -1,5 +1,5 @@
 import pluginTester from "babel-plugin-tester";
-import { babelPluginGenerator } from '../index';
+import { babelPluginGenerator } from '../../index';
 import path from 'path'
 
 /**
@@ -17,5 +17,5 @@ pluginTester({
   formatResult(code) {
     return code;
   },
-  fixtures: path.join(__dirname, 'fixtures/'),
+  fixtures: path.join(__dirname, './'),
 })

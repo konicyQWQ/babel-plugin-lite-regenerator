@@ -8,7 +8,7 @@ import type {
 } from "@babel/types";
 import * as factory from "@babel/types";
 import { FunctionLikeDeclaration, forEach, getNonAssignmentOperatorForCompoundAssignment, isCompoundAssignment, isFunctionLikeDeclaration, lastOrUndefined, visitEachChild, visitNode } from './babel-ts-adapter'
-import { generatorHelper } from './helper'
+import { generatorHelper, argumentsVisitor, valuesHelper } from './helper'
 
 type ExtraData = {
     hasYield?: boolean;
@@ -146,18 +146,28 @@ export function getVisitor(path: NodePath) {
     let hoistVariables: Identifier[] = [];
     let hoistFunctions: FunctionDeclaration[] = [];
     
-
     function hoistVar(path: NodePath<VariableDeclarator>) {
-        let newId = generatorPath.scope.generateUidIdentifierBasedOnNode(path.node.id);
-        path.scope.rename((path.node.id as Identifier).name, newId.name);
-        path.node.id = newId;
-        hoistVariables.push(newId);
+        const id = path.get('id')
+        if (id.isIdentifier()) {
+            // let newId = generatorPath.scope.generateDeclaredUidIdentifier((path.node.id as Identifier).name);
+            // path.scope.rename((path.node.id as Identifier).name, newId.name);
+            // path.node.id = newId;
+            // hoistVariables.push(newId);
+
+            // use @babel/plugin-transform-block-scoping, not need to rename
+            hoistVariables.push(factory.identifier(id.node.name));
+        } else {
+            throw 'ObjectParttern or ArrayPattern, please use @babel/plugin-transform-destructuring'
+        }
     }
 
     function hoistFun(path: NodePath<FunctionDeclaration>) {
-        let newId = generatorPath.scope.generateUidIdentifierBasedOnNode(path.node.id);
-        path.scope.rename((path.node.id as Identifier).name, newId.name);
-        path.node.id = newId;
+        // let newId = generatorPath.scope.generateDeclaredUidIdentifier((path.node.id as Identifier).name);
+        // path.scope.rename((path.node.id as Identifier).name, newId.name);
+        // path.node.id = newId;
+        // hoistFunctions.push(path.node);
+
+        // use @babel/plugin-transform-block-scoping, not need to rename
         hoistFunctions.push(path.node);
     }
 
@@ -243,7 +253,7 @@ export function getVisitor(path: NodePath) {
         if (path.node.generator) {
             node = factory.functionDeclaration(
                 path.node.id,
-                path.node.params, // visitParameterList(path.parameters, visitor, context),
+                path.node.params,
                 transformGeneratorFunctionBody(path.get('body'))
             );
             path.replaceWith(node);
@@ -272,7 +282,7 @@ export function getVisitor(path: NodePath) {
         if (path.node.generator) {
             node = factory.functionExpression(
                 path.node.id,
-                path.node.params, // visitParameterList(path.parameters, visitor, context),
+                path.node.params,
                 transformGeneratorFunctionBody(path.get('body'))
             );
             path.replaceWith(node);
@@ -324,8 +334,17 @@ export function getVisitor(path: NodePath) {
         hoistFunctions = [];
         hoistVariables = []
 
+        // change arguments
+        let args = path.scope.generateUidIdentifier("_args");
+        let argumentsState = {
+            useArguments: false,
+            args: () => factory.cloneNode(args)
+        }
+        path.traverse(argumentsVisitor, argumentsState);
+
         transformAndEmitStatements(path.get('body'));
 
+        // hoist all vars
         let hoistVarAndFun: Statement[] = [
             hoistVariables.length > 0
                 ? factory.variableDeclaration(
@@ -338,6 +357,11 @@ export function getVisitor(path: NodePath) {
 
         const buildResult = build();
 
+        if (argumentsState.useArguments) {
+            statements.push(factory.variableDeclaration('var', [
+                factory.variableDeclarator(args, factory.identifier('arguments'))
+            ]));
+        }
         statements.push(...hoistVarAndFun);
         statements.push(factory.returnStatement(buildResult));
 
@@ -357,7 +381,7 @@ export function getVisitor(path: NodePath) {
         hoistFunctions = savedHoistFunctions;
         hoistVariables = savedHoistVariables;
 
-        return factory.blockStatement(statements);
+        return factory.blockStatement(statements, path.node.directives);
     }
 
     function visitVariableStatement(path: NodePath<VariableDeclaration>): Statement | undefined {
@@ -481,7 +505,12 @@ export function getVisitor(path: NodePath) {
         const resumeLabel = defineLabel();
         const expression = visitNode(path.get('argument'), visitor) as Expression;
 
-        emitYield(expression);
+        if (path.node.delegate) {
+            const iterator = valuesHelper(expression, programPath);
+            emitYieldStar(iterator);
+        } else {
+            emitYield(expression);
+        }
 
         markLabel(resumeLabel);
         return createGeneratorResume();

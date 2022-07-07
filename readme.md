@@ -18,6 +18,13 @@ $ npm install babel-plugin-generator
 ```ts
 require("@babel/core").transformSync(code, {
   plugins: [
+    // sometimes need cooperate with below plugin
+    // '@babel/plugin-transform-destructuring',
+    // '@babel/plugin-transform-spread',
+    // '@babel/plugin-transform-parameters',
+    // '@babel/plugin-transform-classes',
+    // "@babel/plugin-transform-for-of",
+    
     [require("babel-plugin-generator")]
   ]
 });

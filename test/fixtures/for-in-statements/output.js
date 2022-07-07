@@ -185,10 +185,9 @@ function forInStatement5() {
 
 function forInStatement6() {
   return _awaiter(this, void 0, void 0, function () {
-    var _a8;
-
+    var a;
     return _generator(this, function (_a7) {
-      for (_a8 in y) {
+      for (a in y) {
         z;
       }
 
@@ -199,25 +198,25 @@ function forInStatement6() {
 
 function forInStatement7() {
   return _awaiter(this, void 0, void 0, function () {
-    var _temp16, _temp17, _temp18, _b;
+    var _temp16, _temp17, _temp18, b;
 
-    return _generator(this, function (_a9) {
-      switch (_a9.label) {
+    return _generator(this, function (_a8) {
+      switch (_a8.label) {
         case 0:
           _temp16 = [];
           return [4, y];
 
         case 1:
-          for (_temp17 in _a9.sent()) _temp16.push(_temp17);
+          for (_temp17 in _a8.sent()) _temp16.push(_temp17);
 
           _temp18 = 0;
-          _a9.label = 2;
+          _a8.label = 2;
 
         case 2:
           if (!(_temp18 < _temp16.length)) return [3, 4];
-          _b = _temp16[_temp18];
+          b = _temp16[_temp18];
           z;
-          _a9.label = 3;
+          _a8.label = 3;
 
         case 3:
           _temp18++;
@@ -232,27 +231,27 @@ function forInStatement7() {
 
 function forInStatement8() {
   return _awaiter(this, void 0, void 0, function () {
-    var _temp19, _temp20, _temp21, _c;
+    var _temp19, _temp20, _temp21, c;
 
-    return _generator(this, function (_a10) {
-      switch (_a10.label) {
+    return _generator(this, function (_a9) {
+      switch (_a9.label) {
         case 0:
           _temp19 = [];
 
           for (_temp20 in y) _temp19.push(_temp20);
 
           _temp21 = 0;
-          _a10.label = 1;
+          _a9.label = 1;
 
         case 1:
           if (!(_temp21 < _temp19.length)) return [3, 4];
-          _c = _temp19[_temp21];
+          c = _temp19[_temp21];
           return [4, z];
 
         case 2:
-          _a10.sent();
+          _a9.sent();
 
-          _a10.label = 3;
+          _a9.label = 3;
 
         case 3:
           _temp21++;
