@@ -1,3 +1,5 @@
+/// <reference path="./global.d.ts" />
+
 import type { NodePath, Visitor } from '@babel/core';
 import type { Expression, Identifier, FunctionExpression, BlockStatement } from '@babel/types'
 import * as factory from '@babel/types'
