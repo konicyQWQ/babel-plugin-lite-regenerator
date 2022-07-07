@@ -1,4 +1,4 @@
-import { NodePath, Node } from '@babel/core';
+import type { NodePath, Node } from '@babel/core';
 import type { AwaitExpression, Expression, FunctionDeclaration, FunctionExpression, ClassMethod, ArrowFunctionExpression, BlockStatement } from '@babel/types'
 import * as factory from '@babel/types'
 import { visitEachChild, visitNode } from './babel-ts-adapter'

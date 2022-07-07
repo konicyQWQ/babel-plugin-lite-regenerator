@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useCallback, useEffect, useState } from "react";
 import CodeEditor from "./Editor";
+import { babelTransform } from './transform'
 
 export function App() {
     const [code, setCode] = useState('// test');
@@ -10,8 +11,7 @@ export function App() {
     }, [])
 
     useEffect(() => {
-        //TODO transform code
-        setCodeAfter(code);
+        setCodeAfter(babelTransform(code));
     }, [code])
 
     let [isOpen, setIsOpen] = useState(true)
@@ -26,9 +26,9 @@ export function App() {
 
     return (
         <>
-            <div className="fixed bottom-3 left-3 z-50 bg-opacity-60 backdrop-blur-sm text-base lg:text-lg backdrop-filter bg-sky-500 text-white px-5 py-3 shadow rounded-lg lg:w-1/3 ">
-                <div className="text-2xl lg:text-4xl">Babel Plugin Generator</div>
-                将generator优雅降级的解决方案。
+            <div className="fixed bottom-3 left-3 z-50 bg-opacity-50 backdrop-blur-sm backdrop-filter bg-black text-white px-4 py-3 shadow rounded-lg ">
+                <div className="text-3xl">Babel Plugin Generator</div>
+                {/* 将generator优雅降级的解决方案。 */}
             </div>
             <button
                 className="fixed bottom-3 right-3 z-10 font-semibold text-white bg-sky-400 hover:bg-sky-500 active:bg-sky-600 transition-all px-3 py-2 shadow-lg  rounded-lg "

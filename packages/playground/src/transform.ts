@@ -1,11 +1,7 @@
 //@ts-nocheck
 import { babelPluginGenerator } from 'babel-plugin-generator';
-import { transformSync } from '@babel/core';
+import { transform } from '@babel/standalone';
 import { __awaiter, __generator } from 'babel-plugin-generator-runtime'
-
-interface Config {
-    import: boolean;
-}
 
 function deleteImportPlugin() {
     return {
@@ -24,30 +20,29 @@ function deleteImportPlugin() {
     }
 }
 
-export function babelTransform(code: string, config: Config): string {
-    const res = transformSync(code, {
-        parserOpts: {
-            strictMode: false
-        },
-        presets: [],
-        plugins: [
-            '@babel/plugin-transform-destructuring',
-            '@babel/plugin-transform-spread',
-            '@babel/plugin-transform-parameters',
-            '@babel/plugin-transform-classes',
-            "@babel/plugin-transform-for-of",
-            "@babel/plugin-transform-block-scoping",
-            babelPluginGenerator,
-            deleteImportPlugin
-        ].filter(Boolean),
-    })!;
+export function babelTransform(code: string): string {
 
-    let helperFunctionInline = '';
-    if (!config.import) {
-        helperFunctionInline = __awaiter.toString().replace('__awaiter', '_awaiter') 
-                            + '\n'
-                            + __generator.toString().replace('__generator', '_generator');
+    try {
+        const res = transform(code, {
+            parserOpts: {
+                strictMode: false
+            },
+            presets: [],
+            plugins: [
+                require('@babel/plugin-transform-destructuring').default,
+                require('@babel/plugin-transform-spread').default,
+                require('@babel/plugin-transform-parameters').default,
+                require('@babel/plugin-transform-classes').default,
+                require("@babel/plugin-transform-for-of").default,
+                require("@babel/plugin-transform-block-scoping").default,
+                babelPluginGenerator,
+                deleteImportPlugin
+            ].filter(Boolean),
+        })!;
+
+        return res.code;
+    } catch (e) {
+        console.log(e);
+        return code;
     }
-
-    return `${helperFunctionInline}\n${res.code}`;
 }

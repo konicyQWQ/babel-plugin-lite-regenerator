@@ -1,4 +1,4 @@
-import { Node, NodePath, Visitor } from "@babel/core";
+import type { Node, NodePath, Visitor } from "@babel/core";
 import type {
     Expression, Statement, FunctionDeclaration, FunctionExpression, Identifier, NumericLiteral, SwitchCase, DoWhileStatement, ForStatement,
     ForInStatement, IfStatement, WhileStatement, SwitchStatement, LabeledStatement, VariableDeclaration, ReturnStatement, YieldExpression, BlockStatement, ExpressionStatement,
@@ -345,15 +345,14 @@ export function getVisitor(path: NodePath) {
         transformAndEmitStatements(path.get('body'));
 
         // hoist all vars
-        let hoistVarAndFun: Statement[] = [
-            hoistVariables.length > 0
-                ? factory.variableDeclaration(
-                    'var',
-                    hoistVariables.map(v => factory.variableDeclarator(v))
-                )
-                : null,
-            ...hoistFunctions
-        ].filter(Boolean);
+        let hoistVarAndFun: Statement[] = [];
+        if (hoistVariables.length > 0) {
+            hoistVarAndFun.push(factory.variableDeclaration(
+                'var',
+                hoistVariables.map(v => factory.variableDeclarator(v))
+            ));
+        }
+        hoistVarAndFun = [...hoistVarAndFun, ...hoistFunctions];
 
         const buildResult = build();
 
@@ -520,7 +519,7 @@ export function getVisitor(path: NodePath) {
         return visitElements(path.get('elements'));
     }
 
-    function visitElements(elements: NodePath<Expression | SpreadElement>[], leadingElement?: Expression) {
+    function visitElements(elements: NodePath<Expression | SpreadElement | null>[], leadingElement?: Expression) {
         const numInitialElements = countInitialNodesWithoutYield(elements);
 
         let temp: Identifier | undefined;
@@ -1217,7 +1216,7 @@ export function getVisitor(path: NodePath) {
         }
     }
 
-    function visitLabeledStatement(path: NodePath<LabeledStatement>): Node {
+    function visitLabeledStatement(path: NodePath<LabeledStatement>): Node | undefined {
         if (inStatementContainingYield) {
             beginScriptLabeledBlock(path.node.label.name);
         }
@@ -1247,14 +1246,18 @@ export function getVisitor(path: NodePath) {
         if (containsYield(path)) {
             beginExceptionBlock();
             transformAndEmitEmbeddedStatement(path.get('block'));
-            if (path.get('handler').node) {
-                beginCatchBlock(path.get('handler'));
-                transformAndEmitEmbeddedStatement(path.get('handler').get('body'));
+
+            let handler = path.get('handler');
+            let finalizer = path.get('finalizer');
+
+            if (handler.node) {
+                beginCatchBlock(handler as NodePath<CatchClause>);
+                transformAndEmitEmbeddedStatement(handler.get('body') as NodePath<BlockStatement>);
             }
 
-            if (path.get('finalizer').node) {
+            if (finalizer.node) {
                 beginFinallyBlock();
-                transformAndEmitEmbeddedStatement(path.get('finalizer'));
+                transformAndEmitEmbeddedStatement(finalizer as NodePath<BlockStatement>);
             }
 
             endExceptionBlock();
@@ -1326,12 +1329,16 @@ export function getVisitor(path: NodePath) {
     function endBlock(): CodeBlock {
         const block = peekBlock();
 
-        const index = blockActions!.length;
-        blockActions![index] = BlockAction.Close;
-        blockOffsets![index] = operations ? operations.length : 0;
-        blocks![index] = block;
-        blockStack!.pop();
-        return block;
+        if (block != undefined) {
+            const index = blockActions!.length;
+            blockActions![index] = BlockAction.Close;
+            blockOffsets![index] = operations ? operations.length : 0;
+            blocks![index] = block;
+            blockStack!.pop();
+            return block;
+        } else {
+            throw "syntax error!"
+        }
     }
 
     function peekBlock() {
@@ -1375,32 +1382,10 @@ export function getVisitor(path: NodePath) {
     }
 
     function beginCatchBlock(path: NodePath<CatchClause>): void {
-        let variable = path.get('param');
-        let name: Identifier;
-        if (variable.node.type == 'Identifier') {
-            name = generatorPath.scope.generateUidIdentifier(variable.node.name);
-            path.scope.rename(variable.node.name, name.name);
-            hoistVariables.push(name);
-        }
-        else {
-            // catch ({a : d, b, c}) => d = name.a, b = name.b, c = name.c
-            // name = declareLocal();
-
-            // if (variable.node.type == 'ObjectPattern') {
-            //     const properties = variable.node.properties;
-
-            // }
-
-            // const text = idText(variable.name as Identifier);
-            // if (!renamedCatchVariables) {
-            //     renamedCatchVariables = new Map<string, boolean>();
-            //     renamedCatchVariableDeclarations = [];
-            //     context.enableSubstitution(SyntaxKind.Identifier);
-            // }
-
-            // renamedCatchVariables.set(text, true);
-            // renamedCatchVariableDeclarations[getOriginalNodeId(variable)] = name;
-        }
+        let variable = path.get('param') as NodePath<Identifier>;
+        let name = generatorPath.scope.generateUidIdentifier(variable.node.name);
+        path.scope.rename(variable.node.name, name.name);
+        hoistVariables.push(name);
 
         const exception = peekBlock() as ExceptionBlock;
 
@@ -1600,7 +1585,7 @@ export function getVisitor(path: NodePath) {
         return 0;
     }
 
-    function createLabel(label: Label | undefined): Expression {
+    function createLabel(label: Label | undefined): Expression | null {
         if (label !== undefined && label > 0) {
             if (labelExpressions === undefined) {
                 labelExpressions = [];

@@ -1,4 +1,4 @@
-import { PluginItem } from "@babel/core";
+import type { PluginItem } from "@babel/core";
 import { getVisitor as asyncVisitor } from './asyncVisitor'
 import { hasYieldPrepareVisitor, getVisitor as generatorVisitor } from './generatorVisitor';
 import { visitEachChild } from './babel-ts-adapter'
