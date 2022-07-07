@@ -36,7 +36,7 @@ export function babelTransform(code: string): string {
                 require("@babel/plugin-transform-for-of").default,
                 require("@babel/plugin-transform-block-scoping").default,
                 babelPluginGenerator,
-                deleteImportPlugin
+                // deleteImportPlugin
             ].filter(Boolean),
         })!;
 
