@@ -1,3 +1,3 @@
-export declare function __values();
-export declare function __generator();
-export declare function __awaiter();
+export declare function _values();
+export declare function _generator();
+export declare function _awaiter();

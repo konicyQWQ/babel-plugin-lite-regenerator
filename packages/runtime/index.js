@@ -1,3 +1,3 @@
-import { __awaiter, __generator, __values } from './src/index'
+import { _awaiter, _generator, _values } from './src/index'
 
-export { __awaiter, __generator, __values };
+export { _awaiter, _generator, _values };

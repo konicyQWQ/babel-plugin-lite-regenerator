@@ -16,7 +16,7 @@ export function generatorHelper(thisArg: boolean, state: Identifier, body: Block
         if (!programPath.state) {
             programPath.state = {}
         }
-        programPath.state.generatorImport = addNamed(programPath, "__generator", runtimePkg);
+        programPath.state.generatorImport = addNamed(programPath, "_generator", runtimePkg);
     }
     return factory.callExpression(
         programPath.state.generatorImport,
@@ -38,7 +38,7 @@ export function awaiterHelper(thisArg: boolean, args: boolean, promise: Expressi
         if (!programPath.state) {
             programPath.state = {}
         }
-        programPath.state.awaiterImport = addNamed(programPath, "__awaiter", runtimePkg);
+        programPath.state.awaiterImport = addNamed(programPath, "_awaiter", runtimePkg);
     }
     return factory.callExpression(
         programPath.state.awaiterImport,
@@ -56,7 +56,7 @@ export function valuesHelper(expression: Expression, programPath: NodePath) {
         if (!programPath.state) {
             programPath.state = {}
         }
-        programPath.state.valuesImport = addNamed(programPath, "__values", runtimePkg);
+        programPath.state.valuesImport = addNamed(programPath, "_values", runtimePkg);
     }
     return factory.callExpression(
         programPath.state.valuesImport,

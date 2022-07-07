@@ -1,4 +1,4 @@
-export function __generator (thisArg, body) {
+export function _generator (thisArg, body) {
     var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
     return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
@@ -26,7 +26,7 @@ export function __generator (thisArg, body) {
     }
 };
 
-export function __awaiter (thisArg, _arguments, P, generator) {
+export function _awaiter (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -36,7 +36,7 @@ export function __awaiter (thisArg, _arguments, P, generator) {
     });
 };
 
-export function __values (o) {
+export function _values (o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
     if (m) return m.call(o);
     if (o && typeof o.length === "number") return {

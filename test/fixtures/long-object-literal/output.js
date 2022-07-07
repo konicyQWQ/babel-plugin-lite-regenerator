@@ -1,5 +1,5 @@
-import { __generator as _generator } from "babel-plugin-generator-runtime";
-import { __awaiter as _awaiter } from "babel-plugin-generator-runtime";
+import { _generator } from "babel-plugin-generator-runtime";
+import { _awaiter } from "babel-plugin-generator-runtime";
 
 const fooShort = function () {
   return _awaiter(void 0, void 0, void 0, function () {

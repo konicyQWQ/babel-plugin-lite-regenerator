@@ -1,6 +1,6 @@
 import { babelPluginGenerator } from 'babel-plugin-generator';
 import { transformSync, PluginItem } from '@babel/core';
-import { __awaiter, __generator, __values } from 'babel-plugin-generator-runtime'
+import { _awaiter, _generator, _values } from 'babel-plugin-generator-runtime'
 
 interface Config {
     import: boolean;
@@ -25,7 +25,15 @@ export function deleteImportPlugin(): PluginItem {
 
 export function babelTransform(code: string, config: Config): string {
 
-    const plugins = [babelPluginGenerator];
+    const plugins = [
+        '@babel/plugin-transform-destructuring',
+        '@babel/plugin-transform-spread',
+        '@babel/plugin-transform-parameters',
+        '@babel/plugin-transform-classes',
+        "@babel/plugin-transform-for-of",
+        "@babel/plugin-transform-block-scoping",
+        babelPluginGenerator
+    ];
     if (!config.import)
         plugins.push(deleteImportPlugin);
 
@@ -39,11 +47,11 @@ export function babelTransform(code: string, config: Config): string {
 
     let helperFunctionInline = '';
     if (!config.import) {
-        helperFunctionInline = __awaiter.toString().replace('__awaiter', '_awaiter') 
+        helperFunctionInline = _awaiter.toString() 
                             + '\n'
-                            + __generator.toString().replace('__generator', '_generator')
+                            + _generator.toString()
                             + '\n'
-                            + __values.toString().replace('__values', '_values');
+                            + _values.toString();
     }
 
     return `${helperFunctionInline}\n${res?.code}`;
