@@ -2,10 +2,7 @@
 
 ## intro
 
-This babel plugin is a ported version of TypeScript generator transform. 
-It can transform async and generator function to state machine using the way of TypeScirpt.
-
-Babel uses `regenerator-transform` whose helper function is about **6.6kB**, but that of TypeScript just is about **1.1KB**. Therefore, this plugin can decrease the bundle size if the project need to polyfill.
+a babel plugin that can transform generator function and async function to state machine(ES5). more detail see [babel-plugin-generator](https://github.com/konicyQWQ/babel-plugin-generator).
 
 ## install
 
@@ -24,6 +21,9 @@ require("@babel/core").transformSync(code, {
     // '@babel/plugin-transform-parameters',
     // '@babel/plugin-transform-classes',
     // "@babel/plugin-transform-for-of",
+
+    // most time need cooperate with this plugin
+    "@babel/plugin-transform-block-scoping",
     
     [require("babel-plugin-generator")]
   ]
