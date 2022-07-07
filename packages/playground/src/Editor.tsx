@@ -5,13 +5,13 @@ import { Subject } from 'rxjs';
 export default function CodeEditor({
   value,
   onChange,
-  $command,
+  command$,
   noSemanticValidation = false,
   extraLibs = [],
 }: {
   value: string;
   onChange(code: string): void;
-  $command?: Subject<'format' | 'darkTheme' | 'dayTheme'>;
+  command$?: Subject<'format' | 'darkTheme' | 'dayTheme' | 'forceUpdateCode'>;
   noSemanticValidation?: boolean;
   extraLibs?: {
     content: string;
@@ -49,9 +49,9 @@ export default function CodeEditor({
   );
 
   useEffect(() => {
-    if (!$command) return;
+    if (!command$) return;
 
-    const sub = $command.subscribe((command) => {
+    const sub = command$.subscribe((command) => {
       switch (command) {
         case 'format':
           formatCode();
@@ -62,12 +62,15 @@ export default function CodeEditor({
         case 'dayTheme':
           setDarkMode(false);
           break;
+        case 'forceUpdateCode':
+          setIsEdit(false);
+          break;
       }
     });
     return () => {
       sub.unsubscribe();
     };
-  }, [$command, formatCode, setDarkMode]);
+  }, [command$, formatCode, setDarkMode]);
 
   useEffect(() => {
     if (isEdit) return;
@@ -115,7 +118,7 @@ export default function CodeEditor({
     return () => {
       editor.dispose();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -130,5 +133,5 @@ export default function CodeEditor({
     };
   }, [editor, getCode, onChange]);
 
-  return <div className="w-full h-full"  ref={divRef}></div>;
+  return <div className="w-full h-full" ref={divRef}></div>;
 }
