@@ -1,0 +1,15 @@
+{
+  "name": "babel-plugin-generator-runtime",
+  "version": "0.1.1",
+  "description": "runtime function of babel-plugin-generator",
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.es.js",
+  "scripts": {
+    "build": "rm -rf ./dist && rollup --config"
+  },
+  "author": "konicyqwq",
+  "license": "ISC",
+  "devDependencies": {
+    "rollup": "^2.75.7"
+  }
+}

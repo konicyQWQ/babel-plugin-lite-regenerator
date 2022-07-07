@@ -8,8 +8,7 @@
     "url": "https://github.com/konicyQWQ/babel-plugin-generator"
   },
   "scripts": {
-    "build": "rimraf -rf ./dist && rollup --config",
-    "test": "ts-node ./test/regenerator/run.ts && jest"
+    "build": "rm -rf ./dist && rollup --config"
   },
   "keywords": [
     "babel-plugin",
@@ -21,32 +20,21 @@
     "@babel/core": "^7.18.5",
     "@babel/helper-module-imports": "^7.18.6",
     "@babel/types": "^7.18.7",
-    "babel-plugin-generator-runtime": "^0.1.1"
-  },
-  "devDependencies": {
-    "@babel/plugin-transform-block-scoping": "^7.18.6",
+    "babel-plugin-generator-runtime": "workspace:^0.1.1",
     "@babel/plugin-transform-classes": "^7.18.6",
     "@babel/plugin-transform-destructuring": "^7.18.6",
     "@babel/plugin-transform-for-of": "^7.18.6",
     "@babel/plugin-transform-parameters": "^7.18.6",
     "@babel/plugin-transform-spread": "^7.18.6",
-    "@babel/preset-env": "^7.18.2",
-    "@babel/preset-typescript": "^7.18.6",
+    "@babel/plugin-transform-block-scoping": "^7.18.6"
+  },
+  "devDependencies": {
     "@babel/template": "^7.18.6",
     "@rollup/plugin-typescript": "^8.3.3",
-    "@types/babel__core": "^7.1.19",
-    "@types/babel__preset-env": "^7.9.2",
-    "@types/babel__template": "^7.4.1",
-    "@types/jest": "^28.1.3",
-    "@types/uglify-js": "^3.16.0",
-    "babel-plugin-tester": "^10.1.0",
-    "jest": "^28.1.1",
     "rollup": "^2.75.7",
     "rollup-plugin-babel": "^4.4.0",
-    "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
     "tslib": "^2.4.0",
-    "typescript": "^4.7.4",
-    "uglify-js": "^3.16.1"
+    "typescript": "^4.7.4"
   }
 }

@@ -1,5 +1,5 @@
 import pluginTester from "babel-plugin-tester";
-import { babelPluginGenerator } from '../../index';
+import { babelPluginGenerator } from 'babel-plugin-generator';
 import path from 'path'
 
 /**
