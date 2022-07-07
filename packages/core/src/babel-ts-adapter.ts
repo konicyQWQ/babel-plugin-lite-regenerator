@@ -1,7 +1,7 @@
 import type { NodePath, Node } from '@babel/core'
 import type { FunctionDeclaration, FunctionExpression, ClassMethod, ArrowFunctionExpression, BinaryExpression } from '@babel/types'
 
-export type TSLikeVistor = (NodePath: NodePath) => Node | undefined;
+export type TSLikeVistor = (NodePath: NodePath) => Node | null | undefined;
 
 export type FunctionLikeDeclaration = FunctionDeclaration | FunctionExpression | ClassMethod | ArrowFunctionExpression;
 
@@ -18,7 +18,7 @@ export function getNonAssignmentOperatorForCompoundAssignment(operator: string):
     return operator.split('=')[0] as BinaryExpression['operator'];
 }
 
-export function visitEachChild(path: NodePath<Node | null | undefined>, visitor: TSLikeVistor): Node | undefined {
+export function visitEachChild(path: NodePath<Node | null | undefined>, visitor: TSLikeVistor): Node | null | undefined {
     path.traverse({
         enter(path) {
             const newNode = visitor(path);
@@ -32,8 +32,8 @@ export function visitEachChild(path: NodePath<Node | null | undefined>, visitor:
     return path.node;
 }
 
-export function visitNode(path: NodePath<Node | null | undefined>, visitor: TSLikeVistor): Node | undefined {
-    return visitor(path as NodePath<Node>);
+export function visitNode(path: NodePath<Node | null | undefined>, visitor: TSLikeVistor): Node | null | undefined {
+    return path.node && visitor(path as NodePath<Node>);
 }
 
 export function lastOrUndefined<T>(array: readonly T[] | undefined): T | undefined {

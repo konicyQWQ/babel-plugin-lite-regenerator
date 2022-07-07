@@ -32,7 +32,7 @@ export function generatorHelper(thisArg: boolean, state: Identifier, body: Block
 }
 
 export function awaiterHelper(thisArg: boolean, args: boolean, promise: Expression | Identifier | undefined, body: FunctionExpression, programPath: NodePath) {
-    if (programPath && !programPath.state?.awaiterImport) {
+    if (!programPath.state?.awaiterImport) {
         if (!programPath.state) {
             programPath.state = {}
         }
@@ -50,7 +50,7 @@ export function awaiterHelper(thisArg: boolean, args: boolean, promise: Expressi
 }
 
 export function valuesHelper(expression: Expression, programPath: NodePath) {
-    if (programPath && !programPath.state?.valuesImport) {
+    if (!programPath.state?.valuesImport) {
         if (!programPath.state) {
             programPath.state = {}
         }

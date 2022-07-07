@@ -171,7 +171,7 @@ export function getVisitor(path: NodePath) {
         hoistFunctions.push(path.node);
     }
 
-    function visitJavaScriptInGeneratorFunctionBody(path: NodePath): Node | undefined {
+    function visitJavaScriptInGeneratorFunctionBody(path: NodePath): Node | null | undefined {
         switch (path.node.type) {
             case 'DoWhileStatement':
                 return visitDoStatement(path as NodePath<DoWhileStatement>);
@@ -205,7 +205,7 @@ export function getVisitor(path: NodePath) {
         }
     }
 
-    function visitJavaScriptContainingYield(path: NodePath): Node | undefined {
+    function visitJavaScriptContainingYield(path: NodePath): Node | null |  undefined {
         switch (path.node.type) {
             case 'AssignmentExpression':
                 return visitAssignmentExpression(path as NodePath<AssignmentExpression>);
@@ -234,7 +234,7 @@ export function getVisitor(path: NodePath) {
         }
     }
 
-    function visitGenerator(path: NodePath): Node | undefined {
+    function visitGenerator(path: NodePath): Node | null |  undefined {
         switch (path.node.type) {
             case 'FunctionDeclaration':
                 return visitFunctionDeclaration(path as NodePath<FunctionDeclaration>);
@@ -541,7 +541,7 @@ export function getVisitor(path: NodePath) {
             leadingElement = undefined;
         }
 
-        const expressions = elements.slice(numInitialElements).reduce(reduceElement, [] as (Expression | SpreadElement)[]);
+        const expressions = elements.slice(numInitialElements).reduce(reduceElement, [] as (Expression | SpreadElement | null)[]);
         return temp
             ? factory.callExpression(
                 factory.memberExpression(temp, factory.identifier("concat")),
@@ -549,7 +549,7 @@ export function getVisitor(path: NodePath) {
             )
             : factory.arrayExpression(leadingElement ? [leadingElement, ...expressions] : expressions);
 
-        function reduceElement(expressions: (Expression | SpreadElement)[], element: NodePath<Expression | SpreadElement>) {
+        function reduceElement(expressions: (Expression | SpreadElement | null)[], element: NodePath<Expression | SpreadElement | null>) {
             if (containsYield(element) && expressions.length > 0) {
                 const hasAssignedTemp = temp !== undefined;
                 if (!temp) {
@@ -580,9 +580,9 @@ export function getVisitor(path: NodePath) {
         const properties = path.get('properties');
         const numInitialProperties = countInitialNodesWithoutYield(properties);
 
-        const initialElements = [];
+        const initialElements: (ObjectMethod | ObjectProperty | SpreadElement)[] = [];
         for (let i = 0; i < numInitialProperties; i++) {
-            initialElements.push(visitNode(properties[i], visitor) as Expression);
+            initialElements.push(visitNode(properties[i], visitor) as (ObjectMethod | ObjectProperty | SpreadElement));
         }
 
         const temp = declareLocal();
@@ -597,13 +597,13 @@ export function getVisitor(path: NodePath) {
         expressions.push(temp);
         return factory.sequenceExpression(expressions);
 
-        function reduceProperty(expressions: Expression[], property: NodePath<ObjectMethod | ObjectProperty | SpreadElement>) {
+        function reduceProperty(expressions: Expression[], property: NodePath<ObjectMethod | ObjectProperty | SpreadElement | null>) {
             if (containsYield(property) && expressions.length > 0) {
                 emitStatement(factory.expressionStatement(factory.sequenceExpression(expressions)));
                 expressions = [];
             }
 
-            let visited: Expression;
+            let visited: Expression | undefined = undefined;
             if (property.isObjectProperty()) {
                 visited = factory.assignmentExpression(
                     "=",
@@ -792,7 +792,7 @@ export function getVisitor(path: NodePath) {
             if (expressions.length) {
                 variablesWritten += expressions.length;
                 if (expressions.filter(Boolean).length)
-                    emitStatement(factory.expressionStatement(factory.sequenceExpression(expressions.filter(Boolean))));
+                    emitStatement(factory.expressionStatement(factory.sequenceExpression(expressions.filter(Boolean) as Expression[])));
                 expressions = [];
             }
         }
@@ -822,7 +822,7 @@ export function getVisitor(path: NodePath) {
                 if (elseLabel) {
                     emitBreak(endLabel);
                     markLabel(elseLabel!);
-                    transformAndEmitEmbeddedStatement(path.get('alternate'));
+                    transformAndEmitEmbeddedStatement(path.get('alternate') as NodePath<Statement>);
                 }
                 markLabel(endLabel);
             }
@@ -938,7 +938,7 @@ export function getVisitor(path: NodePath) {
         }
 
         const initializer = path.get('init');
-        let node: Node;
+        let node: Node | undefined | null;
         if (initializer && initializer.isVariableDeclaration()) {
             for (const variable of initializer.get('declarations')) {
                 hoistVar(variable);
@@ -948,7 +948,7 @@ export function getVisitor(path: NodePath) {
 
             node = factory.forStatement(
                 variables.length > 0
-                    ? factory.sequenceExpression(variables.map(transformInitializedVariable).filter(Boolean))
+                    ? factory.sequenceExpression(variables.map(transformInitializedVariable).filter(Boolean) as Expression[])
                     : undefined,
                 visitNode(path.get('test'), visitor) as Expression,
                 visitNode(path.get('update'), visitor) as Expression,
@@ -1029,7 +1029,7 @@ export function getVisitor(path: NodePath) {
             beginScriptLoopBlock();
         }
 
-        let node: Node;
+        let node: Node | undefined | null;
         const initializer = path.get('left');
         if (initializer.isVariableDeclaration()) {
             for (const variable of initializer.get('declarations')) {
@@ -1067,7 +1067,7 @@ export function getVisitor(path: NodePath) {
 
     function visitContinueStatement(path: NodePath<ContinueStatement>): Statement {
         if (inStatementContainingYield) {
-            const label = findContinueTarget(path.node.label && path.node.label.name);
+            const label = findContinueTarget(path.node.label ? path.node.label.name : undefined);
             if (label > 0) {
                 return createInlineBreak(label);
             }
@@ -1087,7 +1087,7 @@ export function getVisitor(path: NodePath) {
 
     function visitBreakStatement(path: NodePath<BreakStatement>): Statement {
         if (inStatementContainingYield) {
-            const label = findBreakTarget(path.node.label && path.node.label.name);
+            const label = findBreakTarget(path.node.label ? path.node.label.name : undefined);
             if (label > 0) {
                 return createInlineBreak(label);
             }
@@ -1216,7 +1216,7 @@ export function getVisitor(path: NodePath) {
         }
     }
 
-    function visitLabeledStatement(path: NodePath<LabeledStatement>): Node | undefined {
+    function visitLabeledStatement(path: NodePath<LabeledStatement>): Node | null | undefined {
         if (inStatementContainingYield) {
             beginScriptLabeledBlock(path.node.label.name);
         }
@@ -1267,7 +1267,7 @@ export function getVisitor(path: NodePath) {
         }
     }
 
-    function countInitialNodesWithoutYield(paths: NodePath[]) {
+    function countInitialNodesWithoutYield(paths: NodePath<Node | null | undefined>[]) {
         const numNodes = paths.length;
         for (let i = 0; i < numNodes; i++) {
             if (containsYield(paths[i])) {
@@ -2084,7 +2084,7 @@ export function getVisitor(path: NodePath) {
         );
     }
 
-    function visitor(path: NodePath): Node | undefined {
+    function visitor(path: NodePath): Node | null | undefined {
         if (!path?.node) return undefined;
 
         if (inGeneratorFunctionBody) {
@@ -2104,7 +2104,7 @@ export function getVisitor(path: NodePath) {
     return visitor;
 }
 
-function containsYield(path?: NodePath): boolean {
+function containsYield(path?: NodePath<Node | null | undefined>): boolean {
     if (!path || !path.node)
         return false;
     return Boolean((path.node.extra as ExtraData)?.hasYield);

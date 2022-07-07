@@ -101,7 +101,7 @@ export function getVisitor(path: NodePath) {
         return visitEachChild(path, visitor);
     }
 
-    function visitor(path: NodePath): Node | undefined {
+    function visitor(path: NodePath): Node | null | undefined {
         switch (path.node.type) {
             case 'AwaitExpression':
                 return visitAwaitExpression(path as NodePath<AwaitExpression>);
