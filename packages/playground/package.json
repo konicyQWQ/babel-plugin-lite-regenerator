@@ -35,7 +35,7 @@
   "homepage": "https://konicyqwq.github.io/babel-plugin-generator",
   "scripts": {
     "start": "craco start",
-    "build": "craco build && cp -a ./build ../../docs",
+    "build": "craco build && rm -r ../../docs && cp -a ./build ../../docs",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
