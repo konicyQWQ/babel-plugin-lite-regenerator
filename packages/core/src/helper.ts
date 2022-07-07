@@ -9,7 +9,7 @@ export function createVoid0() {
     return factory.unaryExpression('void', factory.numericLiteral(0));
 }
 
-export function generatorHelper(thisArg: boolean, state: Identifier, body: BlockStatement, programPath?: NodePath) {
+export function generatorHelper(thisArg: boolean, state: Identifier, body: BlockStatement, programPath: NodePath) {
     if (!programPath.state?.generatorImport) {
         if (!programPath.state) {
             programPath.state = {}
@@ -31,7 +31,7 @@ export function generatorHelper(thisArg: boolean, state: Identifier, body: Block
     );
 }
 
-export function awaiterHelper(thisArg: boolean, args: boolean, promise: Expression | Identifier | undefined, body: FunctionExpression, programPath?: NodePath) {
+export function awaiterHelper(thisArg: boolean, args: boolean, promise: Expression | Identifier | undefined, body: FunctionExpression, programPath: NodePath) {
     if (programPath && !programPath.state?.awaiterImport) {
         if (!programPath.state) {
             programPath.state = {}

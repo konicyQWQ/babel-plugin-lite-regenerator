@@ -15,26 +15,29 @@ export function getVisitor(path: NodePath) {
         }
         path.traverse(argumentsVisitor, state);
 
+        let statements = [];
+        if (state.useArguments)
+            statements.push(factory.variableDeclaration('var', [
+                factory.variableDeclarator(args, factory.identifier('arguments'))
+            ]));
+
+        statements.push(factory.returnStatement(
+            awaiterHelper(
+                !arrow,
+                false,
+                undefined,
+                factory.functionExpression(
+                    null,
+                    [],
+                    visitNode(path, visitor) as BlockStatement,
+                    true /* generator */
+                ),
+                programPath
+            )
+        ))
+
         return factory.blockStatement(
-            [
-                state.useArguments && factory.variableDeclaration('var', [
-                    factory.variableDeclarator(args, factory.identifier('arguments'))
-                ]),
-                factory.returnStatement(
-                    awaiterHelper(
-                        !arrow,
-                        false,
-                        undefined,
-                        factory.functionExpression(
-                            null,
-                            [],
-                            visitNode(path, visitor) as BlockStatement,
-                            true /* generator */
-                        ),
-                        programPath
-                    )
-                )
-            ].filter(Boolean),
+            statements,
             path.node.directives
         )
     }
