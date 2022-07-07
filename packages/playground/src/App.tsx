@@ -37,9 +37,8 @@ export function App() {
     }, [])
 
     useEffect(() => {
-        setCodeAfter(babelTransform(code));
         editor2$.next('forceUpdateCode');
-        setCodeAfter(code);
+        setCodeAfter(babelTransform(code));
     }, [code, editor2$])
 
     let [isOpen, setIsOpen] = useState(true)
