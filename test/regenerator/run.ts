@@ -1,10 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import { transformSync } from '@babel/core';
-import { babelPluginGenerator } from '../../index'
 import { __awaiter, __generator, __values } from 'babel-plugin-generator-runtime'
+import { babelPluginGenerator } from 'babel-plugin-generator'
+import { deleteImportPlugin } from '../utils'
 
-function convert(file, output) {
+function convert(file: string, output: string) {
     fs.readFile(file, (_, data) => {
         let ret = transformSync(data.toString(), {
             parserOpts: {
@@ -16,21 +17,9 @@ function convert(file, output) {
                 '@babel/plugin-transform-parameters',
                 '@babel/plugin-transform-classes',
                 "@babel/plugin-transform-for-of",
+                "@babel/plugin-transform-block-scoping",
                 babelPluginGenerator,
-                {
-                    name: 'delete-import',
-                    visitor: {
-                        Program: {
-                            exit(path) {
-                                path.traverse({
-                                    ImportDeclaration(path) {
-                                        path.remove();
-                                    }
-                                })
-                            }
-                        }
-                    }
-                }
+                deleteImportPlugin
             ]
         });
 
@@ -45,7 +34,8 @@ function convert(file, output) {
 
 fs.readdir(__dirname, {}, (_, files) => {
     files.forEach(file => {
-        if (!file.includes('.ts') && !file.includes('.js'))
-            convert(path.resolve(__dirname, file, 'code.js'), path.resolve(__dirname, file, 'test.js'));
+        let filename = file.toString();
+        if (!filename.includes('.ts') && !filename.includes('.js'))
+            convert(path.resolve(__dirname, filename, 'code.js'), path.resolve(__dirname, filename, 'test.js'));
     })
 })
