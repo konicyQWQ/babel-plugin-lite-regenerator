@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "main", "ci" ]
 
+env: 
+  CI: false
+
 jobs:
   build:
 
