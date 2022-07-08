@@ -1631,6 +1631,7 @@ packages:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@headlessui/react/1.6.6_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-MFJtmj9Xh/hhBMhLccGbBoSk+sk61BlP6sJe4uQcVMtXZhCgGqd2GyIQzzmsdPdTEWGSF434CBi8mnhR6um46Q==}
 =======
@@ -1651,6 +1652,10 @@ packages:
     resolution: {integrity: sha512-3VkKteDxlxf3fE0KbfO9t60KC1lM7YNpZggLpwzVNg1J/zwL+h+4N7MBlFDVpInZI3rKlZGpNx0PWsG/9c2vQg==}
 >>>>>>> 9d9db33 (ci test)
 >>>>>>> 7875da2 (ci test)
+=======
+  /@headlessui/react/1.6.5_react-dom@18.2.0+react@18.2.0:
+    resolution: {integrity: sha512-3VkKteDxlxf3fE0KbfO9t60KC1lM7YNpZggLpwzVNg1J/zwL+h+4N7MBlFDVpInZI3rKlZGpNx0PWsG/9c2vQg==}
+>>>>>>> 689f07d (ci fx)
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16 || ^17 || ^18
