@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/babel-plugin-generator/static/css/main.5e455ca8.css",
-    "main.js": "/babel-plugin-generator/static/js/main.1551cb1d.js",
+    "main.js": "/babel-plugin-generator/static/js/main.5db15fac.js",
     "static/js/9876.47566ff5.chunk.js": "/babel-plugin-generator/static/js/9876.47566ff5.chunk.js",
     "static/js/3000.a5f4323d.chunk.js": "/babel-plugin-generator/static/js/3000.a5f4323d.chunk.js",
     "static/js/1680.955b86cc.chunk.js": "/babel-plugin-generator/static/js/1680.955b86cc.chunk.js",
@@ -91,7 +91,7 @@
     "static/media/codicon.ttf": "/babel-plugin-generator/static/media/codicon.ade705761eb7e702770d.ttf",
     "index.html": "/babel-plugin-generator/index.html",
     "main.5e455ca8.css.map": "/babel-plugin-generator/static/css/main.5e455ca8.css.map",
-    "main.1551cb1d.js.map": "/babel-plugin-generator/static/js/main.1551cb1d.js.map",
+    "main.5db15fac.js.map": "/babel-plugin-generator/static/js/main.5db15fac.js.map",
     "9876.47566ff5.chunk.js.map": "/babel-plugin-generator/static/js/9876.47566ff5.chunk.js.map",
     "3000.a5f4323d.chunk.js.map": "/babel-plugin-generator/static/js/3000.a5f4323d.chunk.js.map",
     "1680.955b86cc.chunk.js.map": "/babel-plugin-generator/static/js/1680.955b86cc.chunk.js.map",
@@ -176,6 +176,6 @@
   },
   "entrypoints": [
     "static/css/main.5e455ca8.css",
-    "static/js/main.1551cb1d.js"
+    "static/js/main.5db15fac.js"
   ]
 }
