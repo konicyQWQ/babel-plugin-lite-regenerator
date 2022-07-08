@@ -1,11 +1,11 @@
-import { Dialog, Transition, Popover } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react';
+import { _awaiter, _generator } from 'babel-plugin-generator-runtime';
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { Subject } from 'rxjs';
 import CodeEditor from "./Editor";
-import { babelTransform, deleteImportTransform } from './transform'
+import { evalInSandbox, variableToConsoleText } from './Sandbox';
 import { TemplateSelector } from './TemplateSelector';
-import { evalInSandbox } from './Sandbox';
-import { _awaiter, _generator } from 'babel-plugin-generator-runtime'
+import { babelTransform, deleteImportTransform } from './transform';
 
 export const defaultCode: Record<string, string> = {
     normal: `// test
@@ -48,7 +48,8 @@ export function App() {
         setCodeAfter(babelTransform(code));
     }, [code, editor2$])
 
-    let [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(true)
+    const [isConsoleOpen, setIsConsoleOpen] = useState(false)
 
     function closeModal() {
         setIsOpen(false)
@@ -91,7 +92,7 @@ export function App() {
                             ...GlobalEnv,
                             console: {
                                 log(...args: any[]) {
-                                    const consoleText = args.map((arg) => JSON.stringify(arg)).join(' ');
+                                    const consoleText = args.map((arg) => variableToConsoleText(arg)).join(' ');
                                     setConsole1((c) => c + consoleText + '\n')
                                     console.log(...args);
                                 }
@@ -104,12 +105,13 @@ export function App() {
                             _generator,
                             console: {
                                 log(...args: any[]) {
-                                    const consoleText = args.map((arg) => JSON.stringify(arg)).join(' ');
+                                    const consoleText = args.map((arg) => variableToConsoleText(arg)).join(' ');
                                     setConsole2((c) => c + consoleText + '\n')
                                     console.log(...args);
                                 }
                             }
                         })
+                        setIsConsoleOpen(true);
                     }}
                 >
                     Run
@@ -195,6 +197,57 @@ export function App() {
                                             onClick={closeModal}
                                         >
                                             进入
+                                        </button>
+                                    </div>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition>
+            <Transition appear show={isConsoleOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-50" onClose={closeModal}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                    </Transition.Child>
+                    <div className="fixed inset-0 overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="w-full max-w-lg lg:max-w-2xl transform overflow-hidden rounded-xl bg-white px-7 py-5 text-left align-middle shadow-xl transition-all">
+                                    <Dialog.Title
+                                        as="h2"
+                                        className="text-2xl font-semibold leading-6 text-gray-900 mb-3"
+                                    >
+                                        Console
+                                    </Dialog.Title>
+                                    <div className='grid grid-cols-2 space-x-2'>
+                                        <div className='h-56 overflow-auto rounded-md bg-gray-50 px-4 py-2'>{console1.split('\n').map((text) => <p>{text}</p>)}</div>
+                                        <div className='h-56 overflow-auto rounded-md bg-gray-50 px-4 py-2'>{console2.split('\n').map((text) => <p>{text}</p>)}</div>
+                                    </div>
+
+                                    <div className="mt-4">
+                                        <button
+                                            type="button"
+                                            className="inline-flex justify-center rounded-md bg-sky-100 px-4 py-2 text-sm font-medium text-sky-900 hover:bg-sky-200"
+                                            onClick={() => { setIsConsoleOpen(false) }}
+                                        >
+                                            关闭
                                         </button>
                                     </div>
                                 </Dialog.Panel>

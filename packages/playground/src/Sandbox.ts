@@ -16,3 +16,10 @@ export function evalInSandbox(code: string, env: any) {
     });
     fn(proxy);
 }
+
+export function variableToConsoleText(v: unknown) {
+    if (typeof v === 'object') {
+        return JSON.stringify(v);
+    }
+    return String(v);
+}
