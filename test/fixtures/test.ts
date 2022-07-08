@@ -1,5 +1,5 @@
 import pluginTester from "babel-plugin-tester";
-import { babelPluginGenerator } from 'babel-plugin-generator';
+import { babelPluginLiteRegenerator } from 'babel-plugin-lite-regenerator';
 import path from 'path'
 
 /**
@@ -7,7 +7,7 @@ import path from 'path'
  */
 
 pluginTester({
-  plugin: babelPluginGenerator,
+  plugin: babelPluginLiteRegenerator,
   pluginName: 'ts-async-function-test',
   babelOptions: {
     parserOpts: {

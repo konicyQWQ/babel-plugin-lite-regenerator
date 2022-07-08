@@ -1,5 +1,5 @@
-import { _generator } from "babel-plugin-generator-runtime";
-import { _awaiter } from "babel-plugin-generator-runtime";
+import { _generator } from "babel-plugin-lite-regenerator-runtime";
+import { _awaiter } from "babel-plugin-lite-regenerator-runtime";
 
 function objectLiteral0() {
   return _awaiter(this, void 0, void 0, function () {

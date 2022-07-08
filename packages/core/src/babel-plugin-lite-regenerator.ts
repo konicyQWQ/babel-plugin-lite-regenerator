@@ -3,9 +3,9 @@ import { getVisitor as asyncVisitor } from './asyncVisitor'
 import { hasYieldPrepareVisitor, getVisitor as generatorVisitor } from './generatorVisitor';
 import { visitEachChild } from './babel-ts-adapter'
 
-export default function babelPluginGenerator(): PluginItem {
+export default function babelPluginLiteRegenerator(): PluginItem {
     return {
-        name: "babel-plugin-generator",
+        name: "babel-plugin-lite-regenerator",
         visitor: {
             Program: {
                 exit(path) {

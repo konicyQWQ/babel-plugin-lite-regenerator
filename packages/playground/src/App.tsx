@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { _awaiter, _generator } from 'babel-plugin-generator-runtime';
+import { _awaiter, _generator } from 'babel-plugin-lite-regenerator-runtime';
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { Subject } from 'rxjs';
 import CodeEditor from "./Editor";
@@ -53,7 +53,7 @@ export function App() {
                     }} />
                 </div>
                 <div className='bg-opacity-60 backdrop-blur-sm text-base lg:text-lg backdrop-filter bg-sky-500 text-white px-5 py-3 shadow rounded-lg w-max lg:w-1/3 '>
-                    <div className="text-2xl lg:text-4xl">Babel Plugin Generator</div>
+                    <div className="text-2xl lg:text-4xl">Babel Plugin Lite Regenerator</div>
                     <div>降级generator语法的Babel插件。</div>
                 </div>
             </div>
@@ -163,10 +163,10 @@ export function App() {
                                     </Dialog.Title>
                                     <div className="mt-3 text-gray-600 space-y-4">
                                         <div>
-                                            Babel Plugin Generator是一个Babel插件，用于将Generator语法降级为可被es5兼容的格式。
+                                            Babel Plugin Lite Regenerator是一个Babel插件，用于将Generator语法降级为可被es5兼容的格式。
                                         </div>
                                         <div>
-                                            <iframe src="https://ghbtns.com/github-btn.html?user=konicyQWQ&repo=babel-plugin-generator&type=star&count=true" frameBorder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
+                                            <iframe src="https://ghbtns.com/github-btn.html?user=konicyQWQ&repo=babel-plugin-lite-regenerator&type=star&count=true" frameBorder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
                                             <div className='mt-1'>
                                                 By <a className='text-blue-600 hover:text-blue-500' target='_blank' href="https://github.com/konicyQWQ" rel="noreferrer">@konicyQWQ</a>
                                             </div>

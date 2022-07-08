@@ -1,13 +1,13 @@
-# Babel Plugin Generator
+# Babel Plugin Lite Regenerator
 
 ## intro
 
-a babel plugin that can transform generator function and async function to state machine(ES5). more detail see [babel-plugin-generator](https://github.com/konicyQWQ/babel-plugin-generator).
+a babel plugin that can transform generator function and async function to state machine(ES5). more detail see [babel-plugin-lite-regenerator](https://github.com/konicyQWQ/babel-plugin-lite-regenerator).
 
 ## install
 
 ```bash
-$ npm install babel-plugin-generator
+$ npm install babel-plugin-lite-regenerator
 ```
 
 ## usage
@@ -25,7 +25,7 @@ require("@babel/core").transformSync(code, {
     // most time need cooperate with this plugin
     "@babel/plugin-transform-block-scoping",
     
-    [require("babel-plugin-generator")]
+    [require("babel-plugin-lite-regenerator")]
   ]
 });
 ```

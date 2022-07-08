@@ -1,7 +1,7 @@
 {
-  "name": "babel-plugin-generator-runtime",
+  "name": "babel-plugin-lite-regenerator-runtime",
   "version": "0.1.2",
-  "description": "runtime function of babel-plugin-generator",
+  "description": "runtime function of babel-plugin-lite-regenerator",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "scripts": {

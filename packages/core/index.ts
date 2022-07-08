@@ -1,5 +1,5 @@
-import babelPluginGenerator from './src/babel-plugin-generator'
+import babelPluginLiteRegenerator from './src/babel-plugin-lite-regenerator'
 
 export {
-  babelPluginGenerator
+  babelPluginLiteRegenerator
 }
