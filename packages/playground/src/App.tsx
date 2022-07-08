@@ -9,7 +9,7 @@ import { TemplateSelector } from './TemplateSelector';
 import { babelTransform, deleteImportTransform } from './transform';
 
 export function App() {
-    const [code, setCode] = useState(defaultCode['normal']);
+    const [code, setCode] = useState(defaultCode['generator']);
     const [codeAfter, setCodeAfter] = useState('');
 
     const [editor$] = useState(new Subject<'format' | 'darkTheme' | 'dayTheme' | 'forceUpdateCode'>());
@@ -62,6 +62,7 @@ export function App() {
                             Function,
                             Array,
                             Symbol,
+                            Object,
                             Date,
                         }
                         setConsole1('');
@@ -91,7 +92,7 @@ export function App() {
                                 }
                             }
                         })
-                        setIsConsoleOpen(true);
+
                     }}
                 >
                     Run
@@ -100,9 +101,9 @@ export function App() {
 
                 <button
                     className=" font-semibold text-white bg-sky-400 hover:bg-sky-500 active:bg-sky-600 transition-all flex justify-center w-20 py-2 shadow-lg  rounded-lg "
-                    onClick={() => { openModal() }}
+                    onClick={() => { setIsConsoleOpen(true) }}
                 >
-                    About
+                    Console
                 </button>
             </div>
             <div className="bg-gray-100 w-screen h-screen grid grid-rows-2 lg:grid-rows-1 lg:grid-cols-2 p-4 gap-4">

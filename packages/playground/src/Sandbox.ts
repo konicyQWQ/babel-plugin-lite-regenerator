@@ -14,7 +14,7 @@ export function evalInSandbox(code: string, env: any) {
             return Reflect.get(target, key, receiver);
         }
     });
-    fn(proxy);
+    return fn(proxy);
 }
 
 export function variableToConsoleText(v: unknown) {
