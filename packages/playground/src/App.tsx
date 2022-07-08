@@ -1,9 +1,20 @@
+<<<<<<< HEAD
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { Subject } from 'rxjs';
 import CodeEditor from "./Editor";
 import { babelTransform } from './transform'
 import { TemplateSelector } from './TemplateSelector';
+=======
+import { Dialog, Transition } from '@headlessui/react';
+import { _awaiter, _generator } from 'babel-plugin-generator-runtime';
+import { Fragment, useCallback, useEffect, useState } from "react";
+import { Subject } from 'rxjs';
+import CodeEditor from "./Editor";
+import { evalInSandbox } from './Sandbox';
+import { TemplateSelector } from './TemplateSelector';
+import { babelTransform, deleteImportTransform } from './transform';
+>>>>>>> c11e3f1 (fix misc)
 
 export const defaultCode: Record<string, string> = {
     normal: `// test
