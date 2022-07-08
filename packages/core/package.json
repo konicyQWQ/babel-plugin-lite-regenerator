@@ -1,11 +1,11 @@
 {
-  "name": "babel-plugin-generator",
+  "name": "babel-plugin-lite-regenerator",
   "version": "0.1.9",
-  "description": "a babel plugin that can transform generator function to state machine, which is a ported version of typescript generator transform",
-  "main": "dist/babel-plugin-generator.cjs.js",
-  "module": "dist/babel-plugin-generator.es.js",
+  "description": "a babel plugin that can transform generator function to state machine with a smaller helper function, which is a ported version of typescript generator transform",
+  "main": "dist/babel-plugin-lite-regenerator.cjs.js",
+  "module": "dist/babel-plugin-lite-regenerator.es.js",
   "repository": {
-    "url": "https://github.com/konicyQWQ/babel-plugin-generator"
+    "url": "https://github.com/konicyQWQ/babel-plugin-lite-regenerator"
   },
   "scripts": {
     "build": "rm -rf ./dist && rollup --config"
@@ -30,7 +30,7 @@
     "@babel/plugin-transform-parameters": "^7.18.6",
     "@babel/plugin-transform-spread": "^7.18.6",
     "@rollup/plugin-typescript": "^8.3.3",
-    "babel-plugin-generator-runtime": "workspace:^0.1.1",
+    "babel-plugin-lite-regenerator-runtime": "workspace:^0.1.1",
     "rollup": "^2.75.7",
     "rollup-plugin-babel": "^4.4.0",
     "ts-node": "^10.8.1",

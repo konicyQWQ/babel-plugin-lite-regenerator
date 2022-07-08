@@ -1,3 +1,3 @@
 ## intro
 
-Helper function of babel-plugin-generator. More detail see [babel-plugin-generator](https://github.com/konicyQWQ/babel-plugin-generator).
+Helper function of babel-plugin-lite-regenerator. More detail see [babel-plugin-lite-regenerator](https://github.com/konicyQWQ/babel-plugin-lite-regenerator).

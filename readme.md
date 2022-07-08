@@ -1,4 +1,4 @@
-# Babel Plugin Generator
+# Babel Plugin Lite Regenerator
 
 ## intro
 
@@ -13,12 +13,12 @@ Babel uses `regenerator-transform` whose helper function is about **6.6kB**, but
 
 ## playground
 
-[babel-plugin-generator-playground](https://konicyqwq.github.io/babel-plugin-generator/)
+[babel-plugin-lite-regenerator-playground](https://konicyqwq.github.io/babel-plugin-lite-regenerator/)
 
 ## install
 
 ```bash
-$ npm install babel-plugin-generator
+$ npm install babel-plugin-lite-regenerator
 ```
 
 ## usage
@@ -36,7 +36,7 @@ require("@babel/core").transformSync(code, {
     // most time need cooperate with this plugin
     "@babel/plugin-transform-block-scoping",
     
-    require("babel-plugin-generator")
+    require("babel-plugin-lite-regenerator")
   ]
 });
 ```

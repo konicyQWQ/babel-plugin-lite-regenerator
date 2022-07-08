@@ -1,6 +1,6 @@
-import { babelPluginGenerator } from 'babel-plugin-generator';
+import { babelPluginLiteRegenerator } from 'babel-plugin-lite-regenerator';
 import { transformSync, PluginItem } from '@babel/core';
-import { _awaiter, _generator, _values } from 'babel-plugin-generator-runtime'
+import { _awaiter, _generator, _values } from 'babel-plugin-lite-regenerator-runtime'
 
 interface Config {
     import: boolean;
@@ -32,7 +32,7 @@ export function babelTransform(code: string, config: Config): string {
         '@babel/plugin-transform-classes',
         "@babel/plugin-transform-for-of",
         "@babel/plugin-transform-block-scoping",
-        babelPluginGenerator
+        babelPluginLiteRegenerator
     ];
     if (!config.import)
         plugins.push(deleteImportPlugin);

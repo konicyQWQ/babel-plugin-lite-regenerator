@@ -5,7 +5,7 @@ import type { Expression, Identifier, FunctionExpression, BlockStatement } from 
 import * as factory from '@babel/types'
 import { addNamed } from '@babel/helper-module-imports'
 
-const runtimePkg = 'babel-plugin-generator-runtime';
+const runtimePkg = 'babel-plugin-lite-regenerator-runtime';
 
 export function createVoid0() {
     return factory.unaryExpression('void', factory.numericLiteral(0));

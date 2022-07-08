@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { _awaiter, _generator, _values } from 'babel-plugin-generator-runtime'
+import { _awaiter, _generator, _values } from 'babel-plugin-lite-regenerator-runtime'
 import { babelTransform } from '../utils'
 
 function convert(file: string, output: string) {
