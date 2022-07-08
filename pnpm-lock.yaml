@@ -130,6 +130,8 @@ importers:
       '@babel/standalone': 7.18.7
       '@craco/craco': 7.0.0-alpha.7_olupy746d62cvcikontm46k4va
       '@headlessui/react': 1.6.6_biqbaboplfbrettd7655fr4n2y
+      '@craco/craco': 7.0.0-alpha.7_72e8fc7f9e1fb42a890a7366ce795ca8
+      '@headlessui/react': 1.6.5_react-dom@18.2.0+react@18.2.0
       '@testing-library/jest-dom': 5.16.4
       '@testing-library/react': 13.3.0_react-dom@18.2.0+react@18.2.0
       '@testing-library/user-event': 13.5.0
@@ -1629,8 +1631,18 @@ packages:
       - supports-color
     dev: false
 
+<<<<<<< HEAD
   /@headlessui/react/1.6.6_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-MFJtmj9Xh/hhBMhLccGbBoSk+sk61BlP6sJe4uQcVMtXZhCgGqd2GyIQzzmsdPdTEWGSF434CBi8mnhR6um46Q==}
+=======
+<<<<<<< HEAD
+  /@headlessui/react/1.6.5_react-dom@18.2.0+react@18.2.0:
+    resolution: {integrity: sha512-3VkKteDxlxf3fE0KbfO9t60KC1lM7YNpZggLpwzVNg1J/zwL+h+4N7MBlFDVpInZI3rKlZGpNx0PWsG/9c2vQg==}
+=======
+  /@headlessui/react/1.6.6_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-MFJtmj9Xh/hhBMhLccGbBoSk+sk61BlP6sJe4uQcVMtXZhCgGqd2GyIQzzmsdPdTEWGSF434CBi8mnhR6um46Q==}
+>>>>>>> 36b5625 (update lock file)
+>>>>>>> fba7e66 (update lock file)
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16 || ^17 || ^18
