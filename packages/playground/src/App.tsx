@@ -4,30 +4,9 @@ import { Fragment, useCallback, useEffect, useState } from "react";
 import { Subject } from 'rxjs';
 import CodeEditor from "./Editor";
 import { evalInSandbox, variableToConsoleText } from './Sandbox';
+import { defaultCode } from './template';
 import { TemplateSelector } from './TemplateSelector';
 import { babelTransform, deleteImportTransform } from './transform';
-
-export const defaultCode: Record<string, string> = {
-    normal: `// test
-function* foo(){
-    console.log('Hello generator!');
-}
-foo().next();
-`,
-    normal2: `// test
-function* foo(){
-    console.log('Hello generator2!');
-}`,
-    normal3: `// test
-function* foo(){
-    console.log('Hello generator3!');
-}`,
-    normal4: `// test
-function* foo(){
-    console.log('Hello generator4!');
-}`,
-
-}
 
 export function App() {
     const [code, setCode] = useState(defaultCode['normal']);
@@ -85,7 +64,8 @@ export function App() {
                             Symbol,
                             Date,
                         }
-
+                        setConsole1('');
+                        setConsole2('');
                         console.log('######## Start a new session')
                         console.log('<<<<<<<< Left')
                         evalInSandbox(code, {

@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import { defaultCode } from './App'
+import { defaultCode } from './template'
 
 export function TemplateSelector({ onSelect }: { onSelect(name: string): void }
 ) {
