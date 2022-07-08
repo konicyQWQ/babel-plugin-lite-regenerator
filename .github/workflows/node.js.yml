@@ -1,0 +1,39 @@
+name: Github Pages CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2.2.2
+      with:
+        version: 6.x
+    
+    - run: pnpm install
+    - run: pnpm run build --if-present
+    
+    - name: GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v3.0.0
+      with:
+        keep_history: true
+        allow_empty_commit: false
+        target_branch: gh-pages
+        build_dir: docs

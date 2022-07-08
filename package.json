@@ -6,7 +6,12 @@
     "url": "https://github.com/konicyQWQ/babel-plugin-generator"
   },
   "scripts": {
-    "test": "ts-node ./test/regenerator/run.ts && jest"
+    "test": "ts-node ./test/regenerator/run.ts && jest",
+    "core:build": "cd packages/core && npm run build",
+    "runtime:build": "cd packages/runtime && npm run build",
+    "docs:build": "cd packages/playground && npm run build",
+    "build": "npm run core:build && npm run runtime:build && npm run docs:build",
+    "dev": "cd packages/playground && npm run start"
   },
   "keywords": [
     "babel-plugin",
