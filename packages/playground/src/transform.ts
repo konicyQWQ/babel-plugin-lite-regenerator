@@ -46,3 +46,23 @@ export function babelTransform(code: string): string {
         return code;
     }
 }
+
+export function deleteImportTransform(code: string): string {
+
+    try {
+        const res = transform(code, {
+            parserOpts: {
+                strictMode: false
+            },
+            presets: [],
+            plugins: [
+                deleteImportPlugin
+            ].filter(Boolean),
+        })!;
+
+        return res.code;
+    } catch (e) {
+        console.log(e);
+        return code;
+    }
+}
