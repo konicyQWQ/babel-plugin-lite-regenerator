@@ -11,7 +11,8 @@
     "runtime:build": "cd packages/runtime && npm run build",
     "docs:build": "cd packages/playground && npm run build",
     "build": "npm run core:build && npm run runtime:build && npm run docs:build",
-    "dev": "cd packages/playground && npm run start"
+    "dev": "cd packages/playground && npm run start",
+    "ci": "rm -rf **/node_modules && pnpm install"
   },
   "keywords": [
     "babel-plugin",

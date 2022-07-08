@@ -1,7 +1,6 @@
 //@ts-nocheck
 import { babelPluginGenerator } from 'babel-plugin-generator';
 import { transform } from '@babel/standalone';
-import { __awaiter, __generator } from 'babel-plugin-generator-runtime'
 
 function deleteImportPlugin() {
     return {
