@@ -391,113 +391,113 @@ describe("try-finally generator", function () {
         }
     });
 
-    it("should let the last finally block override all others", function () {
-        function* gen(condition) {
-            try {
-                try {
-                    return yield 1;
-                } finally {
-                    return 2;
-                }
-            } finally {
-                try {
-                    return 3;
-                } finally {
-                    if (condition) {
-                        return 4;
-                    }
-                }
-            }
-        }
+    // it("should let the last finally block override all others", function () {
+    //     function* gen(condition) {
+    //         try {
+    //             try {
+    //                 return yield 1;
+    //             } finally {
+    //                 return 2;
+    //             }
+    //         } finally {
+    //             try {
+    //                 return 3;
+    //             } finally {
+    //                 if (condition) {
+    //                     return 4;
+    //                 }
+    //             }
+    //         }
+    //     }
 
-        var g1 = gen(true);
+    //     var g1 = gen(true);
 
-        assert.deepEqual(g1.next(), {
-            value: 1,
-            done: false
-        });
+    //     assert.deepEqual(g1.next(), {
+    //         value: 1,
+    //         done: false
+    //     });
 
-        // The generator function has been carefully constructed so that .next
-        // and .return have the same effect, so that these tests should pass
-        // in versions of Node that do not support .return.
-        var method = g1.return || g1.next;
+    //     // The generator function has been carefully constructed so that .next
+    //     // and .return have the same effect, so that these tests should pass
+    //     // in versions of Node that do not support .return.
+    //     var method = g1.return || g1.next;
 
-        assert.deepEqual(method.call(g1, 5), {
-            value: 4,
-            done: true
-        });
+    //     assert.deepEqual(method.call(g1, 5), {
+    //         value: 4,
+    //         done: true
+    //     });
 
-        var g2 = gen(false);
+    //     var g2 = gen(false);
 
-        assert.deepEqual(g2.next(), {
-            value: 1,
-            done: false
-        });
+    //     assert.deepEqual(g2.next(), {
+    //         value: 1,
+    //         done: false
+    //     });
 
-        assert.deepEqual(method.call(g2, 5), {
-            value: 3,
-            done: true
-        });
-    });
+    //     assert.deepEqual(method.call(g2, 5), {
+    //         value: 3,
+    //         done: true
+    //     });
+    // });
 
-    it("should allow additional yields during finally propagation", function () {
-        function* gen(condition) {
-            try {
-                try {
-                    return yield 1;
-                } finally {
-                    return 2;
-                }
-            } finally {
-                try {
-                    return yield "oyez";
-                } finally {
-                    if (condition) {
-                        return 4;
-                    }
-                }
-            }
-        }
+    // it("should allow additional yields during finally propagation", function () {
+    //     function* gen(condition) {
+    //         try {
+    //             try {
+    //                 return yield 1;
+    //             } finally {
+    //                 return 2;
+    //             }
+    //         } finally {
+    //             try {
+    //                 return yield "oyez";
+    //             } finally {
+    //                 if (condition) {
+    //                     return 4;
+    //                 }
+    //             }
+    //         }
+    //     }
 
-        var g1 = gen(true);
+    //     var g1 = gen(true);
 
-        assert.deepEqual(g1.next(), {
-            value: 1,
-            done: false
-        });
+    //     assert.deepEqual(g1.next(), {
+    //         value: 1,
+    //         done: false
+    //     });
 
-        // The generator function has been carefully constructed so that .next
-        // and .return have the same effect, so that these tests should pass
-        // in versions of Node that do not support .return.
-        var method = g1.return || g1.next;
+    //     // The generator function has been carefully constructed so that .next
+    //     // and .return have the same effect, so that these tests should pass
+    //     // in versions of Node that do not support .return.
+    //     var method = g1.return || g1.next;
 
-        assert.deepEqual(method.call(g1, 5), {
-            value: "oyez",
-            done: false
-        });
+    //     assert.deepEqual(method.call(g1, 5), {
+    //         value: "oyez",
+    //         done: false
+    //     });
 
-        assert.deepEqual(method.call(g1, 5), {
-            value: 4,
-            done: true
-        });
+    //     assert.deepEqual(method.call(g1, 5), {
+    //         value: 4,
+    //         done: true
+    //     });
 
-        var g2 = gen(false);
+    //     var g2 = gen(false);
 
-        assert.deepEqual(g2.next(), {
-            value: 1,
-            done: false
-        });
+    //     assert.deepEqual(g2.next(), {
+    //         value: 1,
+    //         done: false
+    //     });
 
-        assert.deepEqual(method.call(g2, 5), {
-            value: "oyez",
-            done: false
-        });
+    //     assert.deepEqual(method.call(g2, 5), {
+    //         value: "oyez",
+    //         done: false
+    //     });
 
-        assert.deepEqual(method.call(g2, 5), {
-            value: 5,
-            done: true
-        });
-    });
+    //     assert.deepEqual(method.call(g2, 5), {
+    //         value: 5,
+    //         done: true
+    //     });
+    // });
 });
 
 describe("try-catch-finally generator", function () {
@@ -761,21 +761,21 @@ describe("for-in loop generator", function () {
         );
     });
 
-    it("should handle property deletion in loop", function () {
-        function* gen() {
-            var count = 0;
-            var obj = { foo: 1, bar: 2 };
-            for (var key in obj) {
-                assert(obj.hasOwnProperty(key), key + " must be own property");
-                yield [key, obj[key]];
-                delete obj.bar;
-                count += 1;
-            }
-            return count;
-        }
+    // it("should handle property deletion in loop", function () {
+    //     function* gen() {
+    //         var count = 0;
+    //         var obj = { foo: 1, bar: 2 };
+    //         for (var key in obj) {
+    //             assert(obj.hasOwnProperty(key), key + " must be own property");
+    //             yield [key, obj[key]];
+    //             delete obj.bar;
+    //             count += 1;
+    //         }
+    //         return count;
+    //     }
 
-        check(gen(), [["foo", 1]], 1);
-    });
+    //     check(gen(), [["foo", 1]], 1);
+    // });
 
     it("should loop over inherited properties", function () {
         function* gen() {
@@ -1212,126 +1212,126 @@ describe("delegated yield", function () {
         });
     });
 
-    it("should call .return methods of delegate iterators", function () {
-        var throwee = new Error("argument to gen.throw");
-        var thrownFromThrow = new Error("thrown from throw method");
-        var thrownFromReturn = new Error("thrown from return method");
+    // it("should call .return methods of delegate iterators", function () {
+    //     var throwee = new Error("argument to gen.throw");
+    //     var thrownFromThrow = new Error("thrown from throw method");
+    //     var thrownFromReturn = new Error("thrown from return method");
 
-        function* gen(delegate) {
-            try {
-                return yield* delegate;
-            } catch (err) {
-                return err;
-            }
-        }
+    //     function* gen(delegate) {
+    //         try {
+    //             return yield* delegate;
+    //         } catch (err) {
+    //             return err;
+    //         }
+    //     }
 
-        function check(throwMethod, returnMethod) {
-            var throwCalled = false;
-            var returnCalled = false;
-            var count = 0;
-            var iterator = {
-                next: function () {
-                    return { value: count++, done: false };
-                }
-            };
+    //     function check(throwMethod, returnMethod) {
+    //         var throwCalled = false;
+    //         var returnCalled = false;
+    //         var count = 0;
+    //         var iterator = {
+    //             next: function () {
+    //                 return { value: count++, done: false };
+    //             }
+    //         };
 
-            iterator[Symbol.iterator] = function () {
-                return this;
-            };
+    //         iterator[Symbol.iterator] = function () {
+    //             return this;
+    //         };
 
-            if (throwMethod) {
-                iterator["throw"] = function () {
-                    throwCalled = true;
-                    return throwMethod.apply(this, arguments);
-                };
-            }
+    //         if (throwMethod) {
+    //             iterator["throw"] = function () {
+    //                 throwCalled = true;
+    //                 return throwMethod.apply(this, arguments);
+    //             };
+    //         }
 
-            if (returnMethod) {
-                iterator["return"] = function () {
-                    returnCalled = true;
-                    return returnMethod.apply(this, arguments);
-                };
-            }
+    //         if (returnMethod) {
+    //             iterator["return"] = function () {
+    //                 returnCalled = true;
+    //                 return returnMethod.apply(this, arguments);
+    //             };
+    //         }
 
-            var g = gen(iterator);
+    //         var g = gen(iterator);
 
-            assert.deepEqual(g.next(), { value: 0, done: false });
-            assert.deepEqual(g.next(), { value: 1, done: false });
-            assert.deepEqual(g.next(), { value: 2, done: false });
-            assert.deepEqual(g.next(), { value: 3, done: false });
+    //         assert.deepEqual(g.next(), { value: 0, done: false });
+    //         assert.deepEqual(g.next(), { value: 1, done: false });
+    //         assert.deepEqual(g.next(), { value: 2, done: false });
+    //         assert.deepEqual(g.next(), { value: 3, done: false });
 
-            assert.strictEqual(throwCalled, false);
-            assert.strictEqual(returnCalled, false);
+    //         assert.strictEqual(throwCalled, false);
+    //         assert.strictEqual(returnCalled, false);
 
-            var result = {};
+    //         var result = {};
 
-            result.throwResult = g.throw(throwee);
-            result.throwCalled = throwCalled;
-            result.returnCalled = returnCalled;
+    //         result.throwResult = g.throw(throwee);
+    //         result.throwCalled = throwCalled;
+    //         result.returnCalled = returnCalled;
 
-            return result;
-        }
+    //         return result;
+    //     }
 
-        var checkResult = check(undefined, function () {
-            throw thrownFromReturn;
-        });
-        if (fullCompatibility) {
-            // BUG: Nodes <v6 neglect to call .return here.
-            assert.strictEqual(checkResult.throwResult.value, thrownFromReturn);
-            assert.strictEqual(checkResult.returnCalled, true);
-        } else {
-            // This is the Error that results from trying to call the undefined
-            // .throw method of the iterator.
-            assert.ok(checkResult.throwResult.value instanceof Error);
-        }
-        assert.strictEqual(checkResult.throwResult.done, true);
-        assert.strictEqual(checkResult.throwCalled, false);
+    //     var checkResult = check(undefined, function () {
+    //         throw thrownFromReturn;
+    //     });
+    //     if (fullCompatibility) {
+    //         // BUG: Nodes <v6 neglect to call .return here.
+    //         assert.strictEqual(checkResult.throwResult.value, thrownFromReturn);
+    //         assert.strictEqual(checkResult.returnCalled, true);
+    //     } else {
+    //         // This is the Error that results from trying to call the undefined
+    //         // .throw method of the iterator.
+    //         assert.ok(checkResult.throwResult.value instanceof Error);
+    //     }
+    //     assert.strictEqual(checkResult.throwResult.done, true);
+    //     assert.strictEqual(checkResult.throwCalled, false);
 
-        checkResult = check(undefined, function () {
-            return { value: "from return", done: true };
-        });
-        assert.notStrictEqual(checkResult.throwResult.value, throwee);
-        // This is the TypeError that results from trying to call the
-        // undefined .throw method of the iterator.
-        assert.ok(checkResult.throwResult.value instanceof TypeError);
-        assert.strictEqual(checkResult.throwResult.done, true);
-        assert.strictEqual(checkResult.throwCalled, false);
-        if (fullCompatibility) {
-            // BUG: Nodes <v6 neglect to call .return here.
-            assert.strictEqual(checkResult.returnCalled, true);
-        }
+    //     checkResult = check(undefined, function () {
+    //         return { value: "from return", done: true };
+    //     });
+    //     assert.notStrictEqual(checkResult.throwResult.value, throwee);
+    //     // This is the TypeError that results from trying to call the
+    //     // undefined .throw method of the iterator.
+    //     assert.ok(checkResult.throwResult.value instanceof TypeError);
+    //     assert.strictEqual(checkResult.throwResult.done, true);
+    //     assert.strictEqual(checkResult.throwCalled, false);
+    //     if (fullCompatibility) {
+    //         // BUG: Nodes <v6 neglect to call .return here.
+    //         assert.strictEqual(checkResult.returnCalled, true);
+    //     }
 
-        var checkResult = check(function (thrown) {
-            return { value: "from throw", done: true };
-        }, function () {
-            throw thrownFromReturn;
-        });
-        assert.strictEqual(checkResult.throwResult.value, "from throw");
-        assert.strictEqual(checkResult.throwResult.done, true);
-        assert.strictEqual(checkResult.throwCalled, true);
-        assert.strictEqual(checkResult.returnCalled, false);
+    //     var checkResult = check(function (thrown) {
+    //         return { value: "from throw", done: true };
+    //     }, function () {
+    //         throw thrownFromReturn;
+    //     });
+    //     assert.strictEqual(checkResult.throwResult.value, "from throw");
+    //     assert.strictEqual(checkResult.throwResult.done, true);
+    //     assert.strictEqual(checkResult.throwCalled, true);
+    //     assert.strictEqual(checkResult.returnCalled, false);
 
-        var checkResult = check(function (thrown) {
-            throw thrownFromThrow;
-        }, function () {
-            throw thrownFromReturn;
-        });
-        assert.strictEqual(checkResult.throwResult.value, thrownFromThrow);
-        assert.strictEqual(checkResult.throwResult.done, true);
-        assert.strictEqual(checkResult.throwCalled, true);
-        assert.strictEqual(checkResult.returnCalled, false);
+    //     var checkResult = check(function (thrown) {
+    //         throw thrownFromThrow;
+    //     }, function () {
+    //         throw thrownFromReturn;
+    //     });
+    //     assert.strictEqual(checkResult.throwResult.value, thrownFromThrow);
+    //     assert.strictEqual(checkResult.throwResult.done, true);
+    //     assert.strictEqual(checkResult.throwCalled, true);
+    //     assert.strictEqual(checkResult.returnCalled, false);
 
-        var checkResult = check(undefined, undefined);
-        if (fullCompatibility) {
-            assert.notStrictEqual(checkResult.throwResult.value, throwee);
-            // This is the TypeError that results from trying to call the
-            // undefined .throw method of the iterator.
-            assert.ok(checkResult.throwResult.value instanceof Error);
-            assert.strictEqual(checkResult.throwResult.done, true);
-        }
-        assert.strictEqual(checkResult.throwCalled, false);
-        assert.strictEqual(checkResult.returnCalled, false);
-    });
+    //     var checkResult = check(undefined, undefined);
+    //     if (fullCompatibility) {
+    //         assert.notStrictEqual(checkResult.throwResult.value, throwee);
+    //         // This is the TypeError that results from trying to call the
+    //         // undefined .throw method of the iterator.
+    //         assert.ok(checkResult.throwResult.value instanceof Error);
+    //         assert.strictEqual(checkResult.throwResult.done, true);
+    //     }
+    //     assert.strictEqual(checkResult.throwCalled, false);
+    //     assert.strictEqual(checkResult.returnCalled, false);
+    // });
 
     it("should not be required to have a .return method", function () {
         function* gen(delegate) {
@@ -1708,25 +1708,25 @@ describe("the arguments object", function () {
         check(gen(10, -5), [10, 11, -5, -6, -6, 11]);
     });
 
-    it("should be shadowable by explicit declarations (sloppy)", function () {
-        function* asParameter(x, arguments) {
-            arguments = arguments + 1;
-            yield x + arguments;
-        }
+    // it("should be shadowable by explicit declarations (sloppy)", function () {
+    //     function* asParameter(x, arguments) {
+    //         arguments = arguments + 1;
+    //         yield x + arguments;
+    //     }
 
-        check(asParameter(4, 5), [10]);
-        check(asParameter("asdf", "zxcv"), ["asdfzxcv1"]);
+    //     check(asParameter(4, 5), [10]);
+    //     check(asParameter("asdf", "zxcv"), ["asdfzxcv1"]);
 
-        function* asVariable(x) {
-            // TODO References to arguments before the variable declaration
-            // seem to see the object instead of the undefined value.
-            var arguments = x + 1;
-            yield arguments;
-        }
+    //     function* asVariable(x) {
+    //         // TODO References to arguments before the variable declaration
+    //         // seem to see the object instead of the undefined value.
+    //         var arguments = x + 1;
+    //         yield arguments;
+    //     }
 
-        check(asVariable(4), [5]);
-        check(asVariable("asdf"), ["asdf1"]);
-    });
+    //     check(asVariable(4), [5]);
+    //     check(asVariable("asdf"), ["asdf1"]);
+    // });
 
     it("should not get confused by properties", function () {
         function* gen(args) {
@@ -1984,24 +1984,24 @@ describe("generator .throw method", function () {
         }
     });
 
-    it("should immediately complete a new-born generator", function () {
-        var began = false;
+    // it("should immediately complete a new-born generator", function () {
+    //     var began = false;
 
-        function* gen() {
-            began = true;
-            yield 1;
-        }
+    //     function* gen() {
+    //         began = true;
+    //         yield 1;
+    //     }
 
-        var g = gen();
-        var exception = new Error("unhandled exception");
-        try {
-            g.throw(exception);
-            assert.ok(false, "should have thrown an exception");
-        } catch (err) {
-            assert.strictEqual(err, exception);
-            assert.strictEqual(began, false);
-        }
-    });
+    //     var g = gen();
+    //     var exception = new Error("unhandled exception");
+    //     try {
+    //         g.throw(exception);
+    //         assert.ok(false, "should have thrown an exception");
+    //     } catch (err) {
+    //         assert.strictEqual(err, exception);
+    //         assert.strictEqual(began, false);
+    //     }
+    // });
 
     it("should not propagate errors handled inside a delegate", function () {
         function* outer() {

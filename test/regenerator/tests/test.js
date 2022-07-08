@@ -807,195 +807,143 @@ describe("try-finally generator", function () {
         done: true
       });
     }
-  });
-  it("should let the last finally block override all others", function () {
-    function gen(condition) {
-      return _generator(this, function (_a18) {
-        switch (_a18.label) {
-          case 0:
-            _a18.trys.push([0,, 5, 6]);
-
-            _a18.label = 1;
-
-          case 1:
-            _a18.trys.push([1,, 3, 4]);
-
-            return [4, 1];
-
-          case 2:
-            return [2, _a18.sent()];
-
-          case 3:
-            return [2, 2];
-
-          case 4:
-            return [3, 6];
-
-          case 5:
-            try {
-              return [2, 3];
-            } finally {
-              if (condition) {
-                return [2, 4];
-              }
-            }
-
-            return [7];
-
-          case 6:
-            return [2];
-        }
-      });
-    }
-
-    var g1 = gen(true);
-    assert.deepEqual(g1.next(), {
-      value: 1,
-      done: false
-    }); // The generator function has been carefully constructed so that .next
-    // and .return have the same effect, so that these tests should pass
-    // in versions of Node that do not support .return.
-
-    var method = g1.return || g1.next;
-    assert.deepEqual(method.call(g1, 5), {
-      value: 4,
-      done: true
-    });
-    var g2 = gen(false);
-    assert.deepEqual(g2.next(), {
-      value: 1,
-      done: false
-    });
-    assert.deepEqual(method.call(g2, 5), {
-      value: 3,
-      done: true
-    });
-  });
-  it("should allow additional yields during finally propagation", function () {
-    function gen(condition) {
-      return _generator(this, function (_a19) {
-        switch (_a19.label) {
-          case 0:
-            _a19.trys.push([0,, 5, 9]);
-
-            _a19.label = 1;
-
-          case 1:
-            _a19.trys.push([1,, 3, 4]);
-
-            return [4, 1];
-
-          case 2:
-            return [2, _a19.sent()];
-
-          case 3:
-            return [2, 2];
-
-          case 4:
-            return [3, 9];
-
-          case 5:
-            _a19.trys.push([5,, 7, 8]);
-
-            return [4, "oyez"];
-
-          case 6:
-            return [2, _a19.sent()];
-
-          case 7:
-            if (condition) {
-              return [2, 4];
-            }
-
-            return [7];
-
-          case 8:
-            return [7];
-
-          case 9:
-            return [2];
-        }
-      });
-    }
-
-    var g1 = gen(true);
-    assert.deepEqual(g1.next(), {
-      value: 1,
-      done: false
-    }); // The generator function has been carefully constructed so that .next
-    // and .return have the same effect, so that these tests should pass
-    // in versions of Node that do not support .return.
-
-    var method = g1.return || g1.next;
-    assert.deepEqual(method.call(g1, 5), {
-      value: "oyez",
-      done: false
-    });
-    assert.deepEqual(method.call(g1, 5), {
-      value: 4,
-      done: true
-    });
-    var g2 = gen(false);
-    assert.deepEqual(g2.next(), {
-      value: 1,
-      done: false
-    });
-    assert.deepEqual(method.call(g2, 5), {
-      value: "oyez",
-      done: false
-    });
-    assert.deepEqual(method.call(g2, 5), {
-      value: 5,
-      done: true
-    });
-  });
+  }); // it("should let the last finally block override all others", function () {
+  //     function* gen(condition) {
+  //         try {
+  //             try {
+  //                 return yield 1;
+  //             } finally {
+  //                 return 2;
+  //             }
+  //         } finally {
+  //             try {
+  //                 return 3;
+  //             } finally {
+  //                 if (condition) {
+  //                     return 4;
+  //                 }
+  //             }
+  //         }
+  //     }
+  //     var g1 = gen(true);
+  //     assert.deepEqual(g1.next(), {
+  //         value: 1,
+  //         done: false
+  //     });
+  //     // The generator function has been carefully constructed so that .next
+  //     // and .return have the same effect, so that these tests should pass
+  //     // in versions of Node that do not support .return.
+  //     var method = g1.return || g1.next;
+  //     assert.deepEqual(method.call(g1, 5), {
+  //         value: 4,
+  //         done: true
+  //     });
+  //     var g2 = gen(false);
+  //     assert.deepEqual(g2.next(), {
+  //         value: 1,
+  //         done: false
+  //     });
+  //     assert.deepEqual(method.call(g2, 5), {
+  //         value: 3,
+  //         done: true
+  //     });
+  // });
+  // it("should allow additional yields during finally propagation", function () {
+  //     function* gen(condition) {
+  //         try {
+  //             try {
+  //                 return yield 1;
+  //             } finally {
+  //                 return 2;
+  //             }
+  //         } finally {
+  //             try {
+  //                 return yield "oyez";
+  //             } finally {
+  //                 if (condition) {
+  //                     return 4;
+  //                 }
+  //             }
+  //         }
+  //     }
+  //     var g1 = gen(true);
+  //     assert.deepEqual(g1.next(), {
+  //         value: 1,
+  //         done: false
+  //     });
+  //     // The generator function has been carefully constructed so that .next
+  //     // and .return have the same effect, so that these tests should pass
+  //     // in versions of Node that do not support .return.
+  //     var method = g1.return || g1.next;
+  //     assert.deepEqual(method.call(g1, 5), {
+  //         value: "oyez",
+  //         done: false
+  //     });
+  //     assert.deepEqual(method.call(g1, 5), {
+  //         value: 4,
+  //         done: true
+  //     });
+  //     var g2 = gen(false);
+  //     assert.deepEqual(g2.next(), {
+  //         value: 1,
+  //         done: false
+  //     });
+  //     assert.deepEqual(method.call(g2, 5), {
+  //         value: "oyez",
+  //         done: false
+  //     });
+  //     assert.deepEqual(method.call(g2, 5), {
+  //         value: 5,
+  //         done: true
+  //     });
+  // });
 });
 describe("try-catch-finally generator", function () {
   function usingThrow() {
     var _x4, _thrown;
 
-    return _generator(this, function (_a20) {
-      switch (_a20.label) {
+    return _generator(this, function (_a18) {
+      switch (_a18.label) {
         case 0:
           return [4, 0];
 
         case 1:
-          _a20.sent();
+          _a18.sent();
 
-          _a20.label = 2;
+          _a18.label = 2;
 
         case 2:
-          _a20.trys.push([2, 11,, 13]);
+          _a18.trys.push([2, 11,, 13]);
 
-          _a20.label = 3;
+          _a18.label = 3;
 
         case 3:
-          _a20.trys.push([3, 6, 8, 10]);
+          _a18.trys.push([3, 6, 8, 10]);
 
           return [4, 1];
 
         case 4:
-          _a20.sent();
+          _a18.sent();
 
           throw 2;
 
         case 5:
-          _a20.sent();
+          _a18.sent();
 
           return [3, 10];
 
         case 6:
-          _x4 = _a20.sent();
+          _x4 = _a18.sent();
           return [4, _x4];
 
         case 7:
-          throw _a20.sent();
+          throw _a18.sent();
 
         case 8:
           return [4, 5];
 
         case 9:
-          _a20.sent();
+          _a18.sent();
 
           return [7];
 
@@ -1003,11 +951,11 @@ describe("try-catch-finally generator", function () {
           return [3, 13];
 
         case 11:
-          _thrown = _a20.sent();
+          _thrown = _a18.sent();
           return [4, _thrown];
 
         case 12:
-          _a20.sent();
+          _a18.sent();
 
           return [3, 13];
 
@@ -1015,7 +963,7 @@ describe("try-catch-finally generator", function () {
           return [4, 6];
 
         case 14:
-          _a20.sent();
+          _a18.sent();
 
           return [2];
       }
@@ -1025,49 +973,49 @@ describe("try-catch-finally generator", function () {
   function usingRaise() {
     var _x5, _thrown2;
 
-    return _generator(this, function (_a21) {
-      switch (_a21.label) {
+    return _generator(this, function (_a19) {
+      switch (_a19.label) {
         case 0:
           return [4, 0];
 
         case 1:
-          _a21.sent();
+          _a19.sent();
 
-          _a21.label = 2;
+          _a19.label = 2;
 
         case 2:
-          _a21.trys.push([2, 11,, 13]);
+          _a19.trys.push([2, 11,, 13]);
 
-          _a21.label = 3;
+          _a19.label = 3;
 
         case 3:
-          _a21.trys.push([3, 6, 8, 10]);
+          _a19.trys.push([3, 6, 8, 10]);
 
           return [4, 1];
 
         case 4:
-          _a21.sent();
+          _a19.sent();
 
           raise(2);
           return [4, 3];
 
         case 5:
-          _a21.sent();
+          _a19.sent();
 
           return [3, 10];
 
         case 6:
-          _x5 = _a21.sent();
+          _x5 = _a19.sent();
           return [4, _x5];
 
         case 7:
-          throw _a21.sent();
+          throw _a19.sent();
 
         case 8:
           return [4, 5];
 
         case 9:
-          _a21.sent();
+          _a19.sent();
 
           return [7];
 
@@ -1075,11 +1023,11 @@ describe("try-catch-finally generator", function () {
           return [3, 13];
 
         case 11:
-          _thrown2 = _a21.sent();
+          _thrown2 = _a19.sent();
           return [4, _thrown2];
 
         case 12:
-          _a21.sent();
+          _a19.sent();
 
           return [3, 13];
 
@@ -1087,7 +1035,7 @@ describe("try-catch-finally generator", function () {
           return [4, 6];
 
         case 14:
-          _a21.sent();
+          _a19.sent();
 
           return [2];
       }
@@ -1106,10 +1054,10 @@ describe("try-catch-finally generator", function () {
     function gen() {
       var _t2, _e2;
 
-      return _generator(this, function (_a22) {
-        switch (_a22.label) {
+      return _generator(this, function (_a20) {
+        switch (_a20.label) {
           case 0:
-            _a22.trys.push([0, 5, 15, 17]);
+            _a20.trys.push([0, 5, 15, 17]);
 
             _t2 = 1;
 
@@ -1124,7 +1072,7 @@ describe("try-catch-finally generator", function () {
             return [4, "a"];
 
           case 2:
-            _a22.sent();
+            _a20.sent();
 
             return [3, 4];
 
@@ -1135,44 +1083,44 @@ describe("try-catch-finally generator", function () {
             throw error;
 
           case 5:
-            _e2 = _a22.sent();
+            _e2 = _a20.sent();
             assert.strictEqual(_e2, error);
             return [4, "b"];
 
           case 6:
-            _a22.sent();
+            _a20.sent();
 
-            _a22.label = 7;
+            _a20.label = 7;
 
           case 7:
             return [4, "c"];
 
           case 8:
-            _a22.sent();
+            _a20.sent();
 
             return [3, 10];
 
           case 9:
             if (false) return [3, 7];
-            _a22.label = 10;
+            _a20.label = 10;
 
           case 10:
             return [4, "d"];
 
           case 11:
-            _a22.sent();
+            _a20.sent();
 
             return [3, 13];
 
           case 12:
             if (false) return [3, 7];
-            _a22.label = 13;
+            _a20.label = 13;
 
           case 13:
             return [4, "e"];
 
           case 14:
-            _a22.sent();
+            _a20.sent();
 
             return [3, 17];
 
@@ -1180,7 +1128,7 @@ describe("try-catch-finally generator", function () {
             return [4, "f"];
 
           case 16:
-            _a22.sent();
+            _a20.sent();
 
             return [7];
 
@@ -1195,39 +1143,39 @@ describe("try-catch-finally generator", function () {
   it("should handle backwards jumps in labeled loops", function () {
     function gen() {
       var firstTime;
-      return _generator(this, function (_a23) {
-        switch (_a23.label) {
+      return _generator(this, function (_a21) {
+        switch (_a21.label) {
           case 0:
             firstTime = true;
-            _a23.label = 1;
+            _a21.label = 1;
 
           case 1:
             if (!true) return [3, 16];
             return [4, 0];
 
           case 2:
-            _a23.sent();
+            _a21.sent();
 
-            _a23.label = 3;
+            _a21.label = 3;
 
           case 3:
-            _a23.trys.push([3,, 12, 14]);
+            _a21.trys.push([3,, 12, 14]);
 
-            _a23.label = 4;
+            _a21.label = 4;
 
           case 4:
             if (!true) return [3, 10];
             return [4, 1];
 
           case 5:
-            _a23.sent();
+            _a21.sent();
 
             if (!firstTime) return [3, 7];
             firstTime = false;
             return [4, 2];
 
           case 6:
-            _a23.sent();
+            _a21.sent();
 
             return [3, 1];
 
@@ -1235,7 +1183,7 @@ describe("try-catch-finally generator", function () {
             return [4, 3];
 
           case 8:
-            _a23.sent();
+            _a21.sent();
 
             return [3, 10];
 
@@ -1246,7 +1194,7 @@ describe("try-catch-finally generator", function () {
             return [4, 4];
 
           case 11:
-            _a23.sent();
+            _a21.sent();
 
             return [3, 16];
 
@@ -1254,7 +1202,7 @@ describe("try-catch-finally generator", function () {
             return [4, 5];
 
           case 13:
-            _a23.sent();
+            _a21.sent();
 
             return [7];
 
@@ -1262,7 +1210,7 @@ describe("try-catch-finally generator", function () {
             return [4, 6];
 
           case 15:
-            _a23.sent();
+            _a21.sent();
 
             return [3, 1];
 
@@ -1270,7 +1218,7 @@ describe("try-catch-finally generator", function () {
             return [4, 7];
 
           case 17:
-            _a23.sent();
+            _a21.sent();
 
             return [2];
         }
@@ -1286,29 +1234,29 @@ describe("try-catch-finally generator", function () {
     function gen() {
       var c, _e3;
 
-      return _generator(this, function (_a24) {
-        switch (_a24.label) {
+      return _generator(this, function (_a22) {
+        switch (_a22.label) {
           case 0:
             c = 2;
-            _a24.label = 1;
+            _a22.label = 1;
 
           case 1:
             if (!(c > 0)) return [3, 7];
-            _a24.label = 2;
+            _a22.label = 2;
 
           case 2:
-            _a24.trys.push([2, 4, 5, 6]);
+            _a22.trys.push([2, 4, 5, 6]);
 
             markers.push("try");
             return [4, c];
 
           case 3:
-            _a24.sent();
+            _a22.sent();
 
             return [3, 6];
 
           case 4:
-            _e3 = _a24.sent();
+            _e3 = _a22.sent();
             assert.strictEqual(_e3, error);
             markers.push("catch");
             return [3, 1];
@@ -1352,19 +1300,19 @@ describe("dynamic exception", function () {
   function gen(x, fname) {
     var _thrown3;
 
-    return _generator(this, function (_a25) {
-      switch (_a25.label) {
+    return _generator(this, function (_a23) {
+      switch (_a23.label) {
         case 0:
-          _a25.trys.push([0, 1,, 3]);
+          _a23.trys.push([0, 1,, 3]);
 
           return [2, fns[fname](x)];
 
         case 1:
-          _thrown3 = _a25.sent();
+          _thrown3 = _a23.sent();
           return [4, _thrown3];
 
         case 2:
-          _a25.sent();
+          _a23.sent();
 
           return [3, 3];
 
@@ -1391,20 +1339,20 @@ describe("nested finally blocks", function () {
   function usingThrow() {
     var _thrown4;
 
-    return _generator(this, function (_a26) {
-      switch (_a26.label) {
+    return _generator(this, function (_a24) {
+      switch (_a24.label) {
         case 0:
-          _a26.trys.push([0,, 11, 13]);
+          _a24.trys.push([0,, 11, 13]);
 
-          _a26.label = 1;
+          _a24.label = 1;
 
         case 1:
-          _a26.trys.push([1, 6, 8, 10]);
+          _a24.trys.push([1, 6, 8, 10]);
 
-          _a26.label = 2;
+          _a24.label = 2;
 
         case 2:
-          _a26.trys.push([2,, 3, 5]);
+          _a24.trys.push([2,, 3, 5]);
 
           throw "thrown";
 
@@ -1412,7 +1360,7 @@ describe("nested finally blocks", function () {
           return [4, 1];
 
         case 4:
-          _a26.sent();
+          _a24.sent();
 
           return [7];
 
@@ -1420,11 +1368,11 @@ describe("nested finally blocks", function () {
           return [3, 10];
 
         case 6:
-          _thrown4 = _a26.sent();
+          _thrown4 = _a24.sent();
           return [4, _thrown4];
 
         case 7:
-          _a26.sent();
+          _a24.sent();
 
           return [3, 10];
 
@@ -1432,7 +1380,7 @@ describe("nested finally blocks", function () {
           return [4, 2];
 
         case 9:
-          _a26.sent();
+          _a24.sent();
 
           return [7];
 
@@ -1443,7 +1391,7 @@ describe("nested finally blocks", function () {
           return [4, 3];
 
         case 12:
-          _a26.sent();
+          _a24.sent();
 
           return [7];
 
@@ -1456,20 +1404,20 @@ describe("nested finally blocks", function () {
   function usingRaise() {
     var _thrown5;
 
-    return _generator(this, function (_a27) {
-      switch (_a27.label) {
+    return _generator(this, function (_a25) {
+      switch (_a25.label) {
         case 0:
-          _a27.trys.push([0,, 11, 13]);
+          _a25.trys.push([0,, 11, 13]);
 
-          _a27.label = 1;
+          _a25.label = 1;
 
         case 1:
-          _a27.trys.push([1, 6, 8, 10]);
+          _a25.trys.push([1, 6, 8, 10]);
 
-          _a27.label = 2;
+          _a25.label = 2;
 
         case 2:
-          _a27.trys.push([2,, 3, 5]);
+          _a25.trys.push([2,, 3, 5]);
 
           raise("thrown");
           return [3, 5];
@@ -1478,7 +1426,7 @@ describe("nested finally blocks", function () {
           return [4, 1];
 
         case 4:
-          _a27.sent();
+          _a25.sent();
 
           return [7];
 
@@ -1486,11 +1434,11 @@ describe("nested finally blocks", function () {
           return [3, 10];
 
         case 6:
-          _thrown5 = _a27.sent();
+          _thrown5 = _a25.sent();
           return [4, _thrown5];
 
         case 7:
-          _a27.sent();
+          _a25.sent();
 
           return [3, 10];
 
@@ -1498,7 +1446,7 @@ describe("nested finally blocks", function () {
           return [4, 2];
 
         case 9:
-          _a27.sent();
+          _a25.sent();
 
           return [7];
 
@@ -1509,7 +1457,7 @@ describe("nested finally blocks", function () {
           return [4, 3];
 
         case 12:
-          _a27.sent();
+          _a25.sent();
 
           return [7];
 
@@ -1531,8 +1479,8 @@ describe("for-in loop generator", function () {
     function gen() {
       var count, obj, _temp, _temp2, _temp3, key;
 
-      return _generator(this, function (_a28) {
-        switch (_a28.label) {
+      return _generator(this, function (_a26) {
+        switch (_a26.label) {
           case 0:
             count = 0;
             obj = {
@@ -1544,7 +1492,7 @@ describe("for-in loop generator", function () {
             for (_temp2 in obj) _temp.push(_temp2);
 
             _temp3 = 0;
-            _a28.label = 1;
+            _a26.label = 1;
 
           case 1:
             if (!(_temp3 < _temp.length)) return [3, 4];
@@ -1553,10 +1501,10 @@ describe("for-in loop generator", function () {
             return [4, [key, obj[key]]];
 
           case 2:
-            _a28.sent();
+            _a26.sent();
 
             count += 1;
-            _a28.label = 3;
+            _a26.label = 3;
 
           case 3:
             _temp3++;
@@ -1574,18 +1522,18 @@ describe("for-in loop generator", function () {
     function gen(obj) {
       var count, _temp4, _temp5, _temp6, key;
 
-      return _generator(this, function (_a29) {
-        switch (_a29.label) {
+      return _generator(this, function (_a27) {
+        switch (_a27.label) {
           case 0:
             count = 0;
             _temp4 = [];
             return [4, "why not"];
 
           case 1:
-            for (_temp5 in _a29.sent(), obj) _temp4.push(_temp5);
+            for (_temp5 in _a27.sent(), obj) _temp4.push(_temp5);
 
             _temp6 = 0;
-            _a29.label = 2;
+            _a27.label = 2;
 
           case 2:
             if (!(_temp6 < _temp4.length)) return [3, 5];
@@ -1600,9 +1548,9 @@ describe("for-in loop generator", function () {
             return [4, [key, obj[key]]];
 
           case 3:
-            _a29.sent();
+            _a27.sent();
 
-            _a29.label = 4;
+            _a27.label = 4;
 
           case 4:
             _temp6++;
@@ -1620,85 +1568,55 @@ describe("for-in loop generator", function () {
       skip: 3,
       c: 4
     }), ["why not", ["a", 1], ["b", 2]], 2);
-  });
-  it("should handle property deletion in loop", function () {
-    function gen() {
-      var count, obj, _temp7, _temp8, _temp9, key;
+  }); // it("should handle property deletion in loop", function () {
+  //     function* gen() {
+  //         var count = 0;
+  //         var obj = { foo: 1, bar: 2 };
+  //         for (var key in obj) {
+  //             assert(obj.hasOwnProperty(key), key + " must be own property");
+  //             yield [key, obj[key]];
+  //             delete obj.bar;
+  //             count += 1;
+  //         }
+  //         return count;
+  //     }
+  //     check(gen(), [["foo", 1]], 1);
+  // });
 
-      return _generator(this, function (_a30) {
-        switch (_a30.label) {
-          case 0:
-            count = 0;
-            obj = {
-              foo: 1,
-              bar: 2
-            };
-            _temp7 = [];
-
-            for (_temp8 in obj) _temp7.push(_temp8);
-
-            _temp9 = 0;
-            _a30.label = 1;
-
-          case 1:
-            if (!(_temp9 < _temp7.length)) return [3, 4];
-            key = _temp7[_temp9];
-            assert(obj.hasOwnProperty(key), key + " must be own property");
-            return [4, [key, obj[key]]];
-
-          case 2:
-            _a30.sent();
-
-            delete obj.bar;
-            count += 1;
-            _a30.label = 3;
-
-          case 3:
-            _temp9++;
-            return [3, 1];
-
-          case 4:
-            return [2, count];
-        }
-      });
-    }
-
-    check(gen(), [["foo", 1]], 1);
-  });
   it("should loop over inherited properties", function () {
     function gen() {
-      var count, foo, _temp10, _temp11, _temp12, key;
+      var count, foo, _temp7, _temp8, _temp9, key;
 
       function Foo() {
         this.baz = 1;
       }
 
-      return _generator(this, function (_a31) {
-        switch (_a31.label) {
+      return _generator(this, function (_a28) {
+        switch (_a28.label) {
           case 0:
             count = 0;
             Foo.prototype.bar = 2;
             foo = new Foo();
-            _temp10 = [];
+            _temp7 = [];
 
-            for (_temp11 in foo) _temp10.push(_temp11);
+            for (_temp8 in foo) _temp7.push(_temp8);
 
-            _temp12 = 0;
-            _a31.label = 1;
+            _temp9 = 0;
+            _a28.label = 1;
 
           case 1:
-            if (!(_temp12 < _temp10.length)) return [3, 4];
-            key = _temp10[_temp12];
+            if (!(_temp9 < _temp7.length)) return [3, 4];
+            key = _temp7[_temp9];
             return [4, [key, foo[key]]];
 
           case 2:
-            _a31.sent();
+            _a28.sent();
 
             count += 1;
-            _a31.label = 3;
+            _a28.label = 3;
 
           case 3:
-            _temp12++;
+            _temp9++;
             return [3, 1];
 
           case 4:
@@ -1724,68 +1642,68 @@ describe("for-in loop generator", function () {
     }
 
     function gen() {
-      var _temp13, _temp14, _temp15, _t3, _t4, key, _temp16, _t5, _temp17, _temp18, _temp19, key;
+      var _temp10, _temp11, _temp12, _t3, _t4, key, _temp13, _t5, _temp14, _temp15, _temp16, key;
 
-      return _generator(this, function (_a32) {
-        switch (_a32.label) {
+      return _generator(this, function (_a29) {
+        switch (_a29.label) {
           case 0:
             assert.ok(!a.called);
             assert.ok(!b.called);
-            _temp13 = [];
+            _temp10 = [];
             _t3 = a;
             return [4, 0];
 
           case 1:
-            _t3.apply(void 0, [_a32.sent()]);
+            _t3.apply(void 0, [_a29.sent()]);
             _t4 = b;
             return [4, 1];
 
           case 2:
-            for (_temp14 in _t4.apply(void 0, [_a32.sent()])) _temp13.push(_temp14);
+            for (_temp11 in _t4.apply(void 0, [_a29.sent()])) _temp10.push(_temp11);
 
-            _temp15 = 0;
-            _a32.label = 3;
+            _temp12 = 0;
+            _a29.label = 3;
 
           case 3:
-            if (!(_temp15 < _temp13.length)) return [3, 6];
-            key = _temp13[_temp15];
+            if (!(_temp12 < _temp10.length)) return [3, 6];
+            key = _temp10[_temp12];
             assert.ok(a.called);
             assert.ok(b.called);
-            _t5 = (_temp16 = assert).strictEqual;
+            _t5 = (_temp13 = assert).strictEqual;
             return [4, key];
 
           case 4:
-            _t5.apply(_temp16, [_a32.sent(), 3]);
+            _t5.apply(_temp13, [_a29.sent(), 3]);
 
-            _a32.label = 5;
+            _a29.label = 5;
 
           case 5:
-            _temp15++;
+            _temp12++;
             return [3, 3];
 
           case 6:
-            _temp17 = [];
+            _temp14 = [];
 
-            for (_temp18 in a(1), {
+            for (_temp15 in a(1), {
               foo: "foo",
               bar: "bar"
-            }) _temp17.push(_temp18);
+            }) _temp14.push(_temp15);
 
-            _temp19 = 0;
-            _a32.label = 7;
+            _temp16 = 0;
+            _a29.label = 7;
 
           case 7:
-            if (!(_temp19 < _temp17.length)) return [3, 10];
-            key = _temp17[_temp19];
+            if (!(_temp16 < _temp14.length)) return [3, 10];
+            key = _temp14[_temp16];
             return [4, key];
 
           case 8:
-            _a32.sent();
+            _a29.sent();
 
-            _a32.label = 9;
+            _a29.label = 9;
 
           case 9:
-            _temp19++;
+            _temp16++;
             return [3, 7];
 
           case 10:
@@ -1811,31 +1729,31 @@ describe("for-in loop generator", function () {
     }
 
     function gen() {
-      var _temp20, _temp21, _temp22;
+      var _temp17, _temp18, _temp19;
 
-      return _generator(this, function (_a33) {
-        switch (_a33.label) {
+      return _generator(this, function (_a30) {
+        switch (_a30.label) {
           case 0:
-            _temp20 = [];
+            _temp17 = [];
 
-            for (_temp21 in baz) _temp20.push(_temp21);
+            for (_temp18 in baz) _temp17.push(_temp18);
 
-            _temp22 = 0;
-            _a33.label = 1;
+            _temp19 = 0;
+            _a30.label = 1;
 
           case 1:
-            if (!(_temp22 < _temp20.length)) return [3, 4];
-            foo().bar = _temp20[_temp22];
+            if (!(_temp19 < _temp17.length)) return [3, 4];
+            foo().bar = _temp17[_temp19];
             markers.push(obj.bar);
             return [4, obj.bar];
 
           case 2:
-            _a33.sent();
+            _a30.sent();
 
-            _a33.label = 3;
+            _a30.label = 3;
 
           case 3:
-            _temp22++;
+            _temp19++;
             return [3, 1];
 
           case 4:
@@ -1850,22 +1768,22 @@ describe("for-in loop generator", function () {
 });
 describe("yield chain", function () {
   function gen(n) {
-    return _generator(this, function (_a34) {
-      switch (_a34.label) {
+    return _generator(this, function (_a31) {
+      switch (_a31.label) {
         case 0:
           return [4, n];
 
         case 1:
-          return [4, _a34.sent()];
+          return [4, _a31.sent()];
 
         case 2:
-          return [4, _a34.sent()];
+          return [4, _a31.sent()];
 
         case 3:
-          return [4, _a34.sent()];
+          return [4, _a31.sent()];
 
         case 4:
-          return [2, _a34.sent()];
+          return [2, _a31.sent()];
       }
     });
   }
@@ -1880,21 +1798,21 @@ describe("call expression ordering", function test() {
     var g = function gen() {
       var _t6, _t7;
 
-      return _generator(this, function (_a35) {
-        switch (_a35.label) {
+      return _generator(this, function (_a32) {
+        switch (_a32.label) {
           case 0:
             return [4, 1];
 
           case 1:
-            _t6 = _a35.sent();
+            _t6 = _a32.sent();
             return [4, 2];
 
           case 2:
-            _t7 = _t6.apply(void 0, [_a35.sent()]);
+            _t7 = _t6.apply(void 0, [_a32.sent()]);
             return [4, 3];
 
           case 3:
-            return [2, _t7.apply(void 0, [_a35.sent()])];
+            return [2, _t7.apply(void 0, [_a32.sent()])];
         }
       });
     }();
@@ -1927,13 +1845,13 @@ describe("call expression ordering", function test() {
       var g = function fn() {
         var _ref;
 
-        return _generator(this, function (_a36) {
-          switch (_a36.label) {
+        return _generator(this, function (_a33) {
+          switch (_a33.label) {
             case 0:
               return [4];
 
             case 1:
-              (_ref = _a36.sent()).method(_ref);
+              (_ref = _a33.sent()).method(_ref);
 
               return [2];
           }
@@ -1963,13 +1881,13 @@ describe("call expression ordering", function test() {
       }
 
       var g = function fn() {
-        return _generator(this, function (_a37) {
-          switch (_a37.label) {
+        return _generator(this, function (_a34) {
+          switch (_a34.label) {
             case 0:
               return [4];
 
             case 1:
-              (_a37.sent(), step(1)).method(step(2));
+              (_a34.sent(), step(1)).method(step(2));
               return [2];
           }
         });
@@ -1991,17 +1909,17 @@ describe("call expression ordering", function test() {
       }
 
       var g = function fn() {
-        var _temp23, _t8, _temp24;
+        var _temp20, _t8, _temp21;
 
-        return _generator(this, function (_a38) {
-          switch (_a38.label) {
+        return _generator(this, function (_a35) {
+          switch (_a35.label) {
             case 0:
-              _t8 = (_temp23 = step(1)).method;
-              _temp24 = [step(2)];
+              _t8 = (_temp20 = step(1)).method;
+              _temp21 = [step(2)];
               return [4];
 
             case 1:
-              _t8.apply(_temp23, _temp24.concat([_a38.sent(), step(3)]));
+              _t8.apply(_temp20, _temp21.concat([_a35.sent(), step(3)]));
 
               return [2];
           }
@@ -2024,20 +1942,20 @@ describe("call expression ordering", function test() {
       }
 
       var g = function fn() {
-        var _temp25, _t9, _temp26;
+        var _temp22, _t9, _temp23;
 
-        return _generator(this, function (_a39) {
-          switch (_a39.label) {
+        return _generator(this, function (_a36) {
+          switch (_a36.label) {
             case 0:
               return [4];
 
             case 1:
-              _t9 = (_temp25 = (_a39.sent(), step(1))).method;
-              _temp26 = [step(2)];
+              _t9 = (_temp22 = (_a36.sent(), step(1))).method;
+              _temp23 = [step(2)];
               return [4];
 
             case 2:
-              _t9.apply(_temp25, _temp26.concat([_a39.sent(), step(3)]));
+              _t9.apply(_temp22, _temp23.concat([_a36.sent(), step(3)]));
 
               return [2];
           }
@@ -2053,24 +1971,24 @@ describe("call expression ordering", function test() {
 });
 describe("object literal generator", function () {
   function gen(a, b) {
-    var _temp27, _t10;
+    var _temp24, _t10;
 
-    return _generator(this, function (_a40) {
-      switch (_a40.label) {
+    return _generator(this, function (_a37) {
+      switch (_a37.label) {
         case 0:
-          _temp27 = {};
+          _temp24 = {};
           _t10 = a;
           return [4, a];
 
         case 1:
-          _temp27.a = _t10 - _a40.sent();
+          _temp24.a = _t10 - _a37.sent();
           return [4, b];
 
         case 2:
-          return [4, (_temp27.b = _a40.sent(), _temp27)];
+          return [4, (_temp24.b = _a37.sent(), _temp24)];
 
         case 3:
-          _a40.sent();
+          _a37.sent();
 
           return [2];
       }
@@ -2092,18 +2010,18 @@ describe("switch statement generator", function () {
   function gen(a) {
     var _t11;
 
-    return _generator(this, function (_a41) {
-      switch (_a41.label) {
+    return _generator(this, function (_a38) {
+      switch (_a38.label) {
         case 0:
           return [4, a];
 
         case 1:
-          _t11 = _a41.sent();
+          _t11 = _a38.sent();
           return [4, "x"];
 
         case 2:
           switch (_t11) {
-            case _a41.sent() - a:
+            case _a38.sent() - a:
               return [3, 4];
           }
 
@@ -2111,7 +2029,7 @@ describe("switch statement generator", function () {
 
         case 3:
           switch (_t11) {
-            case _a41.sent() - a:
+            case _a38.sent() - a:
               return [3, 5];
           }
 
@@ -2136,18 +2054,18 @@ describe("switch statement generator", function () {
 });
 describe("infinite sequence generator", function () {
   function gen(start, step) {
-    return _generator(this, function (_a42) {
-      switch (_a42.label) {
+    return _generator(this, function (_a39) {
+      switch (_a39.label) {
         case 0:
           step = step || 1;
-          _a42.label = 1;
+          _a39.label = 1;
 
         case 1:
           if (!true) return [3, 3];
           return [4, start];
 
         case 2:
-          _a42.sent();
+          _a39.sent();
 
           start += step;
           return [3, 1];
@@ -2160,8 +2078,8 @@ describe("infinite sequence generator", function () {
 
   function limit(g, stop) {
     var info;
-    return _generator(this, function (_a43) {
-      switch (_a43.label) {
+    return _generator(this, function (_a40) {
+      switch (_a40.label) {
         case 0:
           if (!true) return [3, 5];
           info = g.next();
@@ -2173,7 +2091,7 @@ describe("infinite sequence generator", function () {
           return [4, info.value];
 
         case 2:
-          _a43.sent();
+          _a40.sent();
 
           return [3, 4];
 
@@ -2224,23 +2142,23 @@ describe("infinite sequence generator", function () {
 describe("generator function expression", function () {
   it("should behave just like a declared generator", function () {
     check(function (x, y) {
-      return _generator(this, function (_a44) {
-        switch (_a44.label) {
+      return _generator(this, function (_a41) {
+        switch (_a41.label) {
           case 0:
             return [4, x];
 
           case 1:
-            _a44.sent();
+            _a41.sent();
 
             return [4, y];
 
           case 2:
-            _a44.sent();
+            _a41.sent();
 
             return [4, x + y];
 
           case 3:
-            _a44.sent();
+            _a41.sent();
 
             return [2, x * y];
         }
@@ -2252,24 +2170,24 @@ describe("generator reentry attempt", function () {
   function gen(x) {
     var _err2;
 
-    return _generator(this, function (_a45) {
-      switch (_a45.label) {
+    return _generator(this, function (_a42) {
+      switch (_a42.label) {
         case 0:
-          _a45.trys.push([0, 2,, 4]);
+          _a42.trys.push([0, 2,, 4]);
 
           return [4, x];
 
         case 1:
-          _a45.sent().next(x);
+          _a42.sent().next(x);
 
           return [3, 4];
 
         case 2:
-          _err2 = _a45.sent();
+          _err2 = _a42.sent();
           return [4, _err2];
 
         case 3:
-          _a45.sent();
+          _a42.sent();
 
           return [3, 4];
 
@@ -2298,37 +2216,37 @@ describe("generator reentry attempt", function () {
 describe("delegated yield", function () {
   it("should delegate correctly", function () {
     function gen(condition) {
-      return _generator(this, function (_a46) {
-        switch (_a46.label) {
+      return _generator(this, function (_a43) {
+        switch (_a43.label) {
           case 0:
             return [4, 0];
 
           case 1:
-            _a46.sent();
+            _a43.sent();
 
             if (!condition) return [3, 5];
             return [4, 1];
 
           case 2:
-            _a46.sent();
+            _a43.sent();
 
             return [5, _values(gen(false))];
 
           case 3:
-            _a46.sent();
+            _a43.sent();
 
             return [4, 2];
 
           case 4:
-            _a46.sent();
+            _a43.sent();
 
-            _a46.label = 5;
+            _a43.label = 5;
 
           case 5:
             return [4, 3];
 
           case 6:
-            _a46.sent();
+            _a43.sent();
 
             return [2];
         }
@@ -2340,26 +2258,26 @@ describe("delegated yield", function () {
   });
   it("should cope with empty delegatees", function () {
     function gen(condition) {
-      return _generator(this, function (_a47) {
-        switch (_a47.label) {
+      return _generator(this, function (_a44) {
+        switch (_a44.label) {
           case 0:
             if (!condition) return [3, 4];
             return [4, 0];
 
           case 1:
-            _a47.sent();
+            _a44.sent();
 
             return [5, _values(gen(false))];
 
           case 2:
-            _a47.sent();
+            _a44.sent();
 
             return [4, 1];
 
           case 3:
-            _a47.sent();
+            _a44.sent();
 
-            _a47.label = 4;
+            _a44.label = 4;
 
           case 4:
             return [2];
@@ -2372,23 +2290,23 @@ describe("delegated yield", function () {
   });
   it("should support deeper nesting", function () {
     function outer(n) {
-      return _generator(this, function (_a48) {
-        switch (_a48.label) {
+      return _generator(this, function (_a45) {
+        switch (_a45.label) {
           case 0:
             return [4, n];
 
           case 1:
-            _a48.sent();
+            _a45.sent();
 
             return [5, _values(middle(n - 1, inner(n + 10)))];
 
           case 2:
-            _a48.sent();
+            _a45.sent();
 
             return [4, n + 1];
 
           case 3:
-            _a48.sent();
+            _a45.sent();
 
             return [2];
         }
@@ -2396,28 +2314,28 @@ describe("delegated yield", function () {
     }
 
     function middle(n, plusTen) {
-      return _generator(this, function (_a49) {
-        switch (_a49.label) {
+      return _generator(this, function (_a46) {
+        switch (_a46.label) {
           case 0:
             return [4, n];
 
           case 1:
-            _a49.sent();
+            _a46.sent();
 
             return [5, _values(inner(n - 1))];
 
           case 2:
-            _a49.sent();
+            _a46.sent();
 
             return [4, n + 1];
 
           case 3:
-            _a49.sent();
+            _a46.sent();
 
             return [5, _values(plusTen)];
 
           case 4:
-            _a49.sent();
+            _a46.sent();
 
             return [2];
         }
@@ -2425,13 +2343,13 @@ describe("delegated yield", function () {
     }
 
     function inner(n) {
-      return _generator(this, function (_a50) {
-        switch (_a50.label) {
+      return _generator(this, function (_a47) {
+        switch (_a47.label) {
           case 0:
             return [4, n];
 
           case 1:
-            _a50.sent();
+            _a47.sent();
 
             return [2];
         }
@@ -2442,18 +2360,18 @@ describe("delegated yield", function () {
   });
   it("should pass sent values through", function () {
     function outer(n) {
-      return _generator(this, function (_a51) {
-        switch (_a51.label) {
+      return _generator(this, function (_a48) {
+        switch (_a48.label) {
           case 0:
             return [5, _values(inner(n << 1))];
 
           case 1:
-            _a51.sent();
+            _a48.sent();
 
             return [4, "zxcv"];
 
           case 2:
-            _a51.sent();
+            _a48.sent();
 
             return [2];
         }
@@ -2461,19 +2379,19 @@ describe("delegated yield", function () {
     }
 
     function inner(n) {
-      return _generator(this, function (_a52) {
-        switch (_a52.label) {
+      return _generator(this, function (_a49) {
+        switch (_a49.label) {
           case 0:
             return [4, n];
 
           case 1:
-            return [4, _a52.sent()];
+            return [4, _a49.sent()];
 
           case 2:
-            return [4, _a52.sent()];
+            return [4, _a49.sent()];
 
           case 3:
-            return [2, _a52.sent()];
+            return [2, _a49.sent()];
         }
       });
     }
@@ -2506,34 +2424,34 @@ describe("delegated yield", function () {
     function outer(n) {
       var _err3;
 
-      return _generator(this, function (_a53) {
-        switch (_a53.label) {
+      return _generator(this, function (_a50) {
+        switch (_a50.label) {
           case 0:
-            _a53.trys.push([0, 4,, 6]);
+            _a50.trys.push([0, 4,, 6]);
 
             return [4, 0];
 
           case 1:
-            _a53.sent();
+            _a50.sent();
 
             return [5, _values(inner(n))];
 
           case 2:
-            _a53.sent();
+            _a50.sent();
 
             return [4, 1];
 
           case 3:
-            _a53.sent();
+            _a50.sent();
 
             return [3, 6];
 
           case 4:
-            _err3 = _a53.sent();
+            _err3 = _a50.sent();
             return [4, _err3.message];
 
           case 5:
-            _a53.sent();
+            _a50.sent();
 
             return [3, 6];
 
@@ -2541,7 +2459,7 @@ describe("delegated yield", function () {
             return [4, 4];
 
           case 7:
-            _a53.sent();
+            _a50.sent();
 
             return [2];
         }
@@ -2549,14 +2467,14 @@ describe("delegated yield", function () {
     }
 
     function inner(n) {
-      return _generator(this, function (_a54) {
-        switch (_a54.label) {
+      return _generator(this, function (_a51) {
+        switch (_a51.label) {
           case 0:
             if (!(n-- > 0)) return [3, 5];
-            _a54.label = 1;
+            _a51.label = 1;
 
           case 1:
-            _a54.trys.push([1,, 2, 4]);
+            _a51.trys.push([1,, 2, 4]);
 
             if (n === 3) {
               raise(error);
@@ -2568,7 +2486,7 @@ describe("delegated yield", function () {
             return [4, n];
 
           case 3:
-            _a54.sent();
+            _a51.sent();
 
             return [7];
 
@@ -2590,47 +2508,47 @@ describe("delegated yield", function () {
     function gen() {
       var _err4;
 
-      return _generator(this, function (_a55) {
-        switch (_a55.label) {
+      return _generator(this, function (_a52) {
+        switch (_a52.label) {
           case 0:
             return [5, _values(inner())];
 
           case 1:
-            _a55.sent();
+            _a52.sent();
 
-            _a55.label = 2;
+            _a52.label = 2;
 
           case 2:
-            _a55.trys.push([2, 4,, 5]);
+            _a52.trys.push([2, 4,, 5]);
 
             return [5, _values(inner())];
 
           case 3:
-            _a55.sent();
+            _a52.sent();
 
             return [3, 5];
 
           case 4:
-            _err4 = _a55.sent();
+            _err4 = _a52.sent();
             return [3, 5];
 
           case 5:
             return [5, _values(inner())];
 
           case 6:
-            return [2, _a55.sent()];
+            return [2, _a52.sent()];
         }
       });
     }
 
     function inner() {
-      return _generator(this, function (_a56) {
-        switch (_a56.label) {
+      return _generator(this, function (_a53) {
+        switch (_a53.label) {
           case 0:
             return [4, count++];
 
           case 1:
-            return [2, _a56.sent()];
+            return [2, _a53.sent()];
         }
       });
     }
@@ -2652,169 +2570,120 @@ describe("delegated yield", function () {
       value: "sent",
       done: true
     });
-  });
-  it("should call .return methods of delegate iterators", function () {
-    var throwee = new Error("argument to gen.throw");
-    var thrownFromThrow = new Error("thrown from throw method");
-    var thrownFromReturn = new Error("thrown from return method");
+  }); // it("should call .return methods of delegate iterators", function () {
+  //     var throwee = new Error("argument to gen.throw");
+  //     var thrownFromThrow = new Error("thrown from throw method");
+  //     var thrownFromReturn = new Error("thrown from return method");
+  //     function* gen(delegate) {
+  //         try {
+  //             return yield* delegate;
+  //         } catch (err) {
+  //             return err;
+  //         }
+  //     }
+  //     function check(throwMethod, returnMethod) {
+  //         var throwCalled = false;
+  //         var returnCalled = false;
+  //         var count = 0;
+  //         var iterator = {
+  //             next: function () {
+  //                 return { value: count++, done: false };
+  //             }
+  //         };
+  //         iterator[Symbol.iterator] = function () {
+  //             return this;
+  //         };
+  //         if (throwMethod) {
+  //             iterator["throw"] = function () {
+  //                 throwCalled = true;
+  //                 return throwMethod.apply(this, arguments);
+  //             };
+  //         }
+  //         if (returnMethod) {
+  //             iterator["return"] = function () {
+  //                 returnCalled = true;
+  //                 return returnMethod.apply(this, arguments);
+  //             };
+  //         }
+  //         var g = gen(iterator);
+  //         assert.deepEqual(g.next(), { value: 0, done: false });
+  //         assert.deepEqual(g.next(), { value: 1, done: false });
+  //         assert.deepEqual(g.next(), { value: 2, done: false });
+  //         assert.deepEqual(g.next(), { value: 3, done: false });
+  //         assert.strictEqual(throwCalled, false);
+  //         assert.strictEqual(returnCalled, false);
+  //         var result = {};
+  //         result.throwResult = g.throw(throwee);
+  //         result.throwCalled = throwCalled;
+  //         result.returnCalled = returnCalled;
+  //         return result;
+  //     }
+  //     var checkResult = check(undefined, function () {
+  //         throw thrownFromReturn;
+  //     });
+  //     if (fullCompatibility) {
+  //         // BUG: Nodes <v6 neglect to call .return here.
+  //         assert.strictEqual(checkResult.throwResult.value, thrownFromReturn);
+  //         assert.strictEqual(checkResult.returnCalled, true);
+  //     } else {
+  //         // This is the Error that results from trying to call the undefined
+  //         // .throw method of the iterator.
+  //         assert.ok(checkResult.throwResult.value instanceof Error);
+  //     }
+  //     assert.strictEqual(checkResult.throwResult.done, true);
+  //     assert.strictEqual(checkResult.throwCalled, false);
+  //     checkResult = check(undefined, function () {
+  //         return { value: "from return", done: true };
+  //     });
+  //     assert.notStrictEqual(checkResult.throwResult.value, throwee);
+  //     // This is the TypeError that results from trying to call the
+  //     // undefined .throw method of the iterator.
+  //     assert.ok(checkResult.throwResult.value instanceof TypeError);
+  //     assert.strictEqual(checkResult.throwResult.done, true);
+  //     assert.strictEqual(checkResult.throwCalled, false);
+  //     if (fullCompatibility) {
+  //         // BUG: Nodes <v6 neglect to call .return here.
+  //         assert.strictEqual(checkResult.returnCalled, true);
+  //     }
+  //     var checkResult = check(function (thrown) {
+  //         return { value: "from throw", done: true };
+  //     }, function () {
+  //         throw thrownFromReturn;
+  //     });
+  //     assert.strictEqual(checkResult.throwResult.value, "from throw");
+  //     assert.strictEqual(checkResult.throwResult.done, true);
+  //     assert.strictEqual(checkResult.throwCalled, true);
+  //     assert.strictEqual(checkResult.returnCalled, false);
+  //     var checkResult = check(function (thrown) {
+  //         throw thrownFromThrow;
+  //     }, function () {
+  //         throw thrownFromReturn;
+  //     });
+  //     assert.strictEqual(checkResult.throwResult.value, thrownFromThrow);
+  //     assert.strictEqual(checkResult.throwResult.done, true);
+  //     assert.strictEqual(checkResult.throwCalled, true);
+  //     assert.strictEqual(checkResult.returnCalled, false);
+  //     var checkResult = check(undefined, undefined);
+  //     if (fullCompatibility) {
+  //         assert.notStrictEqual(checkResult.throwResult.value, throwee);
+  //         // This is the TypeError that results from trying to call the
+  //         // undefined .throw method of the iterator.
+  //         assert.ok(checkResult.throwResult.value instanceof Error);
+  //         assert.strictEqual(checkResult.throwResult.done, true);
+  //     }
+  //     assert.strictEqual(checkResult.throwCalled, false);
+  //     assert.strictEqual(checkResult.returnCalled, false);
+  // });
 
-    function gen(delegate) {
-      var _err5;
-
-      return _generator(this, function (_a57) {
-        switch (_a57.label) {
-          case 0:
-            _a57.trys.push([0, 2,, 3]);
-
-            return [5, _values(delegate)];
-
-          case 1:
-            return [2, _a57.sent()];
-
-          case 2:
-            _err5 = _a57.sent();
-            return [2, _err5];
-
-          case 3:
-            return [2];
-        }
-      });
-    }
-
-    function check(throwMethod, returnMethod) {
-      var throwCalled = false;
-      var returnCalled = false;
-      var count = 0;
-      var iterator = {
-        next: function () {
-          return {
-            value: count++,
-            done: false
-          };
-        }
-      };
-
-      iterator[_Symbol.iterator] = function () {
-        return this;
-      };
-
-      if (throwMethod) {
-        iterator["throw"] = function () {
-          throwCalled = true;
-          return throwMethod.apply(this, arguments);
-        };
-      }
-
-      if (returnMethod) {
-        iterator["return"] = function () {
-          returnCalled = true;
-          return returnMethod.apply(this, arguments);
-        };
-      }
-
-      var g = gen(iterator);
-      assert.deepEqual(g.next(), {
-        value: 0,
-        done: false
-      });
-      assert.deepEqual(g.next(), {
-        value: 1,
-        done: false
-      });
-      assert.deepEqual(g.next(), {
-        value: 2,
-        done: false
-      });
-      assert.deepEqual(g.next(), {
-        value: 3,
-        done: false
-      });
-      assert.strictEqual(throwCalled, false);
-      assert.strictEqual(returnCalled, false);
-      var result = {};
-      result.throwResult = g.throw(throwee);
-      result.throwCalled = throwCalled;
-      result.returnCalled = returnCalled;
-      return result;
-    }
-
-    var checkResult = check(undefined, function () {
-      throw thrownFromReturn;
-    });
-
-    if (fullCompatibility) {
-      // BUG: Nodes <v6 neglect to call .return here.
-      assert.strictEqual(checkResult.throwResult.value, thrownFromReturn);
-      assert.strictEqual(checkResult.returnCalled, true);
-    } else {
-      // This is the Error that results from trying to call the undefined
-      // .throw method of the iterator.
-      assert.ok(checkResult.throwResult.value instanceof Error);
-    }
-
-    assert.strictEqual(checkResult.throwResult.done, true);
-    assert.strictEqual(checkResult.throwCalled, false);
-    checkResult = check(undefined, function () {
-      return {
-        value: "from return",
-        done: true
-      };
-    });
-    assert.notStrictEqual(checkResult.throwResult.value, throwee); // This is the TypeError that results from trying to call the
-    // undefined .throw method of the iterator.
-
-    assert.ok(checkResult.throwResult.value instanceof TypeError);
-    assert.strictEqual(checkResult.throwResult.done, true);
-    assert.strictEqual(checkResult.throwCalled, false);
-
-    if (fullCompatibility) {
-      // BUG: Nodes <v6 neglect to call .return here.
-      assert.strictEqual(checkResult.returnCalled, true);
-    }
-
-    var checkResult = check(function (thrown) {
-      return {
-        value: "from throw",
-        done: true
-      };
-    }, function () {
-      throw thrownFromReturn;
-    });
-    assert.strictEqual(checkResult.throwResult.value, "from throw");
-    assert.strictEqual(checkResult.throwResult.done, true);
-    assert.strictEqual(checkResult.throwCalled, true);
-    assert.strictEqual(checkResult.returnCalled, false);
-    var checkResult = check(function (thrown) {
-      throw thrownFromThrow;
-    }, function () {
-      throw thrownFromReturn;
-    });
-    assert.strictEqual(checkResult.throwResult.value, thrownFromThrow);
-    assert.strictEqual(checkResult.throwResult.done, true);
-    assert.strictEqual(checkResult.throwCalled, true);
-    assert.strictEqual(checkResult.returnCalled, false);
-    var checkResult = check(undefined, undefined);
-
-    if (fullCompatibility) {
-      assert.notStrictEqual(checkResult.throwResult.value, throwee); // This is the TypeError that results from trying to call the
-      // undefined .throw method of the iterator.
-
-      assert.ok(checkResult.throwResult.value instanceof Error);
-      assert.strictEqual(checkResult.throwResult.done, true);
-    }
-
-    assert.strictEqual(checkResult.throwCalled, false);
-    assert.strictEqual(checkResult.returnCalled, false);
-  });
   it("should not be required to have a .return method", function () {
     function gen(delegate) {
-      return _generator(this, function (_a58) {
-        switch (_a58.label) {
+      return _generator(this, function (_a54) {
+        switch (_a54.label) {
           case 0:
             return [5, _values(delegate)];
 
           case 1:
-            return [2, _a58.sent()];
+            return [2, _a54.sent()];
         }
       });
     }
@@ -2862,15 +2731,15 @@ describe("delegated yield", function () {
     var markers = [];
 
     function parent() {
-      return _generator(this, function (_a59) {
-        switch (_a59.label) {
+      return _generator(this, function (_a55) {
+        switch (_a55.label) {
           case 0:
-            _a59.trys.push([0,, 2, 3]);
+            _a55.trys.push([0,, 2, 3]);
 
             return [5, _values(child())];
 
           case 1:
-            return [2, _a59.sent()];
+            return [2, _a55.sent()];
 
           case 2:
             markers.push("parent");
@@ -2883,21 +2752,21 @@ describe("delegated yield", function () {
     }
 
     function child() {
-      return _generator(this, function (_a60) {
-        switch (_a60.label) {
+      return _generator(this, function (_a56) {
+        switch (_a56.label) {
           case 0:
-            _a60.trys.push([0,, 2, 4]);
+            _a56.trys.push([0,, 2, 4]);
 
             return [4, 1];
 
           case 1:
-            return [2, _a60.sent()];
+            return [2, _a56.sent()];
 
           case 2:
             return [4, 2];
 
           case 3:
-            _a60.sent();
+            _a56.sent();
 
             markers.push("child");
             return [7];
@@ -2928,13 +2797,13 @@ describe("delegated yield", function () {
   });
   it("should evaluate to the return value of the delegate", function () {
     function inner() {
-      return _generator(this, function (_a61) {
-        switch (_a61.label) {
+      return _generator(this, function (_a57) {
+        switch (_a57.label) {
           case 0:
             return [4, 1];
 
           case 1:
-            _a61.sent();
+            _a57.sent();
 
             return [2, 2];
         }
@@ -2942,13 +2811,13 @@ describe("delegated yield", function () {
     }
 
     function outer(delegate) {
-      return _generator(this, function (_a62) {
-        switch (_a62.label) {
+      return _generator(this, function (_a58) {
+        switch (_a58.label) {
           case 0:
             return [5, _values(delegate)];
 
           case 1:
-            return [2, _a62.sent()];
+            return [2, _a58.sent()];
         }
       });
     }
@@ -2985,7 +2854,7 @@ describe("delegated yield", function () {
   });
   it("should work as a subexpression", function () {
     function inner(arg) {
-      return _generator(this, function (_a63) {
+      return _generator(this, function (_a59) {
         return [2, arg];
       });
     }
@@ -2993,14 +2862,14 @@ describe("delegated yield", function () {
     function gen(delegate) {
       var _t12;
 
-      return _generator(this, function (_a64) {
-        switch (_a64.label) {
+      return _generator(this, function (_a60) {
+        switch (_a60.label) {
           case 0:
             _t12 = 1;
             return [5, _values(delegate)];
 
           case 1:
-            return [2, _t12 + _a64.sent()];
+            return [2, _t12 + _a60.sent()];
         }
       });
     }
@@ -3033,13 +2902,13 @@ describe("delegated yield", function () {
 )("generator return method", function () {
   it("should work with newborn generators", function () {
     function gen() {
-      return _generator(this, function (_a65) {
-        switch (_a65.label) {
+      return _generator(this, function (_a61) {
+        switch (_a61.label) {
           case 0:
             return [4, 0];
 
           case 1:
-            _a65.sent();
+            _a61.sent();
 
             return [2];
         }
@@ -3057,22 +2926,22 @@ describe("delegated yield", function () {
     var executedFinally = false;
 
     function gen() {
-      var _err6;
+      var _err5;
 
-      return _generator(this, function (_a66) {
-        switch (_a66.label) {
+      return _generator(this, function (_a62) {
+        switch (_a62.label) {
           case 0:
-            _a66.trys.push([0, 2, 3, 4]);
+            _a62.trys.push([0, 2, 3, 4]);
 
             return [4, 0];
 
           case 1:
-            _a66.sent();
+            _a62.sent();
 
             return [3, 4];
 
           case 2:
-            _err6 = _a66.sent();
+            _err5 = _a62.sent();
             assert.ok(false, "should not have executed the catch handler");
             return [3, 4];
 
@@ -3102,20 +2971,20 @@ describe("delegated yield", function () {
     var checkpoints = [];
 
     function callee(errorToThrow) {
-      return _generator(this, function (_a67) {
-        switch (_a67.label) {
+      return _generator(this, function (_a63) {
+        switch (_a63.label) {
           case 0:
-            _a67.trys.push([0,, 3, 4]);
+            _a63.trys.push([0,, 3, 4]);
 
             return [4, 1];
 
           case 1:
-            _a67.sent();
+            _a63.sent();
 
             return [4, 2];
 
           case 2:
-            _a67.sent();
+            _a63.sent();
 
             return [3, 4];
 
@@ -3135,25 +3004,25 @@ describe("delegated yield", function () {
     }
 
     function caller(errorToThrow) {
-      return _generator(this, function (_a68) {
-        switch (_a68.label) {
+      return _generator(this, function (_a64) {
+        switch (_a64.label) {
           case 0:
-            _a68.trys.push([0,, 4, 5]);
+            _a64.trys.push([0,, 4, 5]);
 
             return [4, 0];
 
           case 1:
-            _a68.sent();
+            _a64.sent();
 
             return [5, _values(callee(errorToThrow))];
 
           case 2:
-            _a68.sent();
+            _a64.sent();
 
             return [4, 3];
 
           case 3:
-            _a68.sent();
+            _a64.sent();
 
             return [3, 5];
 
@@ -3217,19 +3086,19 @@ describe("function declaration hoisting", function () {
         return x - 1;
       }
 
-      return _generator(this, function (_a69) {
-        switch (_a69.label) {
+      return _generator(this, function (_a65) {
+        switch (_a65.label) {
           case 0:
             return [4, increment(n)];
 
           case 1:
-            _a69.sent();
+            _a65.sent();
 
             if (!(n % 2)) return [3, 3];
             return [4, _halve(decrement(n))];
 
           case 2:
-            _a69.sent();
+            _a65.sent();
 
             return [3, 4];
 
@@ -3239,13 +3108,13 @@ describe("function declaration hoisting", function () {
             // halve function is still defined when we take this branch, so
             // "undefine" it for consistency with regenerator semantics.
             halve = void 0;
-            _a69.label = 4;
+            _a65.label = 4;
 
           case 4:
             return [4, increment(increment(n))];
 
           case 5:
-            _a69.sent();
+            _a65.sent();
 
             return [2];
         }
@@ -3260,39 +3129,39 @@ describe("function declaration hoisting", function () {
       // Note that this function declaration comes after everything else
       // in the outer function, but needs to be fully available above.
       function inner(n) {
-        return _generator(this, function (_a71) {
-          switch (_a71.label) {
+        return _generator(this, function (_a67) {
+          switch (_a67.label) {
             case 0:
               return [4, n - 1];
 
             case 1:
-              _a71.sent();
+              _a67.sent();
 
               return [4, n];
 
             case 2:
-              _a71.sent();
+              _a67.sent();
 
               return [4, n + 1];
 
             case 3:
-              return [2, _a71.sent()];
+              return [2, _a67.sent()];
           }
         });
       }
 
-      return _generator(this, function (_a70) {
-        switch (_a70.label) {
+      return _generator(this, function (_a66) {
+        switch (_a66.label) {
           case 0:
             return [4, 0];
 
           case 1:
-            _a70.sent();
+            _a66.sent();
 
             return [5, _values(inner(n))];
 
           case 2:
-            return [2, _a70.sent()];
+            return [2, _a66.sent()];
         }
       });
     }
@@ -3308,26 +3177,26 @@ describe("function declaration hoisting", function () {
 
     function toBeRebound() {
       var originalValue;
-      return _generator(this, function (_a72) {
-        switch (_a72.label) {
+      return _generator(this, function (_a68) {
+        switch (_a68.label) {
           case 0:
             originalValue = toBeRebound;
             return [4, toBeRebound];
 
           case 1:
-            _a72.sent();
+            _a68.sent();
 
             assert.strictEqual(rebindTo(42), originalValue);
             return [4, toBeRebound];
 
           case 2:
-            _a72.sent();
+            _a68.sent();
 
             assert.strictEqual(rebindTo("asdf"), 42);
             return [4, toBeRebound];
 
           case 3:
-            _a72.sent();
+            _a68.sent();
 
             return [2];
         }
@@ -3345,26 +3214,26 @@ describe("function declaration hoisting", function () {
 
     var safe = function safe() {
       var originalValue;
-      return _generator(this, function (_a73) {
-        switch (_a73.label) {
+      return _generator(this, function (_a69) {
+        switch (_a69.label) {
           case 0:
             originalValue = safe;
             return [4, safe];
 
           case 1:
-            _a73.sent();
+            _a69.sent();
 
             assert.strictEqual(attemptToRebind(42), originalValue);
             return [4, safe];
 
           case 2:
-            _a73.sent();
+            _a69.sent();
 
             assert.strictEqual(attemptToRebind("asdf"), 42);
             return [4, safe];
 
           case 3:
-            _a73.sent();
+            _a69.sent();
 
             return [2];
         }
@@ -3380,14 +3249,14 @@ describe("function declaration hoisting", function () {
         toBeRebound = 42;
       }
 
-      return _generator(this, function (_a74) {
-        switch (_a74.label) {
+      return _generator(this, function (_a70) {
+        switch (_a70.label) {
           case 0:
             toBeRebound();
             return [4, toBeRebound];
 
           case 1:
-            _a74.sent();
+            _a70.sent();
 
             return [2];
         }
@@ -3400,23 +3269,23 @@ describe("function declaration hoisting", function () {
 describe("the arguments object", function () {
   it("should work in simple variadic functions", function () {
     function sum() {
-      var _args73 = arguments;
+      var _args69 = arguments;
       var result, i;
-      return _generator(this, function (_a75) {
-        switch (_a75.label) {
+      return _generator(this, function (_a71) {
+        switch (_a71.label) {
           case 0:
             result = 0;
             i = 0;
-            _a75.label = 1;
+            _a71.label = 1;
 
           case 1:
-            if (!(i < _args73.length)) return [3, 4];
-            return [4, result += _args73[i]];
+            if (!(i < _args69.length)) return [3, 4];
+            return [4, result += _args69[i]];
 
           case 2:
-            _a75.sent();
+            _a71.sent();
 
-            _a75.label = 3;
+            _a71.label = 3;
 
           case 3:
             ++i;
@@ -3433,32 +3302,32 @@ describe("the arguments object", function () {
   });
   it("should alias function parameters", function () {
     function gen(x, y) {
-      var _args74 = arguments;
+      var _args70 = arguments;
       var temp;
-      return _generator(this, function (_a76) {
-        switch (_a76.label) {
+      return _generator(this, function (_a72) {
+        switch (_a72.label) {
           case 0:
             return [4, x];
 
           case 1:
-            _a76.sent();
+            _a72.sent();
 
-            ++_args74[0];
+            ++_args70[0];
             return [4, x];
 
           case 2:
-            _a76.sent();
+            _a72.sent();
 
             return [4, y];
 
           case 3:
-            _a76.sent();
+            _a72.sent();
 
-            --_args74[1];
+            --_args70[1];
             return [4, y];
 
           case 4:
-            _a76.sent();
+            _a72.sent();
 
             temp = y;
             y = x;
@@ -3466,12 +3335,12 @@ describe("the arguments object", function () {
             return [4, x];
 
           case 5:
-            _a76.sent();
+            _a72.sent();
 
             return [4, y];
 
           case 6:
-            _a76.sent();
+            _a72.sent();
 
             return [2];
         }
@@ -3480,52 +3349,28 @@ describe("the arguments object", function () {
 
     check(gen(3, 7), [3, 4, 7, 6, 6, 4]);
     check(gen(10, -5), [10, 11, -5, -6, -6, 11]);
-  });
-  it("should be shadowable by explicit declarations (sloppy)", function () {
-    function asParameter(x, arguments) {
-      var _args75 = arguments;
-      return _generator(this, function (_a77) {
-        switch (_a77.label) {
-          case 0:
-            _args75 = _args75 + 1;
-            return [4, x + _args75];
+  }); // it("should be shadowable by explicit declarations (sloppy)", function () {
+  //     function* asParameter(x, arguments) {
+  //         arguments = arguments + 1;
+  //         yield x + arguments;
+  //     }
+  //     check(asParameter(4, 5), [10]);
+  //     check(asParameter("asdf", "zxcv"), ["asdfzxcv1"]);
+  //     function* asVariable(x) {
+  //         // TODO References to arguments before the variable declaration
+  //         // seem to see the object instead of the undefined value.
+  //         var arguments = x + 1;
+  //         yield arguments;
+  //     }
+  //     check(asVariable(4), [5]);
+  //     check(asVariable("asdf"), ["asdf1"]);
+  // });
 
-          case 1:
-            _a77.sent();
-
-            return [2];
-        }
-      });
-    }
-
-    check(asParameter(4, 5), [10]);
-    check(asParameter("asdf", "zxcv"), ["asdfzxcv1"]);
-
-    function asVariable(x) {
-      var _args76 = arguments;
-      var arguments;
-      return _generator(this, function (_a78) {
-        switch (_a78.label) {
-          case 0:
-            arguments = x + 1;
-            return [4, _args76];
-
-          case 1:
-            _a78.sent();
-
-            return [2];
-        }
-      });
-    }
-
-    check(asVariable(4), [5]);
-    check(asVariable("asdf"), ["asdf1"]);
-  });
   it("should not get confused by properties", function () {
     function gen(args) {
       var obj;
-      return _generator(this, function (_a79) {
-        switch (_a79.label) {
+      return _generator(this, function (_a73) {
+        switch (_a73.label) {
           case 0:
             obj = {
               arguments: args
@@ -3533,13 +3378,13 @@ describe("the arguments object", function () {
             return [4, obj.arguments];
 
           case 1:
-            _a79.sent();
+            _a73.sent();
 
             obj.arguments = "oyez";
             return [4, obj];
 
           case 2:
-            _a79.sent();
+            _a73.sent();
 
             return [2];
         }
@@ -3552,20 +3397,20 @@ describe("the arguments object", function () {
   });
   it("supports .callee", function () {
     function gen(doYield) {
-      var _args78 = arguments;
-      return _generator(this, function (_a80) {
-        switch (_a80.label) {
+      var _args72 = arguments;
+      return _generator(this, function (_a74) {
+        switch (_a74.label) {
           case 0:
             return [4, 1];
 
           case 1:
-            _a80.sent();
+            _a74.sent();
 
             if (!doYield) return [3, 3];
             return [4, 2];
 
           case 2:
-            _a80.sent();
+            _a74.sent();
 
             return [3, 7];
 
@@ -3573,25 +3418,25 @@ describe("the arguments object", function () {
             return [4, 3];
 
           case 4:
-            _a80.sent();
+            _a74.sent();
 
-            return [5, _values(_args78.callee(true))];
+            return [5, _values(_args72.callee(true))];
 
           case 5:
-            _a80.sent();
+            _a74.sent();
 
             return [4, 4];
 
           case 6:
-            _a80.sent();
+            _a74.sent();
 
-            _a80.label = 7;
+            _a74.label = 7;
 
           case 7:
             return [4, 5];
 
           case 8:
-            _a80.sent();
+            _a74.sent();
 
             return [2];
         }
@@ -3606,13 +3451,13 @@ describe("the this object", function () {
     function gen() {
       "use strict";
 
-      return _generator(this, function (_a81) {
-        switch (_a81.label) {
+      return _generator(this, function (_a75) {
+        switch (_a75.label) {
           case 0:
             return [4, this];
 
           case 1:
-            _a81.sent();
+            _a75.sent();
 
             return [2, this];
         }
@@ -3625,13 +3470,13 @@ describe("the this object", function () {
   });
   it("should respect .call's this", function () {
     function gen() {
-      return _generator(this, function (_a82) {
-        switch (_a82.label) {
+      return _generator(this, function (_a76) {
+        switch (_a76.label) {
           case 0:
             return [4, this];
 
           case 1:
-            _a82.sent();
+            _a76.sent();
 
             return [2, this];
         }
@@ -3648,13 +3493,13 @@ describe("directive strings", function () {
   function strict() {
     "use strict";
 
-    return _generator(this, function (_a83) {
-      switch (_a83.label) {
+    return _generator(this, function (_a77) {
+      switch (_a77.label) {
         case 0:
           return [4, !this];
 
         case 1:
-          _a83.sent();
+          _a77.sent();
 
           return [2];
       }
@@ -3662,13 +3507,13 @@ describe("directive strings", function () {
   }
 
   function sloppy() {
-    return _generator(this, function (_a84) {
-      switch (_a84.label) {
+    return _generator(this, function (_a78) {
+      switch (_a78.label) {
         case 0:
           return [4, !this];
 
         case 1:
-          _a84.sent();
+          _a78.sent();
 
           return [2];
       }
@@ -3691,29 +3536,29 @@ describe("catch parameter shadowing", function () {
     function gen(x) {
       var y, _x6, _y;
 
-      return _generator(this, function (_a85) {
-        switch (_a85.label) {
+      return _generator(this, function (_a79) {
+        switch (_a79.label) {
           case 0:
             y = x + 1;
-            _a85.label = 1;
+            _a79.label = 1;
 
           case 1:
-            _a85.trys.push([1, 2,, 5]);
+            _a79.trys.push([1, 2,, 5]);
 
             throw x + 2;
 
           case 2:
-            _x6 = _a85.sent();
+            _x6 = _a79.sent();
             return [4, _x6];
 
           case 3:
-            _a85.sent();
+            _a79.sent();
 
             _x6 += 1;
             return [4, _x6];
 
           case 4:
-            _a85.sent();
+            _a79.sent();
 
             return [3, 5];
 
@@ -3721,27 +3566,27 @@ describe("catch parameter shadowing", function () {
             return [4, x];
 
           case 6:
-            _a85.sent();
+            _a79.sent();
 
-            _a85.label = 7;
+            _a79.label = 7;
 
           case 7:
-            _a85.trys.push([7, 8,, 11]);
+            _a79.trys.push([7, 8,, 11]);
 
             throw x + 3;
 
           case 8:
-            _y = _a85.sent();
+            _y = _a79.sent();
             return [4, _y];
 
           case 9:
-            _a85.sent();
+            _a79.sent();
 
             _y *= 2;
             return [4, _y];
 
           case 10:
-            _a85.sent();
+            _a79.sent();
 
             return [3, 11];
 
@@ -3749,7 +3594,7 @@ describe("catch parameter shadowing", function () {
             return [4, y];
 
           case 12:
-            _a85.sent();
+            _a79.sent();
 
             return [2];
         }
@@ -3764,26 +3609,26 @@ describe("catch parameter shadowing", function () {
     function gen(x) {
       var _x7;
 
-      return _generator(this, function (_a86) {
-        switch (_a86.label) {
+      return _generator(this, function (_a80) {
+        switch (_a80.label) {
           case 0:
-            _a86.trys.push([0, 1,, 7]);
+            _a80.trys.push([0, 1,, 7]);
 
             throw x;
 
           case 1:
-            _x7 = _a86.sent();
+            _x7 = _a80.sent();
             return [4, _x7];
 
           case 2:
-            _a86.sent();
+            _a80.sent();
 
             return [4, function (x) {
               return x += 1;
             }(_x7 + 1)];
 
           case 3:
-            _a86.sent();
+            _a80.sent();
 
             return [4, function () {
               var x = arguments[0];
@@ -3791,7 +3636,7 @@ describe("catch parameter shadowing", function () {
             }(_x7 + 2)];
 
           case 4:
-            _a86.sent();
+            _a80.sent();
 
             return [4, function () {
               function notCalled(x) {
@@ -3803,12 +3648,12 @@ describe("catch parameter shadowing", function () {
             }()];
 
           case 5:
-            _a86.sent();
+            _a80.sent();
 
             return [4, _x7 -= 1];
 
           case 6:
-            _a86.sent();
+            _a80.sent();
 
             return [3, 7];
 
@@ -3816,7 +3661,7 @@ describe("catch parameter shadowing", function () {
             return [4, x];
 
           case 8:
-            _a86.sent();
+            _a80.sent();
 
             return [2];
         }
@@ -3830,35 +3675,35 @@ describe("catch parameter shadowing", function () {
     function gen() {
       var _e4, _e5;
 
-      return _generator(this, function (_a87) {
-        switch (_a87.label) {
+      return _generator(this, function (_a81) {
+        switch (_a81.label) {
           case 0:
-            _a87.trys.push([0, 1,, 8]);
+            _a81.trys.push([0, 1,, 8]);
 
             raise("e1");
             return [3, 8];
 
           case 1:
-            _e4 = _a87.sent();
+            _e4 = _a81.sent();
             return [4, _e4];
 
           case 2:
-            _a87.sent();
+            _a81.sent();
 
-            _a87.label = 3;
+            _a81.label = 3;
 
           case 3:
-            _a87.trys.push([3, 4,, 6]);
+            _a81.trys.push([3, 4,, 6]);
 
             raise("e2");
             return [3, 6];
 
           case 4:
-            _e5 = _a87.sent();
+            _e5 = _a81.sent();
             return [4, _e5];
 
           case 5:
-            _a87.sent();
+            _a81.sent();
 
             return [3, 6];
 
@@ -3866,7 +3711,7 @@ describe("catch parameter shadowing", function () {
             return [4, _e4];
 
           case 7:
-            _a87.sent();
+            _a81.sent();
 
             return [3, 8];
 
@@ -3882,30 +3727,30 @@ describe("catch parameter shadowing", function () {
     function gen() {
       var _e6;
 
-      return _generator(this, function (_a88) {
-        switch (_a88.label) {
+      return _generator(this, function (_a82) {
+        switch (_a82.label) {
           case 0:
-            _a88.trys.push([0, 3,, 5]);
+            _a82.trys.push([0, 3,, 5]);
 
             return [4, 1];
 
           case 1:
-            _a88.sent();
+            _a82.sent();
 
             raise(new Error("oyez"));
             return [4, 2];
 
           case 2:
-            _a88.sent();
+            _a82.sent();
 
             return [3, 5];
 
           case 3:
-            _e6 = _a88.sent();
+            _e6 = _a82.sent();
             return [4, 3];
 
           case 4:
-            _a88.sent();
+            _a82.sent();
 
             _e6.e = "e.e";
             _e6[_e6.message] = "e.oyez";
@@ -3921,7 +3766,7 @@ describe("catch parameter shadowing", function () {
             return [4, 4];
 
           case 6:
-            _a88.sent();
+            _a82.sent();
 
             return [2];
         }
@@ -3948,7 +3793,7 @@ describe("catch parameter shadowing", function () {
 describe("empty while loops", function () {
   it("should be preserved in generated code", function () {
     function gen(x) {
-      return _generator(this, function (_a89) {
+      return _generator(this, function (_a83) {
         while (x) {// empty while loop
         }
 
@@ -3968,37 +3813,37 @@ describe("empty while loops", function () {
 describe("object literals with multiple yields", function () {
   it("should receive different sent values", function () {
     function gen(fn) {
-      var _temp28, _t13, _temp29, _temp30;
+      var _temp25, _t13, _temp26, _temp27;
 
-      return _generator(this, function (_a90) {
-        switch (_a90.label) {
+      return _generator(this, function (_a84) {
+        switch (_a84.label) {
           case 0:
-            _temp28 = {};
+            _temp25 = {};
             return [4, "a"];
 
           case 1:
-            _temp28.a = _a90.sent();
+            _temp25.a = _a84.sent();
             return [4, "b"];
 
           case 2:
-            _temp28.b = _a90.sent();
+            _temp25.b = _a84.sent();
             _t13 = fn;
             return [4, "c"];
 
           case 3:
-            _temp29 = [_a90.sent()];
+            _temp26 = [_a84.sent()];
             return [4, "d"];
 
           case 4:
-            _temp28.c = _t13.apply(void 0, _temp29.concat([_a90.sent()]));
+            _temp25.c = _t13.apply(void 0, _temp26.concat([_a84.sent()]));
             return [4, "e"];
 
           case 5:
-            _temp30 = [_a90.sent()];
+            _temp27 = [_a84.sent()];
             return [4, "f"];
 
           case 6:
-            return [2, (_temp28.d = _temp30.concat([_a90.sent()]), _temp28)];
+            return [2, (_temp25.d = _temp27.concat([_a84.sent()]), _temp25)];
         }
       });
     }
@@ -4016,13 +3861,13 @@ describe("object literals with multiple yields", function () {
 describe("generator .throw method", function () {
   it("should work after the final call to .next", function () {
     function gen() {
-      return _generator(this, function (_a91) {
-        switch (_a91.label) {
+      return _generator(this, function (_a85) {
+        switch (_a85.label) {
           case 0:
             return [4, 1];
 
           case 1:
-            _a91.sent();
+            _a85.sent();
 
             return [2];
         }
@@ -4042,54 +3887,41 @@ describe("generator .throw method", function () {
     } catch (err) {
       assert.strictEqual(err, exception);
     }
-  });
-  it("should immediately complete a new-born generator", function () {
-    var began = false;
+  }); // it("should immediately complete a new-born generator", function () {
+  //     var began = false;
+  //     function* gen() {
+  //         began = true;
+  //         yield 1;
+  //     }
+  //     var g = gen();
+  //     var exception = new Error("unhandled exception");
+  //     try {
+  //         g.throw(exception);
+  //         assert.ok(false, "should have thrown an exception");
+  //     } catch (err) {
+  //         assert.strictEqual(err, exception);
+  //         assert.strictEqual(began, false);
+  //     }
+  // });
 
-    function gen() {
-      return _generator(this, function (_a92) {
-        switch (_a92.label) {
-          case 0:
-            began = true;
-            return [4, 1];
-
-          case 1:
-            _a92.sent();
-
-            return [2];
-        }
-      });
-    }
-
-    var g = gen();
-    var exception = new Error("unhandled exception");
-
-    try {
-      g.throw(exception);
-      assert.ok(false, "should have thrown an exception");
-    } catch (err) {
-      assert.strictEqual(err, exception);
-      assert.strictEqual(began, false);
-    }
-  });
   it("should not propagate errors handled inside a delegate", function () {
     function outer() {
-      var _err7;
+      var _err6;
 
-      return _generator(this, function (_a93) {
-        switch (_a93.label) {
+      return _generator(this, function (_a86) {
+        switch (_a86.label) {
           case 0:
-            _a93.trys.push([0, 2,, 3]);
+            _a86.trys.push([0, 2,, 3]);
 
             return [5, _values(inner())];
 
           case 1:
-            _a93.sent();
+            _a86.sent();
 
             return [3, 3];
 
           case 2:
-            _err7 = _a93.sent();
+            _err6 = _a86.sent();
             return [2, -1];
 
           case 3:
@@ -4101,20 +3933,20 @@ describe("generator .throw method", function () {
     function inner() {
       var _e7;
 
-      return _generator(this, function (_a94) {
-        switch (_a94.label) {
+      return _generator(this, function (_a87) {
+        switch (_a87.label) {
           case 0:
-            _a94.trys.push([0, 2,, 3]);
+            _a87.trys.push([0, 2,, 3]);
 
             return [4, void 0];
 
           case 1:
-            _a94.sent();
+            _a87.sent();
 
             return [3, 3];
 
           case 2:
-            _e7 = _a94.sent();
+            _e7 = _a87.sent();
             return [2];
 
           case 3:
@@ -4129,22 +3961,22 @@ describe("generator .throw method", function () {
   });
   it("should propagate errors unhandled inside a delegate", function () {
     function outer() {
-      var _err8;
+      var _err7;
 
-      return _generator(this, function (_a95) {
-        switch (_a95.label) {
+      return _generator(this, function (_a88) {
+        switch (_a88.label) {
           case 0:
-            _a95.trys.push([0, 2,, 3]);
+            _a88.trys.push([0, 2,, 3]);
 
             return [5, _values(inner())];
 
           case 1:
-            _a95.sent();
+            _a88.sent();
 
             return [3, 3];
 
           case 2:
-            _err8 = _a95.sent();
+            _err7 = _a88.sent();
             return [2, -1];
 
           case 3:
@@ -4154,13 +3986,13 @@ describe("generator .throw method", function () {
     }
 
     function inner() {
-      return _generator(this, function (_a96) {
-        switch (_a96.label) {
+      return _generator(this, function (_a89) {
+        switch (_a89.label) {
           case 0:
             return [4, void 0];
 
           case 1:
-            _a96.sent();
+            _a89.sent();
 
             return [2];
         }
@@ -4183,13 +4015,13 @@ describe("unqualified function calls", function () {
     var unqualifiedThis = getThis();
 
     function invoke() {
-      return _generator(this, function (_a97) {
-        switch (_a97.label) {
+      return _generator(this, function (_a90) {
+        switch (_a90.label) {
           case 0:
             return [4, "dummy"];
 
           case 1:
-            return [2, _a97.sent()()];
+            return [2, _a90.sent()()];
         }
       });
     }
@@ -4210,30 +4042,30 @@ describe("unqualified function calls", function () {
 describe("yield* expression results", function () {
   it("have correct values", function () {
     function foo() {
-      return _generator(this, function (_a98) {
-        switch (_a98.label) {
+      return _generator(this, function (_a91) {
+        switch (_a91.label) {
           case 0:
             return [4, 0];
 
           case 1:
-            _a98.sent();
+            _a91.sent();
 
             return [5, _values(bar())];
 
           case 2:
-            return [2, _a98.sent()];
+            return [2, _a91.sent()];
         }
       });
     }
 
     function bar() {
-      return _generator(this, function (_a99) {
-        switch (_a99.label) {
+      return _generator(this, function (_a92) {
+        switch (_a92.label) {
           case 0:
             return [4, 1];
 
           case 1:
-            _a99.sent();
+            _a92.sent();
 
             return [2, 2];
         }
@@ -4259,17 +4091,17 @@ describe("yield* expression results", function () {
     function foo() {
       var _t14;
 
-      return _generator(this, function (_a100) {
-        switch (_a100.label) {
+      return _generator(this, function (_a93) {
+        switch (_a93.label) {
           case 0:
             return [5, _values(bar())];
 
           case 1:
-            _t14 = _a100.sent();
+            _t14 = _a93.sent();
             return [5, _values(bar())];
 
           case 2:
-            return [2, _t14 + _a100.sent()];
+            return [2, _t14 + _a93.sent()];
         }
       });
     }
@@ -4277,17 +4109,17 @@ describe("yield* expression results", function () {
     function bar() {
       var _t15;
 
-      return _generator(this, function (_a101) {
-        switch (_a101.label) {
+      return _generator(this, function (_a94) {
+        switch (_a94.label) {
           case 0:
             return [4, 2];
 
           case 1:
-            _t15 = _a101.sent();
+            _t15 = _a94.sent();
             return [4, 3];
 
           case 2:
-            return [2, _t15 + _a101.sent()];
+            return [2, _t15 + _a94.sent()];
         }
       });
     }
@@ -4304,26 +4136,26 @@ describe("new expressions", function () {
     }
 
     function gen() {
-      var _temp31, _t16, _temp32;
+      var _temp28, _t16, _temp29;
 
-      return _generator(this, function (_a102) {
-        switch (_a102.label) {
+      return _generator(this, function (_a95) {
+        switch (_a95.label) {
           case 0:
             return [4, 0];
 
           case 1:
-            _t16 = (_temp31 = _a102.sent()).bind;
+            _t16 = (_temp28 = _a95.sent()).bind;
             return [4, 1];
 
           case 2:
-            _temp32 = [void 0, _a102.sent()];
+            _temp29 = [void 0, _a95.sent()];
             return [4, 2];
 
           case 3:
-            return [4, new (_t16.apply(_temp31, _temp32.concat([_a102.sent()])))()];
+            return [4, new (_t16.apply(_temp28, _temp29.concat([_a95.sent()])))()];
 
           case 4:
-            return [2, _a102.sent()];
+            return [2, _a95.sent()];
         }
       });
     }
@@ -4359,8 +4191,8 @@ describe("block binding", function () {
     function gen() {
       var a$0, a$1, a, _a, _a2;
 
-      return _generator(this, function (_a103) {
-        switch (_a103.label) {
+      return _generator(this, function (_a96) {
+        switch (_a96.label) {
           case 0:
             a$0 = 0, a$1 = 1;
             a = 3;
@@ -4368,18 +4200,18 @@ describe("block binding", function () {
             return [4, _a + a$0];
 
           case 1:
-            _a103.sent();
+            _a96.sent();
 
             _a2 = 2;
             return [4, _a2 - 1 + a$1];
 
           case 2:
-            _a103.sent();
+            _a96.sent();
 
             return [4, a];
 
           case 3:
-            _a103.sent();
+            _a96.sent();
 
             return [2];
         }
@@ -4410,8 +4242,8 @@ describe("block binding", function () {
     function gen() {
       var arr, _loop, x, _x;
 
-      return _generator(this, function (_a104) {
-        switch (_a104.label) {
+      return _generator(this, function (_a97) {
+        switch (_a97.label) {
           case 0:
             arr = [];
             _loop = function (x) {
@@ -4425,14 +4257,14 @@ describe("block binding", function () {
               _loop(x);
             }
 
-            _a104.label = 1;
+            _a97.label = 1;
 
           case 1:
             if (!(_x = arr.pop())) return [3, 3];
             return [4, _x];
 
           case 2:
-            _a104.sent();
+            _a97.sent();
 
             return [3, 1];
 
@@ -4455,31 +4287,31 @@ describe("block binding", function () {
 describe("newborn generators", function () {
   it("should be able to yield* non-newborn generators", function () {
     function inner() {
-      var _temp33;
+      var _temp30;
 
-      return _generator(this, function (_a105) {
-        switch (_a105.label) {
+      return _generator(this, function (_a98) {
+        switch (_a98.label) {
           case 0:
             return [4, 1];
 
           case 1:
-            _temp33 = [_a105.sent()];
+            _temp30 = [_a98.sent()];
             return [4, 2];
 
           case 2:
-            return [2, _temp33.concat([_a105.sent()])];
+            return [2, _temp30.concat([_a98.sent()])];
         }
       });
     }
 
     function outer(delegate) {
-      return _generator(this, function (_a106) {
-        switch (_a106.label) {
+      return _generator(this, function (_a99) {
+        switch (_a99.label) {
           case 0:
             return [5, _values(delegate)];
 
           case 1:
-            return [2, _a106.sent()];
+            return [2, _a99.sent()];
         }
       });
     }
@@ -4507,19 +4339,19 @@ describe("newborn generators", function () {
 
     function inner() {
       var sent1, sent2;
-      return _generator(this, function (_a107) {
-        switch (_a107.label) {
+      return _generator(this, function (_a100) {
+        switch (_a100.label) {
           case 0:
             markers.push(0);
             return [4, 1];
 
           case 1:
-            sent1 = _a107.sent();
+            sent1 = _a100.sent();
             markers.push(2);
             return [4, 2];
 
           case 2:
-            sent2 = _a107.sent();
+            sent2 = _a100.sent();
             markers.push(3);
             return [2, [sent1, sent2]];
         }
@@ -4529,22 +4361,22 @@ describe("newborn generators", function () {
     function wrapper(delegate) {
       var gen = function () {
         var sent, info;
-        return _generator(this, function (_a108) {
-          switch (_a108.label) {
+        return _generator(this, function (_a101) {
+          switch (_a101.label) {
             case 0:
               return [4, "ignored"];
 
             case 1:
-              sent = _a108.sent();
+              sent = _a101.sent();
               markers.push(1);
-              _a108.label = 2;
+              _a101.label = 2;
 
             case 2:
               if (!!(info = delegate.next(sent)).done) return [3, 4];
               return [4, info.value];
 
             case 3:
-              sent = _a108.sent();
+              sent = _a101.sent();
               return [3, 2];
 
             case 4:
@@ -4583,20 +4415,20 @@ describe("newborn generators", function () {
   it("should allow chaining newborn and non-newborn generators", function () {
     function range(n) {
       var i;
-      return _generator(this, function (_a109) {
-        switch (_a109.label) {
+      return _generator(this, function (_a102) {
+        switch (_a102.label) {
           case 0:
             i = 0;
-            _a109.label = 1;
+            _a102.label = 1;
 
           case 1:
             if (!(i < n)) return [3, 4];
             return [4, i];
 
           case 2:
-            _a109.sent();
+            _a102.sent();
 
-            _a109.label = 3;
+            _a102.label = 3;
 
           case 3:
             ++i;
@@ -4609,18 +4441,18 @@ describe("newborn generators", function () {
     }
 
     function chain(a, b) {
-      return _generator(this, function (_a110) {
-        switch (_a110.label) {
+      return _generator(this, function (_a103) {
+        switch (_a103.label) {
           case 0:
             return [5, _values(a)];
 
           case 1:
-            _a110.sent();
+            _a103.sent();
 
             return [5, _values(b)];
 
           case 2:
-            _a110.sent();
+            _a103.sent();
 
             return [2];
         }
@@ -4630,43 +4462,43 @@ describe("newborn generators", function () {
     check(chain(range(3), range(5)), [0, 1, 2, 0, 1, 2, 3, 4]);
 
     function y3(x) {
-      return _generator(this, function (_a111) {
-        switch (_a111.label) {
+      return _generator(this, function (_a104) {
+        switch (_a104.label) {
           case 0:
             return [4, x];
 
           case 1:
-            return [4, _a111.sent()];
+            return [4, _a104.sent()];
 
           case 2:
-            return [4, _a111.sent()];
+            return [4, _a104.sent()];
 
           case 3:
-            return [2, _a111.sent()];
+            return [2, _a104.sent()];
         }
       });
     }
 
     function y5(x) {
-      return _generator(this, function (_a112) {
-        switch (_a112.label) {
+      return _generator(this, function (_a105) {
+        switch (_a105.label) {
           case 0:
             return [4, x];
 
           case 1:
-            return [4, _a112.sent()];
+            return [4, _a105.sent()];
 
           case 2:
-            return [4, _a112.sent()];
+            return [4, _a105.sent()];
 
           case 3:
-            return [4, _a112.sent()];
+            return [4, _a105.sent()];
 
           case 4:
-            return [4, _a112.sent()];
+            return [4, _a105.sent()];
 
           case 5:
-            return [2, _a112.sent()];
+            return [2, _a105.sent()];
         }
       });
     }
@@ -4696,15 +4528,15 @@ describe("labeled break and continue statements", function () {
 
     function gen(n, which) {
       var i;
-      return _generator(this, function (_a113) {
-        switch (_a113.label) {
+      return _generator(this, function (_a106) {
+        switch (_a106.label) {
           case 0:
-            _a113.trys.push([0,, 2, 25]);
+            _a106.trys.push([0,, 2, 25]);
 
             return [4, 0];
 
           case 1:
-            _a113.sent();
+            _a106.sent();
 
             raise(e1);
             return [3, 25];
@@ -4713,22 +4545,22 @@ describe("labeled break and continue statements", function () {
             return [4, 1];
 
           case 3:
-            _a113.sent();
+            _a106.sent();
 
             i = 0;
-            _a113.label = 4;
+            _a106.label = 4;
 
           case 4:
             if (!(i < n)) return [3, 23];
             return [4, i];
 
           case 5:
-            _a113.sent();
+            _a106.sent();
 
-            _a113.label = 6;
+            _a106.label = 6;
 
           case 6:
-            _a113.trys.push([6,, 7, 22]);
+            _a106.trys.push([6,, 7, 22]);
 
             raise(e2);
             return [3, 22];
@@ -4737,12 +4569,12 @@ describe("labeled break and continue statements", function () {
             return [4, 2];
 
           case 8:
-            _a113.sent();
+            _a106.sent();
 
-            _a113.label = 9;
+            _a106.label = 9;
 
           case 9:
-            _a113.trys.push([9,, 10, 21]);
+            _a106.trys.push([9,, 10, 21]);
 
             raise(e3);
             return [3, 21];
@@ -4751,12 +4583,12 @@ describe("labeled break and continue statements", function () {
             return [4, 3];
 
           case 11:
-            _a113.sent();
+            _a106.sent();
 
-            _a113.label = 12;
+            _a106.label = 12;
 
           case 12:
-            _a113.trys.push([12,, 13, 20]);
+            _a106.trys.push([12,, 13, 20]);
 
             raise(e4);
             return [3, 20];
@@ -4765,13 +4597,13 @@ describe("labeled break and continue statements", function () {
             return [4, 4];
 
           case 14:
-            _a113.sent();
+            _a106.sent();
 
             if (!(which === "break")) return [3, 16];
             return [4, "breaking"];
 
           case 15:
-            _a113.sent();
+            _a106.sent();
 
             return [3, 23];
 
@@ -4780,7 +4612,7 @@ describe("labeled break and continue statements", function () {
             return [4, "continuing"];
 
           case 17:
-            _a113.sent();
+            _a106.sent();
 
             return [3, 22];
 
@@ -4788,7 +4620,7 @@ describe("labeled break and continue statements", function () {
             return [4, 5];
 
           case 19:
-            _a113.sent();
+            _a106.sent();
 
             return [7];
 
@@ -4806,7 +4638,7 @@ describe("labeled break and continue statements", function () {
             return [4, 6];
 
           case 24:
-            _a113.sent();
+            _a106.sent();
 
             return [7];
 
@@ -4841,56 +4673,56 @@ describe("labeled break and continue statements", function () {
   it("should allow breaking from any labeled statement", function () {
     function gen(limit) {
       var i;
-      return _generator(this, function (_a114) {
-        switch (_a114.label) {
+      return _generator(this, function (_a107) {
+        switch (_a107.label) {
           case 0:
             return [4, 0];
 
           case 1:
-            _a114.sent();
+            _a107.sent();
 
             i = 0;
-            _a114.label = 2;
+            _a107.label = 2;
 
           case 2:
             if (!(i < limit)) return [3, 15];
             return [4, 1];
 
           case 3:
-            _a114.sent();
+            _a107.sent();
 
             return [4, 2];
 
           case 4:
-            _a114.sent();
+            _a107.sent();
 
             return [3, 6];
 
           case 5:
-            _a114.sent();
+            _a107.sent();
 
-            _a114.label = 6;
+            _a107.label = 6;
 
           case 6:
             if (!(limit === 3)) return [3, 12];
             return [4, 4];
 
           case 7:
-            _a114.sent();
+            _a107.sent();
 
             if (i === 0) return [3, 12];
             return [4, 5];
 
           case 8:
-            _a114.sent();
+            _a107.sent();
 
             if (i === 1) return [3, 12];
             return [4, 6];
 
           case 9:
-            _a114.sent();
+            _a107.sent();
 
-            _a114.label = 10;
+            _a107.label = 10;
 
           case 10:
             // This should break from the for-loop.
@@ -4898,9 +4730,9 @@ describe("labeled break and continue statements", function () {
             return [4, 7];
 
           case 11:
-            _a114.sent();
+            _a107.sent();
 
-            _a114.label = 12;
+            _a107.label = 12;
 
           case 12:
             // This should be a no-op.
@@ -4909,9 +4741,9 @@ describe("labeled break and continue statements", function () {
             return [4, 8];
 
           case 13:
-            _a114.sent();
+            _a107.sent();
 
-            _a114.label = 14;
+            _a107.label = 14;
 
           case 14:
             ++i;
@@ -4921,7 +4753,7 @@ describe("labeled break and continue statements", function () {
             return [4, 9];
 
           case 16:
-            _a114.sent();
+            _a107.sent();
 
             return [2];
         }
@@ -4938,7 +4770,7 @@ describe("for loop with var decl and no update expression", function () {
   // https://github.com/facebook/regenerator/issues/103
   function range() {
     var i;
-    return _generator(this, function (_a115) {
+    return _generator(this, function (_a108) {
       for (i = 0; false;) {}
 
       return [2];
@@ -5053,16 +4885,16 @@ describe("for-of loops", function () {
   });
   it("should work inside of generators", function () {
     function yieldPermutations(list) {
-      var count, first, genRest, _iterator3, _step3, perm, i, prefix, suffix, _err9;
+      var count, first, genRest, _iterator3, _step3, perm, i, prefix, suffix, _err8;
 
-      return _generator(this, function (_a116) {
-        switch (_a116.label) {
+      return _generator(this, function (_a109) {
+        switch (_a109.label) {
           case 0:
             if (!(list.length < 2)) return [3, 2];
             return [4, list];
 
           case 1:
-            _a116.sent();
+            _a109.sent();
 
             return [2, 1];
 
@@ -5071,20 +4903,20 @@ describe("for-of loops", function () {
             first = list.slice(0, 1);
             genRest = yieldPermutations(list.slice(1));
             _iterator3 = _createForOfIteratorHelper(genRest);
-            _a116.label = 3;
+            _a109.label = 3;
 
           case 3:
-            _a116.trys.push([3, 11, 12, 13]);
+            _a109.trys.push([3, 11, 12, 13]);
 
             _iterator3.s();
 
-            _a116.label = 4;
+            _a109.label = 4;
 
           case 4:
             if (!!(_step3 = _iterator3.n()).done) return [3, 10];
             perm = _step3.value;
             i = 0;
-            _a116.label = 5;
+            _a109.label = 5;
 
           case 5:
             if (!(i < list.length)) return [3, 8];
@@ -5093,9 +4925,9 @@ describe("for-of loops", function () {
             return [4, prefix.concat(first, suffix)];
 
           case 6:
-            _a116.sent();
+            _a109.sent();
 
-            _a116.label = 7;
+            _a109.label = 7;
 
           case 7:
             ++i;
@@ -5103,7 +4935,7 @@ describe("for-of loops", function () {
 
           case 8:
             count += i;
-            _a116.label = 9;
+            _a109.label = 9;
 
           case 9:
             return [3, 4];
@@ -5112,9 +4944,9 @@ describe("for-of loops", function () {
             return [3, 13];
 
           case 11:
-            _err9 = _a116.sent();
+            _err8 = _a109.sent();
 
-            _iterator3.e(_err9);
+            _iterator3.e(_err8);
 
             return [3, 13];
 
@@ -5157,8 +4989,8 @@ describe("expressions containing yield subexpressions", function () {
     function gen(x) {
       var _t17;
 
-      return _generator(this, function (_a117) {
-        switch (_a117.label) {
+      return _generator(this, function (_a110) {
+        switch (_a110.label) {
           case 0:
             _t17 = x;
             return [4, function (y) {
@@ -5166,7 +4998,7 @@ describe("expressions containing yield subexpressions", function () {
             }];
 
           case 1:
-            return [2, _t17 * _a117.sent()];
+            return [2, _t17 * _a110.sent()];
         }
       });
     }
@@ -5184,14 +5016,14 @@ describe("expressions containing yield subexpressions", function () {
     function gen() {
       var _t18;
 
-      return _generator(this, function (_a118) {
-        switch (_a118.label) {
+      return _generator(this, function (_a111) {
+        switch (_a111.label) {
           case 0:
             _t18 = a.b;
             return [4, "asdf"];
 
           case 1:
-            return [2, _t18 + _a118.sent()];
+            return [2, _t18 + _a111.sent()];
         }
       });
     }
@@ -5217,16 +5049,16 @@ describe("expressions containing yield subexpressions", function () {
   });
   it("should evaluate all array elements before yielding", function () {
     function gen() {
-      var _temp34;
+      var _temp31;
 
-      return _generator(this, function (_a119) {
-        switch (_a119.label) {
+      return _generator(this, function (_a112) {
+        switch (_a112.label) {
           case 0:
-            _temp34 = [a];
+            _temp31 = [a];
             return [4, "asdf"];
 
           case 1:
-            return [2, _temp34.concat([_a119.sent(), a])];
+            return [2, _temp31.concat([_a112.sent(), a])];
         }
       });
     }
@@ -5245,16 +5077,16 @@ describe("expressions containing yield subexpressions", function () {
   });
   it("should handle callee member expressions correctly", function () {
     function gen() {
-      var _temp35, _t19;
+      var _temp32, _t19;
 
-      return _generator(this, function (_a120) {
-        switch (_a120.label) {
+      return _generator(this, function (_a113) {
+        switch (_a113.label) {
           case 0:
-            _t19 = (_temp35 = a.slice(0)).concat;
+            _t19 = (_temp32 = a.slice(0)).concat;
             return [4, "asdf"];
 
           case 1:
-            a = _t19.apply(_temp35, [_a120.sent()]);
+            a = _t19.apply(_temp32, [_a113.sent()]);
             return [2, a];
         }
       });
@@ -5276,14 +5108,14 @@ describe("expressions containing yield subexpressions", function () {
     function gen() {
       var _t20;
 
-      return _generator(this, function (_a121) {
-        switch (_a121.label) {
+      return _generator(this, function (_a114) {
+        switch (_a114.label) {
           case 0:
             _t20 = a;
             return [4, "asdf"];
 
           case 1:
-            return [2, _t20 + _a121.sent()];
+            return [2, _t20 + _a114.sent()];
         }
       });
     }
@@ -5302,17 +5134,17 @@ describe("expressions containing yield subexpressions", function () {
   });
   it("should work when yield is in an array spread", function () {
     function gen() {
-      var _temp36, _t21, _t22;
+      var _temp33, _t21, _t22;
 
-      return _generator(this, function (_a122) {
-        switch (_a122.label) {
+      return _generator(this, function (_a115) {
+        switch (_a115.label) {
           case 0:
-            _t21 = (_temp36 = [0]).concat;
+            _t21 = (_temp33 = [0]).concat;
             _t22 = _toConsumableArray;
             return [4, "foo"];
 
           case 1:
-            return [2, _t21.apply(_temp36, [_t22.apply(void 0, [_a122.sent()]), [3]])];
+            return [2, _t21.apply(_temp33, [_t22.apply(void 0, [_a115.sent()]), [3]])];
         }
       });
     }

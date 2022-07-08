@@ -32,7 +32,10 @@ jobs:
         version: 6.x
     
     - run: pnpm run ci
-    - run: pnpm run build --if-present
+    - run: pnpm run core:build --if-present
+    - run: pnpm run runtime:build --if-present
+    - run: pnpm run test
+    - run: pnpm run docs:build --if-present
     
     - name: GitHub Pages
       uses: crazy-max/ghaction-github-pages@v3.0.0
