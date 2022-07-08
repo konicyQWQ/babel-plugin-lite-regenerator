@@ -35,7 +35,9 @@ export function App() {
     useEffect(() => {
         const usp = new URLSearchParams(window.location.search)
         const code = decodeURIComponent(usp.get('code') ?? '')
-        setCode(code);
+        if (code) {
+            setCode(code);
+        }
     }, []);
 
     const [isOpen, setIsOpen] = useState(true)
