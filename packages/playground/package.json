@@ -35,7 +35,7 @@
   "homepage": "https://konicyqwq.github.io/babel-plugin-generator",
   "scripts": {
     "start": "craco start",
-    "build": "craco --max_old_space_size=8192 build && rm -r ../../docs && cp -a ./build ../../docs",
+    "build": "craco --max_old_space_size=8192 build && rm -rf ../../docs && cp -a ./build ../../docs",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

@@ -2,9 +2,13 @@ name: Github Pages CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "ci" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "ci" ]
+
+env: 
+  CI: false
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:
@@ -27,7 +31,7 @@ jobs:
       with:
         version: 6.x
     
-    - run: pnpm install
+    - run: pnpm run ci
     - run: pnpm run build --if-present
     
     - name: GitHub Pages
