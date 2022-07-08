@@ -19,6 +19,11 @@ export function App() {
     const [console2, setConsole2] = useState('');
 
     const onCodeChange = useCallback((code: string) => {
+        if (code) {
+            const usp = new URLSearchParams(window.location.search)
+            usp.set('code', encodeURIComponent(code));
+            window.history.replaceState('page', '', window.location.pathname + '?' + usp.toString())
+        }
         setCode(code);
     }, [])
 
@@ -27,16 +32,14 @@ export function App() {
         setCodeAfter(babelTransform(code));
     }, [code, editor2$])
 
+    useEffect(() => {
+        const usp = new URLSearchParams(window.location.search)
+        const code = decodeURIComponent(usp.get('code') ?? '')
+        setCode(code);
+    }, []);
+
     const [isOpen, setIsOpen] = useState(true)
     const [isConsoleOpen, setIsConsoleOpen] = useState(false)
-
-    function closeModal() {
-        setIsOpen(false)
-    }
-
-    function openModal() {
-        setIsOpen(true)
-    }
 
     return (
         <>
@@ -125,7 +128,7 @@ export function App() {
                 </div>
             </div>
             <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-50" onClose={closeModal}>
+                <Dialog as="div" className="relative z-50" onClose={() => { setIsOpen(false) }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -175,7 +178,7 @@ export function App() {
                                         <button
                                             type="button"
                                             className="inline-flex justify-center rounded-md bg-sky-100 px-4 py-2 text-sm font-medium text-sky-900 hover:bg-sky-200"
-                                            onClick={closeModal}
+                                            onClick={() => setIsOpen(false)}
                                         >
                                             进入
                                         </button>
@@ -187,7 +190,7 @@ export function App() {
                 </Dialog>
             </Transition>
             <Transition appear show={isConsoleOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-50" onClose={closeModal}>
+                <Dialog as="div" className="relative z-50" onClose={() => setIsConsoleOpen(false)}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -218,8 +221,8 @@ export function App() {
                                         Console
                                     </Dialog.Title>
                                     <div className='grid grid-cols-2 space-x-2'>
-                                        <div className='h-56 overflow-auto rounded-md bg-gray-50 px-4 py-2'>{console1.split('\n').map((text) => <p>{text}</p>)}</div>
-                                        <div className='h-56 overflow-auto rounded-md bg-gray-50 px-4 py-2'>{console2.split('\n').map((text) => <p>{text}</p>)}</div>
+                                        <div className='h-56 overflow-auto rounded-md bg-gray-50 px-4 py-2'>{console1.split('\n').map((text) => <p key={Math.random()}>{text}</p>)}</div>
+                                        <div className='h-56 overflow-auto rounded-md bg-gray-50 px-4 py-2'>{console2.split('\n').map((text) => <p key={Math.random()}>{text}</p>)}</div>
                                     </div>
 
                                     <div className="mt-4">
