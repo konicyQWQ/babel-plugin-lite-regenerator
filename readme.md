@@ -40,3 +40,13 @@ require("@babel/core").transformSync(code, {
   ]
 });
 ```
+
+or
+
+```ts
+require("@babel/core").transformSync(code, {
+  presets: [
+    require('babel-plugin-lite-regenerator').babelPresetLiteRegenerator
+  ]
+});
+```
