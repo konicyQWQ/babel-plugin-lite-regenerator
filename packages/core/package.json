@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-lite-regenerator",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "a babel plugin that can transform generator function to state machine with a smaller helper function, which is a ported version of typescript generator transform",
   "main": "dist/babel-plugin-lite-regenerator.cjs.js",
   "module": "dist/babel-plugin-lite-regenerator.es.js",
