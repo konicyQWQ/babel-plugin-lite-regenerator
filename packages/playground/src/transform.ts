@@ -1,5 +1,4 @@
 //@ts-nocheck
-import { babelPluginLiteRegenerator } from 'babel-plugin-lite-regenerator';
 import { transform } from '@babel/standalone';
 
 function deleteImportPlugin() {
@@ -26,17 +25,9 @@ export function babelTransform(code: string): string {
             parserOpts: {
                 strictMode: false
             },
-            presets: [],
-            plugins: [
-                require('@babel/plugin-transform-destructuring').default,
-                require('@babel/plugin-transform-spread').default,
-                require('@babel/plugin-transform-parameters').default,
-                require('@babel/plugin-transform-classes').default,
-                require("@babel/plugin-transform-for-of").default,
-                require("@babel/plugin-transform-block-scoping").default,
-                babelPluginLiteRegenerator,
-                // deleteImportPlugin
-            ].filter(Boolean),
+            presets: [
+                require('babel-plugin-lite-regenerator').babelPresetLiteRegenerator
+            ],
         })!;
 
         return res.code;

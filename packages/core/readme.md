@@ -25,7 +25,17 @@ require("@babel/core").transformSync(code, {
     // most time need cooperate with this plugin
     "@babel/plugin-transform-block-scoping",
     
-    [require("babel-plugin-lite-regenerator")]
+    require("babel-plugin-lite-regenerator")
+  ]
+});
+```
+
+or
+
+```ts
+require("@babel/core").transformSync(code, {
+  presets: [
+    require('babel-plugin-lite-regenerator').babelPresetLiteRegenerator
   ]
 });
 ```
