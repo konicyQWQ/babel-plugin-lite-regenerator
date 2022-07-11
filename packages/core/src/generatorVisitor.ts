@@ -384,8 +384,28 @@ export function getVisitor(path: NodePath) {
     }
 
     function visitVariableStatement(path: NodePath<VariableDeclaration>): Statement | undefined {
-        transformAndEmitVariableDeclarationList(path);
-        return undefined;
+        if (containsYield(path)) {
+            transformAndEmitVariableDeclarationList(path);
+            return undefined;
+        } else {
+            const declarations = path.get('declarations');
+            
+            for (let i of declarations) {
+                hoistVar(i);
+            }
+
+            const assignExps = declarations.map(transformInitializedVariable).filter(Boolean);
+
+            if (assignExps.length) {
+                return factory.expressionStatement(
+                    factory.sequenceExpression(
+                        assignExps
+                    )
+                )
+            } else {
+                return undefined;
+            }
+        }
     }
 
     function visitBinaryExpression(path: NodePath<BinaryExpression>): Expression {
